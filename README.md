@@ -26,12 +26,13 @@ Submission for Code Institute's Data-Centric Development Milestone Project, an a
 ## Wireframes  
 
 ### Project Inception Wireframes
+Basic wireframes have been created upon project inception to aid in the planning stages of this project, these are to be adapted as the project proceeds with further iterations for multiple breakpoints.
 
-#### Mobile Wireframes
+#### Mobile Wireframe
+![Mobile Inception Wireframe](./static/wireframes/Mobile-List.png)
 
-#### Intermediate/Tablet Wireframes
-
-#### Desktop Wireframe  
+#### Desktop Wireframe
+![Desktop Inception Wireframe](./static/wireframes/Desktop-WeeklyList.png)
 
 ## Features
 
