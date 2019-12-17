@@ -15,8 +15,11 @@ Submission for Code Institute's Data-Centric Development Milestone Project, an a
 
 ## User Stories
 
-1
-2.
+1. As a new or established user I want to create a list of exercises for a unique workout day to make a customised one-off workout.
+2. As a repeat user wanting to duplicate exercises from a previous workout I want to copy one or multiple exercises from a list.
+3. As an established user I want to mark exercises as complete from my workout to-do list as I progress through my workout.
+4. As an established user I want to modify an exercise in a list to make corrections or substitutions.
+5. As an established user I want to delete exercises from my workout list to dynamically alter a workout at a later stage if the exercise is no longer required.
 
 ### User Story Fulfilment
 
