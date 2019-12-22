@@ -13,7 +13,7 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 
 @app.route("/")
 def hello():
-    return "Hello World."
+    return render_template("exercises.html")
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
