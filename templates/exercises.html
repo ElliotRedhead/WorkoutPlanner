@@ -3,7 +3,13 @@
 {% block content %}
 
 {% for exercise in exercises %}
-{{exercise.exercisename}}
-{% endfor %}
-
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{exercise.exercisename.title()}}</h5>
+      <p class="card-text">Equipment: {{exercise.equipment.title()}}</p>
+      <p class="card-text">Weight: {{exercise.weight}}{{exercise.weightunits}}</p>
+      <a href="#" class="btn btn-primary">Edit</a>
+    </div>
+  </div>
+  {% endfor %}
 {% endblock %}
