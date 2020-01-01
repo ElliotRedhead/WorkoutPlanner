@@ -2,7 +2,7 @@ import os
 from os import path
 from flask import Flask, redirect, render_template, request, url_for
 from flask_pymongo import PyMongo
-import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 
 if path.exists("env.py"):
     import env
