@@ -11,13 +11,21 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 
+client = PyMongo(app)
+
 
 @app.route("/")
 @app.route("/index")
 def homepage():
+    users = client.db.users.find()
+    for user in users:
+        usernames = user["username"]
+        passwords = user["password"]
     return render_template(
         "index.html",
-        title = "Workout Planner | Home")
+        title = "Workout Planner | Home",
+        usernames = usernames,
+        passwords = passwords)
 
 @app.route("/login")
 def login():
