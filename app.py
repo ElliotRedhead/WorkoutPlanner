@@ -23,7 +23,7 @@ def homepage():
 
 @app.route("/exercises")
 def exercises():
-    exercises = client.db.exercises.find()
+    exercises = client.db.exercises.aggregate([{"$match": {"owner": "dave"}}])
     return render_template(
         "exercises.html",
         title="Workout Planner | Exercises",
