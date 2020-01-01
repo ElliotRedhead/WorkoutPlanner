@@ -1,5 +1,9 @@
 {% extends "base.html"%}
 {% include "nav.html"%}
 {% block content %}
-<h3>Hello exercises html!</h3>
+
+{% for exercise in exercises %}
+{{exercise}}
+{% endfor %}
+
 {% endblock %}
