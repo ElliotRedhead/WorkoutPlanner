@@ -21,12 +21,12 @@ def homepage():
         "index.html",
         title = "Workout Planner | Home")
 
-@app.route("/exercises")
-def exercises():
-    exercises = client.db.exercises.aggregate([{"$match": {"owner": "dave"}}])
+@app.route("/myexercises")
+def exercises(owner):
+    exercises = client.db.exercises.aggregate([{"$match": {"owner": owner}}])
     return render_template(
-        "exercises.html",
-        title="Workout Planner | Exercises",
+        "myexercises.html",
+        title="Workout Planner | My Exercises",
         exercises = exercises)
 
 @app.route("/login")
