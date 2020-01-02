@@ -1,10 +1,9 @@
 import os
-from os import path
 from flask import Flask, redirect, render_template, request, url_for
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 
-if path.exists("env.py"):
+if os.path.exists("env.py"):
     import env
 
 app = Flask(__name__)
@@ -29,11 +28,20 @@ def exercises(owner):
         title="Workout Planner | My Exercises",
         exercises = exercises)
 
-@app.route("/login")
+@app.route("/login", methods=["POST", "GET"])
 def login():
+    users = client.db.users.find()
+    if request.method == "POST":
+        print(request.form["inputUsername"])
+        logged_user = client.db.users.find_one({"username": request.form["inputUsername"]})
+        if logged_user:
+            print("Logged user found.")
+        else:
+            print("Logged user not found.")
     return render_template(
         "login.html",
-        title="Workout Planner | Login")
+        title="Workout Planner | Login",
+        users=users)
 
 
 if __name__ == '__main__':
