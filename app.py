@@ -32,10 +32,13 @@ def exercises(owner):
 def login():
     users = client.db.users.find()
     if request.method == "POST":
-        print(request.form["inputUsername"])
         logged_user = client.db.users.find_one({"username": request.form["inputUsername"]})
         if logged_user:
-            print("Logged user found.")
+            # client.db.users.update_one({"username":request.form["inputUsername"]},{ "$set": {"password":generate_password_hash(request.form["inputPassword"])}})
+            if check_password_hash((logged_user["password"]),(request.form["inputPassword"])):
+                print("Login complete.")
+            else:
+                print("Invalid credentials provided.")
         else:
             print("Logged user not found.")
     return render_template(
