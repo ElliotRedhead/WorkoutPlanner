@@ -1,7 +1,9 @@
-import os
-from flask import Flask, redirect, render_template, request, url_for, session
+import os, json
+from flask import Flask, redirect, render_template, request, url_for, session, jsonify
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
+from bson.objectid import ObjectId
+from bson.json_util import dumps
 
 if os.path.exists("env.py"):
     import env
@@ -12,7 +14,6 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 client = PyMongo(app)
-
 
 @app.route("/")
 @app.route("/index")
@@ -46,6 +47,19 @@ def login():
     return render_template(
         "login.html",
         title="Workout Planner | Login")
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    if request.method == "POST":
+        request_data = request.get_json()
+        print(request_data)
+        existing_user = client.db.users.find_one({"username": request.form["inputUsername"]})
+        if existing_user is None:
+            client.db.users.insert_one({"username" : request.form["inputUsername"],"email" : request.form["inputEmail"], "password" : generate_password_hash(request.form["inputPassword"])})
+            session["username"] = request.form["inputUsername"]
+    return render_template(
+        "register.html",
+        title="Workout Planner | Register")
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
