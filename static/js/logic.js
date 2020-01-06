@@ -9,7 +9,6 @@ $(document).ready(function () {
             inputEmail: inputEmail,
             inputPassword: inputPassword
         };
-        console.log(data);
         fetch('/register', {
             method: 'POST',
             cors: '*same-origin',
@@ -18,8 +17,9 @@ $(document).ready(function () {
             },
             body:JSON.stringify(data)
         })
-            .then(data => {
-                console.log(data)
+            .then(response => {
+                const result = response.json()
+                console.log(result)
             })
             .catch(error => {
                 console.log(error)

@@ -53,10 +53,14 @@ def register():
     if request.method == "POST":
         request_data = request.get_json()
         print(request_data)
-        existing_user = client.db.users.find_one({"username": request.form["inputUsername"]})
+        existing_user = client.db.users.find_one({"username": request_data["inputUsername"]})
         if existing_user is None:
-            client.db.users.insert_one({"username" : request.form["inputUsername"],"email" : request.form["inputEmail"], "password" : generate_password_hash(request.form["inputPassword"])})
-            session["username"] = request.form["inputUsername"]
+            client.db.users.insert_one({"username" : request_data["inputUsername"],"email" : request_data["inputEmail"], "password" : generate_password_hash(request_data["inputPassword"])})
+            session["username"] = request_data["inputUsername"]
+            response = { "newUser" : True }
+        else:
+            response = { "newUser" : False }
+        return response
     return render_template(
         "register.html",
         title="Workout Planner | Register")
