@@ -15,11 +15,13 @@ $(document).ready(function () {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         })
             .then(response => {
-                const result = response.json()
-                console.log(result)
+                response.json()
+                    .then(responseJSON => {
+                        console.log(responseJSON)
+                    })
             })
             .catch(error => {
                 console.log(error)
