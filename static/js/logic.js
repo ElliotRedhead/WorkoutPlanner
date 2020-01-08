@@ -20,12 +20,12 @@ $(document).ready(function () {
             .then(response => {
                 response.json()
                     .then(responseJSON => {
-                        console.log(responseJSON)
+                        responseJSON.newUser ? alertMessage = "New user added." : alertMessage = "User already exists.";
+                        alert(alertMessage)
                     })
             })
             .catch(error => {
-                console.log(error)
+                console.log(error);
             })
-        alert("button");
     })
 })
