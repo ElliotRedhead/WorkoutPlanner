@@ -20,8 +20,13 @@ $(document).ready(function () {
             .then(response => {
                 response.json()
                     .then(responseJSON => {
-                        responseJSON.newUser ? alertMessage = "New user added." : alertMessage = "User already exists.";
-                        alert(alertMessage)
+                        console.log(responseJSON);
+                        // responseJSON.newUser ? alertMessage = "New account created." : alertMessage = "Registration unsuccessful.";
+                        // Swal.fire({
+                        //     title: "Register Message",
+                        //     text: alertMessage,
+                        //     confirmButtonText: 'Ok'
+                        //   })
                     })
             })
             .catch(error => {

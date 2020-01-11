@@ -53,13 +53,20 @@ def register():
     if request.method == "POST":
         request_data = request.get_json()
         print(request_data)
-        existing_user = client.db.users.find_one({"username": request_data["inputUsername"]})
-        if existing_user is None:
+        response = {"newUsername":False,"newEmail":False}
+        existing_username = client.db.users.find_one({"username": request_data["inputUsername"]})
+        existing_email = client.db.users.find_one({"email":request_data["inputEmail"]})
+        if existing_username is None:
+            response["newUsername"] = True
+        else:
+            response["newUsername"] = False
+        if existing_email is None:
+            response["newEmail"] = True
+        else:
+            response["newEmail"] = False
+        if existing_username is None and existing_email is None:
             client.db.users.insert_one({"username" : request_data["inputUsername"],"email" : request_data["inputEmail"], "password" : generate_password_hash(request_data["inputPassword"])})
             session["username"] = request_data["inputUsername"]
-            response = { "newUser" : True }
-        else:
-            response = { "newUser" : False }
         return response
     return render_template(
         "register.html",
