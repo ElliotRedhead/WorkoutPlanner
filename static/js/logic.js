@@ -18,16 +18,26 @@ $(document).ready(function () {
             body: JSON.stringify(data)
         })
             .then(response => {
-                response.json()
-                    .then(responseJSON => {
-                        console.log(responseJSON);
-                        // responseJSON.newUser ? alertMessage = "New account created." : alertMessage = "Registration unsuccessful.";
-                        // Swal.fire({
-                        //     title: "Register Message",
-                        //     text: alertMessage,
-                        //     confirmButtonText: 'Ok'
-                        //   })
-                    })
+                if (response.redirected == false) {
+                    response.json()
+                        .then(
+                            responseJSON => {
+                                let alertMessage = "";
+                                if(responseJSON.newUsername == false)
+                                    {alertMessage = alertMessage.concat("Username already exists.<br>");}
+                                if(responseJSON.newEmail == false)
+                                    {alertMessage = alertMessage.concat("Email address already registered.");}
+                                Swal.fire({
+                                    title: "Registration unsuccessful",
+                                    html: alertMessage,
+                                    confirmButtonText: 'Ok'
+                                })
+                            }
+                        )
+                }
+                if (response.redirected) {
+                    window.location.href = response.url
+                }
             })
             .catch(error => {
                 console.log(error);

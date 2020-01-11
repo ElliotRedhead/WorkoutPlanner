@@ -67,7 +67,9 @@ def register():
         if existing_username is None and existing_email is None:
             client.db.users.insert_one({"username" : request_data["inputUsername"],"email" : request_data["inputEmail"], "password" : generate_password_hash(request_data["inputPassword"])})
             session["username"] = request_data["inputUsername"]
-        return response
+            return redirect(url_for("login"))
+        else:
+            return json.dumps(response)
     return render_template(
         "register.html",
         title="Workout Planner | Register")
