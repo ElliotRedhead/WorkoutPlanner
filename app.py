@@ -19,7 +19,7 @@ client = PyMongo(app)
 @app.route("/")
 def homepage():
     return render_template(
-        "index.html",
+        "pages/index.html",
         title="Workout Planner | Home")
 
 
@@ -49,12 +49,13 @@ def login():
             if check_password_hash(
                 (logged_username["password"]),
                     (request_data["inputPassword"])):
+
                 return redirect(url_for("homepage"))
             else:
                 response["validPassword"] = False
                 return json.dumps(response)
     return render_template(
-        "login.html",
+        "pages/login.html",
         title="Workout Planner | Login")
 
 
@@ -88,7 +89,7 @@ def register():
         else:
             return json.dumps(response)
     return render_template(
-        "register.html",
+        "pages/register.html",
         title="Workout Planner | Register")
 
 
