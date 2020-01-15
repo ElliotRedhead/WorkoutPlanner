@@ -57,29 +57,29 @@ $(document).ready(function () {
             },
             body: JSON.stringify(data)
         })
-        // .then(response => {
-        //     if (response.redirected == false) {
-        //         response.json()
-        //             .then(
-        //                 responseJSON => {
-        //                     let alertMessage = "";
-        //                     if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
-        //                     if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
-        //                     Swal.fire({
-        //                         title: "Registration unsuccessful",
-        //                         html: alertMessage,
-        //                         confirmButtonText: 'Ok'
-        //                     })
-        //                 }
-        //             )
-        //     }
-        //     if (response.redirected) {
-        //         window.location.href = response.url
-        //     }
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // })
+        .then(response => {
+            if (response.redirected == false) {
+                response.json()
+                    .then(
+                        responseJSON => {
+                            let alertMessage = "";
+                            if (responseJSON.existingUsername == false) { alertMessage = alertMessage.concat("Invalid username.<br>"); }
+                            else if (responseJSON.validPassword == false) { alertMessage = alertMessage.concat("Invalid password."); }
+                            Swal.fire({
+                                title: "Login unsuccessful",
+                                html: alertMessage,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    )
+            }
+            if (response.redirected) {
+                window.location.href = response.url
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
     })
 }
 )

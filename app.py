@@ -39,14 +39,14 @@ def login():
         logged_username = client.db.users.find_one({"username": request_data["inputUsername"]})
         if logged_username is None:
             response["existingUsername"] = False
-            print("Invalid username")
+            return json.dumps(response)
         else:
             response["existingUsername"] = True
             if check_password_hash((logged_username["password"]),(request_data["inputPassword"])):
-                print("Valid credentials")
+                return redirect(url_for("homepage"))
             else:
-                print("Invalid password")
-
+                response["validPassword"] = False
+                return json.dumps(response)
     return render_template(
         "login.html",
         title="Workout Planner | Login")
