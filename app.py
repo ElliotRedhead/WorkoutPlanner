@@ -35,36 +35,18 @@ def login():
     if request.method == "POST":
         request_data = request.get_json()
         print(request_data)
-        # response = {"existingUsername":False,"validPassword":False}
-        # print(response)
-        # logged_username = client.db.users.find_one({"username": request.form["inputUsername"]})
-        # if logged_username is None:
-        #     response["existingUsername"] = False
-        # else:
-        #     response["existingUsername"] = True
-        #     if check_password_hash((logged_user["password"]),(request.form["inputPassword"])):
-        #         print("Test success")
+        response = {"existingUsername":False,"validPassword":False}
+        logged_username = client.db.users.find_one({"username": request_data["inputUsername"]})
+        if logged_username is None:
+            response["existingUsername"] = False
+            print("Invalid username")
+        else:
+            response["existingUsername"] = True
+            if check_password_hash((logged_username["password"]),(request_data["inputPassword"])):
+                print("Valid credentials")
+            else:
+                print("Invalid password")
 
-        # if existing_email is None:
-        #     response["newEmail"] = True
-        # else:
-        #     response["newEmail"] = False
-        # if existing_username is None and existing_email is None:
-        #     client.db.users.insert_one({"username" : request_data["inputUsername"],"email" : request_data["inputEmail"], "password" : generate_password_hash(request_data["inputPassword"])})
-        #     session["username"] = request_data["inputUsername"]
-        #     return redirect(url_for("login"))
-        # else:
-        #     return json.dumps(response)
-        # if logged_user:
-        #     # client.db.users.update_one({"username":request.form["inputUsername"]},{ "$set": {"password":generate_password_hash(request.form["inputPassword"])}})
-        #     if check_password_hash((logged_user["password"]),(request.form["inputPassword"])):
-        #         print("Login complete.")
-        #         session["username"] = logged_user["username"]
-        #         return redirect(url_for("homepage"))
-        #     else:
-        #         print("Invalid credentials provided.")
-        # else:
-        #     print("Logged user not found.")
     return render_template(
         "login.html",
         title="Workout Planner | Login")

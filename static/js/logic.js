@@ -49,7 +49,7 @@ $(document).ready(function () {
             inputUsername: inputUsername,
             inputPassword: inputPassword
         };
-        fetch('/register', {
+        fetch('/login', {
             method: 'POST',
             cors: '*same-origin',
             headers: {
@@ -57,28 +57,29 @@ $(document).ready(function () {
             },
             body: JSON.stringify(data)
         })
-            .then(response => {
-                if (response.redirected == false) {
-                    response.json()
-                        .then(
-                            responseJSON => {
-                                let alertMessage = "";
-                                if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
-                                if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
-                                Swal.fire({
-                                    title: "Registration unsuccessful",
-                                    html: alertMessage,
-                                    confirmButtonText: 'Ok'
-                                })
-                            }
-                        )
-                }
-                if (response.redirected) {
-                    window.location.href = response.url
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        // .then(response => {
+        //     if (response.redirected == false) {
+        //         response.json()
+        //             .then(
+        //                 responseJSON => {
+        //                     let alertMessage = "";
+        //                     if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
+        //                     if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
+        //                     Swal.fire({
+        //                         title: "Registration unsuccessful",
+        //                         html: alertMessage,
+        //                         confirmButtonText: 'Ok'
+        //                     })
+        //                 }
+        //             )
+        //     }
+        //     if (response.redirected) {
+        //         window.location.href = response.url
+        //     }
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
     })
-})
+}
+)
