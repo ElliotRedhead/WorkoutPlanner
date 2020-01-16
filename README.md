@@ -72,6 +72,10 @@ The following are suggested additions that would exceed the project time constra
 * [Font Awesome](https://fontawesome.com/) provides the shuffle and information icons (used for both the welcome trigger and tooltips).
 * [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced in this way is ...
 
+### Testing
+
+Testing documentation is located in the [testing.md file.](./testing.md)
+
 ### Known Bugs & Limitations
 
 Are there any features that don't perform as expected, is the discovery documented through testing section, are potential solutions noted?
