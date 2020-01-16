@@ -26,6 +26,14 @@ Submission for Code Institute's Data-Centric Development Milestone Project, an a
 1.
 2.
 
+## Design & Styling
+
+### Colour Palette
+
+The initial website design concepts have been formed with the following colour palette: #0F1011 #615F5B #A2A29F #FBFBFB #2B5630 #04A647.
+
+The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
+
 ## Wireframes  
 
 ### Project Inception Wireframes
