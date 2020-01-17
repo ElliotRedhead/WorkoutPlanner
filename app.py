@@ -34,6 +34,9 @@ def exercises(owner):
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    if session["username"] != None: activeSession = True
+    if activeSession: print("Already logged in.")
+
     if request.method == "POST":
         request_data = request.get_json()
         print(request_data)
@@ -49,8 +52,8 @@ def login():
             if check_password_hash(
                 (logged_username["password"]),
                     (request_data["inputPassword"])):
-
-                return redirect(url_for("homepage"))
+                    session["user"] = request_data["inputUsername"]
+                    return redirect(url_for("homepage"))
             else:
                 response["validPassword"] = False
                 return json.dumps(response)
