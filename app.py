@@ -34,8 +34,9 @@ def exercises(owner):
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    if session["username"] != None: activeSession = True
-    if activeSession: print("Already logged in.")
+    activeSession = False
+    if "username" in session: activeSession = True
+    if activeSession is False: print("Not logged in.")
 
     if request.method == "POST":
         request_data = request.get_json()
