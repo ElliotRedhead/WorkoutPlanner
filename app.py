@@ -105,8 +105,8 @@ def logout():
     return redirect(url_for("homepage"))
 
 @app.route("/myexercises")
-def exercises():
-    exercises = client.db.exercises.aggregate([{"$match": {"user": session["user"]}}])
+def my_exercises():
+    exercises = client.db.exercises.aggregate([{"$match": {"owner": session["user"]}}])
     if (((active_session_check(request.url_rule)))["redirect_action"] == True):
         return active_session_check(request.url_rule)["page_render"]
     else:
