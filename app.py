@@ -106,10 +106,10 @@ def logout():
 
 @app.route("/myexercises")
 def my_exercises():
-    exercises = client.db.exercises.aggregate([{"$match": {"owner": session["user"]}}])
     if (((active_session_check(request.url_rule)))["redirect_action"] == True):
         return active_session_check(request.url_rule)["page_render"]
     else:
+        exercises = client.db.exercises.aggregate([{"$match": {"owner": session["user"]}}])
         return render_template(
         "pages/myexercises.html",
         title="Workout Planner | My Exercises",
