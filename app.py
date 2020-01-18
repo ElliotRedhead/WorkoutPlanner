@@ -27,8 +27,6 @@ def active_session_check(route_url):
         render_dict = dict({"page_render":"","redirect_action":False})
     return render_dict
 
-        
-
 @app.route("/")
 def homepage():
     if (((active_session_check(request.url_rule)))["redirect_action"] == True):
@@ -37,19 +35,6 @@ def homepage():
         return render_template(
         "pages/index.html",
         title="Workout Planner | Home")
-
-
-@app.route("/myexercises")
-def exercises():
-    exercises = client.db.exercises.aggregate([{"$match": {"user": session["user"]}}])
-    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
-        return active_session_check(request.url_rule)["page_render"]
-    else:
-        return render_template(
-        "pages/myexercises.html",
-        title="Workout Planner | My Exercises",
-        exercises=exercises)
-
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -118,6 +103,17 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for("homepage"))
+
+@app.route("/myexercises")
+def exercises():
+    exercises = client.db.exercises.aggregate([{"$match": {"user": session["user"]}}])
+    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+        return active_session_check(request.url_rule)["page_render"]
+    else:
+        return render_template(
+        "pages/myexercises.html",
+        title="Workout Planner | My Exercises",
+        exercises=exercises)
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
