@@ -115,5 +115,11 @@ def my_exercises():
         title="Workout Planner | My Exercises",
         exercises=exercises)
 
+@app.route("/editexercise")
+def edit_exercise():
+    return render_template(
+        "pages/editexercise.html",
+        title="Workout Planner | Edit Exercise"
+    )
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
