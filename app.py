@@ -15,18 +15,37 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 client = PyMongo(app)
 
+def active_session_check(route_url):
+    route_url = str(route_url)
+    active_Session = True if "user" in session else False
+    if active_Session is False and (route_url != "/login" or "/register"):
+        render_dict = dict({"page_render":render_template(
+        "pages/login.html",
+        title="Workout Planner | Login"
+        ),"redirect_action":True})
+    else:
+        render_dict = dict({"page_render":"","redirect_action":False})
+    return render_dict
+
+        
 
 @app.route("/")
 def homepage():
-    return render_template(
+    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+        return active_session_check(request.url_rule)["page_render"]
+    else:
+        return render_template(
         "pages/index.html",
         title="Workout Planner | Home")
 
 
 @app.route("/myexercises")
-def exercises(owner):
-    exercises = client.db.exercises.aggregate([{"$match": {"owner": owner}}])
-    return render_template(
+def exercises():
+    exercises = client.db.exercises.aggregate([{"$match": {"user": session["user"]}}])
+    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+        return active_session_check(request.url_rule)["page_render"]
+    else:
+        return render_template(
         "myexercises.html",
         title="Workout Planner | My Exercises",
         exercises=exercises)
@@ -34,9 +53,7 @@ def exercises(owner):
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    activeSession = False
-    if "username" in session: activeSession = True
-    if activeSession is False: print("Not logged in.")
+    active_session_check(request.url_rule)
 
     if request.method == "POST":
         request_data = request.get_json()
@@ -65,6 +82,7 @@ def login():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    active_session_check(request.url_rule)
     if request.method == "POST":
         request_data = request.get_json()
         print(request_data)
@@ -96,6 +114,10 @@ def register():
         "pages/register.html",
         title="Workout Planner | Register")
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("homepage"))
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
