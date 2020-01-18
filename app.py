@@ -46,7 +46,7 @@ def exercises():
         return active_session_check(request.url_rule)["page_render"]
     else:
         return render_template(
-        "myexercises.html",
+        "pages/myexercises.html",
         title="Workout Planner | My Exercises",
         exercises=exercises)
 
