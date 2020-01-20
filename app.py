@@ -15,17 +15,19 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 client = PyMongo(app)
 
+
 def active_session_check(route_url):
     route_url = str(route_url)
     active_Session = True if "user" in session else False
     if active_Session is False and (route_url != "/login" or "/register"):
-        render_dict = dict({"page_render":render_template(
-        "pages/login.html",
-        title="Workout Planner | Login"
-        ),"redirect_action":True})
+        render_dict = dict({"page_render": render_template(
+            "pages/login.html",
+            title="Workout Planner | Login"),
+            "redirect_action": True})
     else:
-        render_dict = dict({"page_render":"","redirect_action":False})
+        render_dict = dict({"page_render": "", "redirect_action": False})
     return render_dict
+
 
 @app.route("/")
 def homepage():
@@ -33,8 +35,9 @@ def homepage():
         return active_session_check(request.url_rule)["page_render"]
     else:
         return render_template(
-        "pages/index.html",
-        title="Workout Planner | Home")
+            "pages/index.html",
+            title="Workout Planner | Home")
+
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -99,21 +102,25 @@ def register():
         "pages/register.html",
         title="Workout Planner | Register")
 
+
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("homepage"))
+
 
 @app.route("/myexercises")
 def my_exercises():
     if (((active_session_check(request.url_rule)))["redirect_action"] == True):
         return active_session_check(request.url_rule)["page_render"]
     else:
-        exercises = client.db.exercises.aggregate([{"$match": {"owner": session["user"]}}])
+        exercises = client.db.exercises.aggregate(
+            [{"$match": {"owner": session["user"]}}])
         return render_template(
-        "pages/myexercises.html",
-        title="Workout Planner | My Exercises",
-        exercises=exercises)
+            "pages/myexercises.html",
+            title="Workout Planner | My Exercises",
+            exercises=exercises)
+
 
 @app.route("/editexercise")
 def edit_exercise():
@@ -121,5 +128,7 @@ def edit_exercise():
         "pages/editexercise.html",
         title="Workout Planner | Edit Exercise"
     )
+
+
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
