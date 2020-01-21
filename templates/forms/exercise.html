@@ -1,19 +1,19 @@
 <form id="exerciseForm" method="POST">
     <div class="form-group">
         <label for="exerciseName">Exercise Name</label>
-        <input type="text" class="form-control" id="exerciseName" name="exerciseName" placeholder={{exercise.exercisename}}>
+        <input type="text" class="form-control" id="exerciseName" name="exerciseName" placeholder="{{exercise.exercisename.title()}}">
     </div>
     <div class="form-group">
         <label for="targetMuscle">Primary Target Muscle</label>
-        <input type="text" class="form-control" id="targetMuscle" name="targetMuscle" placeholder={{exercise.targetmuscle}}>
+        <input type="text" class="form-control" id="targetMuscle" name="targetMuscle" placeholder="{{exercise.targetmuscle.title()}}">
     </div>
     <div class="form-group">
         <label for="equipmentName">Equipment</label>
-        <input type="text" class="form-control" id="equipmentName" name="equipmentName" placeholder={{exercise.equipment}}>
+        <input type="text" class="form-control" id="equipmentName" name="equipmentName" placeholder="{{exercise.equipment.title()}}">
     </div>
     <div class="form-group">
         <label for="weightValue">Weight</label>
-        <input type="text" class="form-control" id="weightValue" name="weightValue" placeholder={{exercise.weight}}{{exercise.weightunits}}>
+        <input type="text" class="form-control" id="weightValue" name="weightValue" placeholder="{{exercise.weight}}{{exercise.weightunits}}">
     </div>
     <button type="submit" id="exerciseConfirm" name="exerciseConfirm" class="btn btn-primary">Confirm</button>
 </form>
