@@ -122,17 +122,18 @@ def my_exercises():
             exercises=exercises)
 
 
-@app.route("/editexercise")
+@app.route("/editexercise/<exercise_id>")
 def edit_exercise(exercise_id):
     if (((active_session_check(request.url_rule)))["redirect_action"] == True):
         return active_session_check(request.url_rule)["page_render"]
     else:
         exercise = client.db.exercises.find_one(
-            [{"$match": {"_id": exercise_id}}]
+            {"_id": ObjectId(exercise_id)}
         )
     return render_template(
         "pages/editexercise.html",
-        title="Workout Planner | Edit Exercise"
+        title="Workout Planner | Edit Exercise",
+        exercise=exercise
     )
 
 
