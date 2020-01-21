@@ -133,7 +133,8 @@ def edit_exercise(exercise_id):
     return render_template(
         "pages/editexercise.html",
         title="Workout Planner | Edit Exercise",
-        exercise=exercise
+        exercise=exercise,
+        form_name="editExerciseForm"
     )
 
 
