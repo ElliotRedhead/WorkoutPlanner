@@ -84,10 +84,9 @@ $(document).ready(function () {
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault();
         let data = {};
-        ($(".form-group").each(function(index){
-            console.log(index)
+        ($("input").each(function(index, element){
+            data[element.id] = element.value;
         }));
-        data.exerciseName = ($("#exerciseName")).val();
         console.log(data);
     })
 })
