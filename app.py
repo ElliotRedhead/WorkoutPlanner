@@ -122,7 +122,7 @@ def my_exercises():
             exercises=exercises)
 
 
-@app.route("/editexercise/<exercise_id>")
+@app.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
 def edit_exercise(exercise_id):
     if (((active_session_check(request.url_rule)))["redirect_action"] == True):
         return active_session_check(request.url_rule)["page_render"]
@@ -130,6 +130,9 @@ def edit_exercise(exercise_id):
         exercise = client.db.exercises.find_one(
             {"_id": ObjectId(exercise_id)}
         )
+        if request.method == "POST":
+            request_data = request.get_json()
+            print(request_data)
     return render_template(
         "pages/editexercise.html",
         title="Workout Planner | Edit Exercise",
