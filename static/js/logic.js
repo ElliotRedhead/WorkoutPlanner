@@ -95,15 +95,15 @@ $(document).ready(function () {
             },
             body: JSON.stringify(data)
         })
-            .then(requestdata => {
-                requestdata.json()
-                .then(
-                    requestdataJSON => {
-                        console.log(requestdataJSON);
-                    }
+            .then(
+                    Swal.fire({
+                        title: "Update submitted",
+                        confirmButtonText: "Ok"
+                    }).then(function(){
+                        window.location.replace("/myexercises");
+                    })
                 )
             }
             )
     }
     )
-})

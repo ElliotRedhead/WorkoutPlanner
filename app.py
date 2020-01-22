@@ -133,8 +133,6 @@ def edit_exercise(exercise_id):
         if request.method == "POST":
             request_data = request.get_json()
             client.db.exercises.update_many({"_id": ObjectId(exercise_id)}, {"$set": request_data})
-            # Response will be returned rather than request data once response is formed.
-            return json.dumps(request_data)
     return render_template(
         "pages/editexercise.html",
         title="Workout Planner | Edit Exercise",
