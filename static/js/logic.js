@@ -84,9 +84,26 @@ $(document).ready(function () {
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault();
         let data = {};
-        ($("input").each(function(index, element){
+        ($("input").each(function (index, element) {
             data[element.id] = element.value;
         }));
-        console.log(data);
-    })
+        fetch(window.location.href, {
+            method: 'POST',
+            cors: '*same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(requestdata => {
+                requestdata.json()
+                .then(
+                    requestdataJSON => {
+                        console.log(requestdataJSON);
+                    }
+                )
+            }
+            )
+    }
+    )
 })
