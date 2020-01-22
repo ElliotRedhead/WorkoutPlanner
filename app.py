@@ -132,7 +132,7 @@ def edit_exercise(exercise_id):
         )
         if request.method == "POST":
             request_data = request.get_json()
-            client.db.exercises.update_many({"_id": ObjectId(exercise_id)}, {"$set": request_data})
+            client.db.exercises.update_many({"_id": ObjectId(exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
         "pages/editexercise.html",
         title="Workout Planner | Edit Exercise",
