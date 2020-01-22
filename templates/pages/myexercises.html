@@ -2,11 +2,11 @@
 {% block content %}
 
 {% for exercise in exercises %}
-<div class="card" style="width: 18rem;">
+<div class="card" id="{{exercise_id}}" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{exercise.exercisename.title()}}</h5>
-      <p class="card-text">Equipment: {{exercise.equipment.title()}}</p>
-      <p class="card-text">Weight: {{exercise.weight}}{{exercise.weightunits}}</p>
+      <p class="card-text">Equipment: {{exercise.equipmentname.title()}}</p>
+      <p class="card-text">Weight: {{exercise.weightvalue}}</p>
       <a href="{{url_for('edit_exercise', exercise_id=exercise._id)}}" class="btn btn-primary">Edit</a>
     </div>
   </div>

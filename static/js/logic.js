@@ -85,7 +85,7 @@ $(document).ready(function () {
         event.preventDefault();
         let data = {};
         ($("input").each(function (index, element) {
-            data[element.id] = element.value;
+            data[element.id.toLowerCase()] = element.value.toLowerCase();
         }));
         fetch(window.location.href, {
             method: 'POST',
