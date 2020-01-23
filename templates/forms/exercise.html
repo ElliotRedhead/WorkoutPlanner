@@ -1,3 +1,4 @@
+{% extends "layout/base.html" %}
 {% block content %}
 <form id="{{form_name}}" method="POST">
     <div class="form-group">
@@ -18,4 +19,8 @@
     </div>
     <button type="submit" id="exerciseConfirm" name="exerciseConfirm" class="btn btn-primary">Confirm</button>
 </form>
-{% endblock %}
+
+{% if exercise["exercisename"] == "chest press" %}
+<h1>Target the chest!</h1>
+{% endif %}
+{% endblock content %}
