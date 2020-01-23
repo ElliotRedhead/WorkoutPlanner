@@ -134,7 +134,7 @@ def edit_exercise(exercise_id):
             request_data = request.get_json()
             client.db.exercises.update_many({"_id": ObjectId(exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
-        "pages/editexercise.html",
+        "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
         exercise=exercise,
         form_name="editExerciseForm",
