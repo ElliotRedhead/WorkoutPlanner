@@ -127,6 +127,7 @@ def create_exercise():
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
+        form_heading="Create Exercise",
         form_name="createExerciseForm",
         exercise={"exercisename": "chest press", "targetmuscle": "chest", "equipmentname": "barbell", "weightvalue": "100kg"}
     )
@@ -146,6 +147,7 @@ def edit_exercise(exercise_id):
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
+        form_heading="Edit Exercise",
         exercise=exercise,
         form_name="editExerciseForm",
     )
