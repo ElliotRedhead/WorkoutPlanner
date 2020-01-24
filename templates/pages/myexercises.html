@@ -1,6 +1,6 @@
 {% extends "layout/base.html"%}
 {% block content %}
-
+<a class="btn btn-primary" href="{{url_for('create_exercise')}}" id="createExercise" name="createExercise" >Create new exercise</a>
 {% for exercise in exercises %}
 <div class="card" id="{{exercise_id}}" style="width: 18rem;">
     <div class="card-body">
