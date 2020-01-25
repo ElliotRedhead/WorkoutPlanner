@@ -84,8 +84,8 @@ $(document).ready(function () {
     $("#createExerciseForm").submit(function (event) {
         event.preventDefault();
         let data = {};
-        ($("input").each(function (index, element) {
-            data[element.id.toLowerCase()] = element.value.toLowerCase();
+        ($("input").each(function () {
+            data[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
         // This section is uses repeated components, avoid duplication by isolating from each function.
         fetch("/createexercise", {
@@ -101,8 +101,8 @@ $(document).ready(function () {
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault();
         let data = {};
-        ($("input").each(function (index, element) {
-            data[element.id.toLowerCase()] = element.value.toLowerCase();
+        ($("input").each(function () {
+            data[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
         fetch(window.location.href, {
             method: 'POST',
