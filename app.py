@@ -128,7 +128,7 @@ def create_exercise():
         request_data.update(partial_record)
         client.db.exercises.insert_one(request_data)
     return render_template(
-        "forms/exercise.html",
+        "forms/exerciseform.html",
         title="Workout Planner | Edit Exercise",
         form_heading="Create Exercise",
         form_name="createExerciseForm",
@@ -149,7 +149,7 @@ def edit_exercise(exercise_id):
         client.db.exercises.update_many({"_id": ObjectId(
             exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
-        "forms/exercise.html",
+        "forms/exerciseform.html",
         title="Workout Planner | Edit Exercise",
         form_heading="Edit Exercise",
         exercise=exercise,
