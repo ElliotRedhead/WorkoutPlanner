@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["wsgi.url_scheme"] = "https"
+# app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
 
