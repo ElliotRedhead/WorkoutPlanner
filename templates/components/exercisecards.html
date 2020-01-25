@@ -1,15 +1,18 @@
 {% block cards %}
 <div class="card" id="{{exercise_id}}" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{exercise.exercisename.title()}}</h5>
-      <p class="card-text">Equipment: {{exercise.equipmentname.title()}}</p>
-      <p class="card-text">Weight: {{exercise.weightvalue}}</p>
-      {% if "My" in title %}
-      <a href="{{url_for('edit_exercise', exercise_id=exercise._id)}}" class="btn btn-primary">Edit</a>
-      {% endif %}
-      {% if "Global" in title %}
-      <a href="#" class="btn btn-primary">Clone</a>
-      {% endif %}
+    <div class="card-body container-fluid">
+        <div class="row">
+        <h5 class="card-title order-0 col-12">{{exercise.exercisename.title()}}</h5>
+        <p class="card-text order-1 col-12">Equipment: {{exercise.equipmentname.title()}}</p>
+        <p class="card-text order-3 col-12">Weight: {{exercise.weightvalue}}</p>
+        {% if "My" in title %}
+        <a href="{{url_for('edit_exercise', exercise_id=exercise._id)}}" class="btn btn-primary order-4 col-12">Edit</a>
+        {% endif %}
+        {% if "Global" in title %}
+        <p class="card-text order-2 col-12">Owner: {{exercise.owner.title()}}</p>
+        <a href="#" class="btn btn-primary order-4 col-12">Clone</a>
+        {% endif %}
+        </div>
     </div>
-  </div>
+</div>
 {% endblock cards %}
