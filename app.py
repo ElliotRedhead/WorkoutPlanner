@@ -19,7 +19,7 @@ client = PyMongo(app)
 
 def active_session_check(route_url):
     route_url = str(route_url)
-    active_session = True if "user" in session else False
+    active_session = bool("user" in session)
     if active_session is False and (route_url != "/login" or "/register"):
         render_dict = dict({"page_render": render_template(
             "pages/login.html",
