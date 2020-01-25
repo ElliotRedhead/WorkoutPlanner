@@ -125,6 +125,12 @@ def my_exercises():
 
 @app.route("/createexercise", methods=["POST", "GET"])
 def create_exercise():
+    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+        return active_session_check(request.url_rule)["page_render"]
+    else:
+        if request.method == "POST":
+            request_data = request.get_json()
+            print(request_data)
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",

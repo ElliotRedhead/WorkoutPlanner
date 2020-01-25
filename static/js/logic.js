@@ -81,6 +81,23 @@ $(document).ready(function () {
                 console.log(error);
             })
     })
+    $("#createExerciseForm").submit(function (event) {
+        event.preventDefault();
+        let data = {};
+        ($("input").each(function (index, element) {
+            data[element.id.toLowerCase()] = element.value.toLowerCase();
+        }));
+        // This section is uses repeated components, avoid duplication by isolating from each function.
+        fetch("/createexercise", {
+            method: 'POST',
+            cors: '*same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+    }
+    )
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault();
         let data = {};
@@ -96,14 +113,14 @@ $(document).ready(function () {
             body: JSON.stringify(data)
         })
             .then(
-                    Swal.fire({
-                        title: "Update submitted",
-                        confirmButtonText: "Ok"
-                    }).then(function(){
-                        window.location.replace("/myexercises");
-                    })
-                )
-            }
+                Swal.fire({
+                    title: "Exercise created",
+                    confirmButtonText: "Ok"
+                }).then(function () {
+                    window.location.replace("/myexercises");
+                })
             )
     }
     )
+}
+)
