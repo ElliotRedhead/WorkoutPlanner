@@ -105,6 +105,17 @@ def logout():
     return redirect(url_for("homepage"))
 
 
+@app.route("/globalexercises")
+def global_exercises():
+    if ((active_session_check(request.url_rule)))["redirect_action"]:
+        return active_session_check(request.url_rule)["page_render"]
+    exercises = client.db.exercises.find()
+    return render_template(
+        "pages/myexercises.html",
+        title="Workout Planner | Global Exercises",
+        exercises=exercises)
+
+
 @app.route("/myexercises")
 def my_exercises():
     if ((active_session_check(request.url_rule)))["redirect_action"]:
