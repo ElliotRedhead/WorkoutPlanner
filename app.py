@@ -19,12 +19,12 @@ client = PyMongo(app)
 
 def active_session_check(route_url):
     route_url = str(route_url)
-    active_Session = True if "user" in session else False
-    if active_Session is False and (route_url != "/login" or "/register"):
+    active_session = True if "user" in session else False
+    if active_session is False and (route_url != "/login" or "/register"):
         render_dict = dict({"page_render": render_template(
             "pages/login.html",
             title="Workout Planner | Login"),
-            "redirect_action": True})
+                            "redirect_action": True})
     else:
         render_dict = dict({"page_render": "", "redirect_action": False})
     return render_dict
@@ -32,12 +32,11 @@ def active_session_check(route_url):
 
 @app.route("/")
 def homepage():
-    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+    if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    else:
-        return render_template(
-            "pages/index.html",
-            title="Workout Planner | Home")
+    return render_template(
+        "pages/index.html",
+        title="Workout Planner | Home")
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -54,16 +53,14 @@ def login():
         if logged_username is None:
             response["existingUsername"] = False
             return json.dumps(response)
-        else:
-            response["existingUsername"] = True
-            if check_password_hash(
+        response["existingUsername"] = True
+        if check_password_hash(
                 (logged_username["password"]),
-                    (request_data["inputPassword"])):
-                    session["user"] = request_data["inputUsername"]
-                    return redirect(url_for("homepage"))
-            else:
-                response["validPassword"] = False
-                return json.dumps(response)
+                (request_data["inputPassword"])):
+            session["user"] = request_data["inputUsername"]
+            return redirect(url_for("homepage"))
+        response["validPassword"] = False
+        return json.dumps(response)
     return render_template(
         "pages/login.html",
         title="Workout Planner | Login")
@@ -96,8 +93,7 @@ def register():
                         request_data["inputPassword"])})
             session["username"] = request_data["inputUsername"]
             return redirect(url_for("login"))
-        else:
-            return json.dumps(response)
+        return json.dumps(response)
     return render_template(
         "pages/register.html",
         title="Workout Planner | Register")
@@ -113,26 +109,24 @@ def logout():
 def my_exercises():
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    else:
-        exercises = client.db.exercises.aggregate(
-            [{"$match": {"owner": session["user"]}}])
-        return render_template(
-            "pages/myexercises.html",
-            title="Workout Planner | My Exercises",
-            exercises=exercises)
+    exercises = client.db.exercises.aggregate(
+        [{"$match": {"owner": session["user"]}}])
+    return render_template(
+        "pages/myexercises.html",
+        title="Workout Planner | My Exercises",
+        exercises=exercises)
 
 
 @app.route("/createexercise", methods=["POST", "GET"])
 def create_exercise():
-    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+    if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    else:
-        if request.method == "POST":
-            request_data = request.get_json()
-            print(request_data)
-            partial_record = {"owner": session["user"], "complete": False}
-            request_data.update(partial_record)
-            client.db.exercises.insert_one(request_data)
+    if request.method == "POST":
+        request_data = request.get_json()
+        print(request_data)
+        partial_record = {"owner": session["user"], "complete": False}
+        request_data.update(partial_record)
+        client.db.exercises.insert_one(request_data)
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
@@ -145,16 +139,15 @@ def create_exercise():
 
 @app.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
 def edit_exercise(exercise_id):
-    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+    if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    else:
-        exercise = client.db.exercises.find_one(
-            {"_id": ObjectId(exercise_id)}
-        )
-        if request.method == "POST":
-            request_data = request.get_json()
-            client.db.exercises.update_many({"_id": ObjectId(
-                exercise_id), "owner": session["user"]}, {"$set": request_data})
+    exercise = client.db.exercises.find_one(
+        {"_id": ObjectId(exercise_id)}
+    )
+    if request.method == "POST":
+        request_data = request.get_json()
+        client.db.exercises.update_many({"_id": ObjectId(
+            exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
