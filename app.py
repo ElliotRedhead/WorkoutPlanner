@@ -74,7 +74,6 @@ def register():
     active_session_check(request.url_rule)
     if request.method == "POST":
         request_data = request.get_json()
-        print(request_data)
         response = {"newUsername": False, "newEmail": False}
         existing_username = client.db.users.find_one(
             {"username": request_data["inputUsername"]})
@@ -131,6 +130,9 @@ def create_exercise():
         if request.method == "POST":
             request_data = request.get_json()
             print(request_data)
+            partial_record = {"owner":session["user"], "complete":False}
+            request_data.update(partial_record)
+            client.db.exercises.insert_one(request_data)
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
