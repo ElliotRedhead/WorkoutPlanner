@@ -111,7 +111,7 @@ def logout():
 
 @app.route("/myexercises")
 def my_exercises():
-    if (((active_session_check(request.url_rule)))["redirect_action"] == True):
+    if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     else:
         exercises = client.db.exercises.aggregate(
@@ -130,7 +130,7 @@ def create_exercise():
         if request.method == "POST":
             request_data = request.get_json()
             print(request_data)
-            partial_record = {"owner":session["user"], "complete":False}
+            partial_record = {"owner": session["user"], "complete": False}
             request_data.update(partial_record)
             client.db.exercises.insert_one(request_data)
     return render_template(
@@ -138,7 +138,8 @@ def create_exercise():
         title="Workout Planner | Edit Exercise",
         form_heading="Create Exercise",
         form_name="createExerciseForm",
-        exercise={"exercisename": "chest press", "targetmuscle": "chest", "equipmentname": "barbell", "weightvalue": "100kg"}
+        exercise={"exercisename": "chest press", "targetmuscle": "chest",
+                  "equipmentname": "barbell", "weightvalue": "100kg"}
     )
 
 
@@ -152,7 +153,8 @@ def edit_exercise(exercise_id):
         )
         if request.method == "POST":
             request_data = request.get_json()
-            client.db.exercises.update_many({"_id": ObjectId(exercise_id), "owner": session["user"]}, {"$set": request_data})
+            client.db.exercises.update_many({"_id": ObjectId(
+                exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
