@@ -173,7 +173,13 @@ def clone_exercise(exercise_id):
     complete_record.update(partial_record)
     print(f"The user in session is {session['user']} and the new record is {complete_record}")
     client.db.exercises.insert_one(complete_record)
-    return dumps(complete_record)
+    return render_template(
+        "forms/exerciseform.html",
+        title="Workout Planner | Edit Exercise",
+        form_heading="Clone Exercise",
+        exercise=complete_record,
+        form_name="editExerciseForm",
+    )
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
