@@ -166,6 +166,14 @@ def edit_exercise(exercise_id):
         form_name="editExerciseForm",
     )
 
+
+@app.route("/deleteexercise/<exercise_id>")
+def delete_exercise(exercise_id):
+    client.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
+    return render_template(
+        "pages/index.html"
+    )
+
 @app.route("/cloneexercise/<exercise_id>")
 def clone_exercise(exercise_id):
     complete_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
