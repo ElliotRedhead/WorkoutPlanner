@@ -167,6 +167,14 @@ def edit_exercise(exercise_id):
         form_name="editExerciseForm",
     )
 
+@app.route("/cloneexercise/<exercise_id>")
+def clone_exercise(exercise_id):
+    original_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    print(original_record)
+    return dumps(original_record)
+    # partial_record = {"owner": session["user"], "complete": False}
+    # return exercise_id
+
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
