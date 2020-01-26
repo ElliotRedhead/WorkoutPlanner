@@ -144,7 +144,7 @@ def create_exercise():
         form_heading="Create Exercise",
         form_name="createExerciseForm",
         exercise={"exercisename": "chest press", "targetmuscle": "chest",
-                  "equipmentname": "barbell", "weightvalue": "100kg"}
+                  "equipmentname": "barbell", "weightdistancevalue": "100kg"}
     )
 
 
