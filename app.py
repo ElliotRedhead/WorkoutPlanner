@@ -134,7 +134,6 @@ def create_exercise():
         return active_session_check(request.url_rule)["page_render"]
     if request.method == "POST":
         request_data = request.get_json()
-        print(request_data)
         partial_record = {"owner": session["user"], "complete": False}
         request_data.update(partial_record)
         client.db.exercises.insert_one(request_data)
@@ -169,12 +168,12 @@ def edit_exercise(exercise_id):
 
 @app.route("/cloneexercise/<exercise_id>")
 def clone_exercise(exercise_id):
-    original_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
-    print(original_record)
-    return dumps(original_record)
-    # partial_record = {"owner": session["user"], "complete": False}
-    # return exercise_id
-
+    complete_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    partial_record = {"owner": session["user"], "_id": ObjectId()}
+    complete_record.update(partial_record)
+    print(f"The user in session is {session['user']} and the new record is {complete_record}")
+    client.db.exercises.insert_one(complete_record)
+    return dumps(complete_record)
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
