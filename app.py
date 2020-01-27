@@ -5,15 +5,21 @@ from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from bson.json_util import dumps
+from flask_talisman import Talisman
 
 if os.path.exists("env.py"):
     import env
 
 app = Flask(__name__)
+csp = {
+    'default-src': ['\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com']
+
+}
+Talisman(app, content_security_policy=csp, force_https=True)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-# app.config["wsgi.url_scheme"] = "https"
+app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
 
