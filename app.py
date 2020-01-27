@@ -12,10 +12,10 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 csp = {
-    'default-src': ['\'unsafe-inline\'','\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com'],
-    'style-src': ['\'unsafe-inline\'', '\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com'],
-    'script-src': ['\'unsafe-inline\' \'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com']
-
+    'default-src': ['\'unsafe-inline\'','\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
+    'style-src': ['\'unsafe-inline\'', '\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
+    'script-src': ['\'unsafe-inline\' \'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
+    'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com']
 }
 Talisman(app, content_security_policy=csp, force_https=True)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
