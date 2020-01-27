@@ -111,7 +111,7 @@ def global_exercises():
         return active_session_check(request.url_rule)["page_render"]
     exercises = client.db.exercises.find()
     return render_template(
-        "pages/myexercises.html",
+        "pages/exercises.html",
         title="Workout Planner | Global Exercises",
         exercises=exercises)
 
@@ -123,7 +123,7 @@ def my_exercises():
     exercises = client.db.exercises.aggregate(
         [{"$match": {"owner": session["user"]}}])
     return render_template(
-        "pages/myexercises.html",
+        "pages/exercises.html",
         title="Workout Planner | My Exercises",
         exercises=exercises)
 
