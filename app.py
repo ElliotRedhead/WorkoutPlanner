@@ -72,7 +72,7 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("homepage"))
+            return redirect(url_for("homepage", _external=True, _scheme="https"))
             # return json.dumps(response)
         response["validPassword"] = False
         return json.dumps(response)
