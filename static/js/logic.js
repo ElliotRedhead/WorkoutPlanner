@@ -36,7 +36,7 @@ $(document).ready(function () {
                 if (response.redirected) {
                     print(window.location.href)
                     print(response.url)
-                    window.location.href = response.url
+                    // window.location.href = response.url
                 }
             })
             .catch(error => {
