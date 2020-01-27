@@ -12,7 +12,8 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 csp = {
-    'default-src': ['\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com']
+    'default-src': ['\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com'],
+    'style-src': ['\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.bootstrapcdn.com']
 
 }
 Talisman(app, content_security_policy=csp, force_https=True)
