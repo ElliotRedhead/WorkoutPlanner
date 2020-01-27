@@ -17,7 +17,7 @@ csp = {
     'script-src': ['\'unsafe-inline\' \'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
     'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com','*workout-exercise-planner.herokuapp.com/']
 }
-Talisman(app, content_security_policy=csp, force_https=True)
+Talisman(app, content_security_policy=None, force_https=True)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
