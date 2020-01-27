@@ -44,6 +44,7 @@ $(document).ready(function () {
             })
     })
     $("#loginForm").submit(function (event) {
+        console.log("Login form triggered.")
         event.preventDefault();
         const inputUsername = ($("#inputUsername")).val();
         const inputPassword = ($("#inputPassword")).val();
