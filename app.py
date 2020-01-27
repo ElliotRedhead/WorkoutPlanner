@@ -24,12 +24,12 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
-@app.before_request
-def enforceHttpsInHeroku():
-    if request.headers.get('X-Forwarded-Proto') == 'http':
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
+# @app.before_request
+# def enforceHttpsInHeroku():
+#     if request.headers.get('X-Forwarded-Proto') == 'http':
+#         url = request.url.replace('http://', 'https://', 1)
+#         code = 301
+#         return redirect(url, code=code)
 
 def active_session_check(route_url):
     route_url = str(route_url)
