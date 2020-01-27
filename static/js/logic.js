@@ -34,8 +34,8 @@ $(document).ready(function () {
                         )
                 }
                 if (response.redirected) {
-                    print(window.location.href)
-                    print(response.url)
+                    console.log(window.location.href)
+                    console.log(response.url)
                     // window.location.href = response.url
                 }
             })
@@ -76,8 +76,8 @@ $(document).ready(function () {
                         )
                 }
                 if (response.redirected) {
-                    print(window.location.href)
-                    print(response.url)
+                    console.log(window.location.href)
+                    console.log(response.url)
                     // window.location.href = response.url
                 }
             })
