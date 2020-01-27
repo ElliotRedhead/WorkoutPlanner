@@ -24,13 +24,6 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
-# @app.before_request
-# def enforceHttpsInHeroku():
-#     if request.headers.get('X-Forwarded-Proto') == 'http':
-#         url = request.url.replace('http://', 'https://', 1)
-#         code = 301
-#         return redirect(url, code=code)
-
 def active_session_check(route_url):
     route_url = str(route_url)
     active_session = bool("user" in session)
@@ -73,7 +66,6 @@ def login():
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
             return redirect(url_for("homepage", _external=True, _scheme="https"))
-            # return json.dumps(response)
         response["validPassword"] = False
         return json.dumps(response)
     return render_template(
@@ -107,7 +99,7 @@ def register():
                     "password": generate_password_hash(
                         request_data["inputPassword"])})
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("my_exercises"))
+            return redirect(url_for("homepage", _external=True, _scheme="https"))
         return json.dumps(response)
     return render_template(
         "pages/register.html",

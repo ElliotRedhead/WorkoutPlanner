@@ -33,11 +33,6 @@ $(document).ready(function () {
                             }
                         )
                 }
-                if (response.redirected) {
-                    console.log(window.location.href)
-                    console.log(response.url)
-                    // window.location.href = response.url
-                }
             })
             .catch(error => {
                 console.log(error);
@@ -77,11 +72,6 @@ $(document).ready(function () {
                                 })
                             }
                         )
-                }
-                if (response.redirected) {
-                    console.log(window.location.href)
-                    console.log(response.url)
-                    // window.location.href = response.url
                 }
             })
             .catch(error => {
