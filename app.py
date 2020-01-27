@@ -91,8 +91,8 @@ def register():
                     "email": request_data["inputEmail"],
                     "password": generate_password_hash(
                         request_data["inputPassword"])})
-            session["username"] = request_data["inputUsername"]
-            return redirect(url_for("login"))
+            session["user"] = request_data["inputUsername"]
+            return redirect(url_for("my_exercises"))
         return json.dumps(response)
     return render_template(
         "pages/register.html",
