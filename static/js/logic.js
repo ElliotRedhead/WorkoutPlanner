@@ -51,6 +51,8 @@ $(document).ready(function () {
             inputUsername: inputUsername,
             inputPassword: inputPassword
         };
+        console.log("form submitted!")
+        console.log("fetch incoming!")
         fetch('/login', {
             method: 'POST',
             cors: '*same-origin',
