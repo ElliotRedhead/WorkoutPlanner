@@ -172,8 +172,7 @@ def edit_exercise(exercise_id):
 @app.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
     client.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
-    return render_template(
-        "pages/index.html"
+    return redirect(url_for("my_exercises")
     )
 
 @app.route("/cloneexercise/<exercise_id>")
