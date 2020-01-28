@@ -169,6 +169,15 @@ def edit_exercise(exercise_id):
     )
 
 
+@app.route("/completeexercise/<exercise_id>", methods=["POST", "GET"])
+def complete_exercise(exercise_id):
+    if (active_session_check(request.url_rule))["redirect_action"]:
+        return active_session_check(request.url_rule)["page_render"]
+    client.db.exercises.update_one({"_id": ObjectId(exercise_id), "owner": session["user"]}, {"$set": {"complete": True}})
+    return redirect(url_for("my_exercises")
+    )
+
+
 @app.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
     client.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
@@ -178,7 +187,7 @@ def delete_exercise(exercise_id):
 @app.route("/cloneexercise/<exercise_id>",methods=["POST", "GET"])
 def clone_exercise(exercise_id):
     complete_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
-    partial_record = {"owner": session["user"], "_id": ObjectId()}
+    partial_record = {"owner": session["user"], "_id": ObjectId(), "complete": False}
     if request.method == "POST":
         request_data = request.get_json()
         request_data.update(partial_record)
