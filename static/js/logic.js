@@ -74,7 +74,7 @@ $(document).ready(function () {
                         )
                 }
                 if (response.redirected) {
-                    window.location.href = response.url
+                    window.location.replace("/myexercises")
                 }
             })
             .catch(error => {
