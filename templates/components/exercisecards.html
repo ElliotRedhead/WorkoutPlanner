@@ -3,8 +3,9 @@
     <div class="card-body container-fluid">
         <div class="row">
         <h5 class="card-title order-0 col-12">{{exercise.exercisename.title()}}</h5>
-        <p class="card-text order-1 col-12">Equipment: {{exercise.equipmentname.title()}}</p>
-        <p class="card-text order-3 col-12">Weight/Distance: {{exercise.weightdistancevalue}}</p>
+        <p class="card-text order-2 col-12">Target Muscle: {{exercise.targetmuscle.title()}}</p>
+        <p class="card-text order-3 col-12">Equipment: {{exercise.equipmentname.title()}}</p>
+        <p class="card-text order-4 col-12">Weight/Distance: {{exercise.weightdistancevalue}}</p>
         {% if "My Exercises" in title or exercise.owner == session.user %}
         <a href="{{url_for('edit_exercise', exercise_id=exercise._id)}}" class="btn btn-primary order-4">
             <i class="fas fa-edit"></i>Edit</a>
@@ -12,7 +13,7 @@
             <i class="fas fa-trash"></i>Delete</a>
         {% endif %}
         {% if "Global Exercises" in title %}
-        <p class="card-text order-2 col-12">Owner: {{exercise.owner.title()}}</p>
+        <p class="card-text order-1 col-12">Owner: {{exercise.owner.title()}}</p>
         {% endif %}
         <a href="{{url_for('clone_exercise', exercise_id=exercise._id)}}" class="btn btn-primary order-5">
             <i class="fas fa-clone"></i>Clone</a>
