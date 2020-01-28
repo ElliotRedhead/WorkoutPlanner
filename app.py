@@ -39,12 +39,17 @@ def active_session_check(route_url):
 
 
 @app.route("/")
-def homepage():
+@app.route("/myexercises")
+def my_exercises():
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
+    exercises = client.db.exercises.aggregate(
+        [{"$match": {"owner": session["user"]}}])
     return render_template(
-        "pages/index.html",
-        title="Workout Planner | Home")
+        "pages/exercises.html",
+        title="Workout Planner | My Exercises",
+        exercises=exercises)
+
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -67,7 +72,7 @@ def login():
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
             # return redirect(url_for("homepage", _external=True,_scheme='https'))
-            return redirect(url_for("homepage"))
+            return redirect(url_for("my_exercises"))
         response["validPassword"] = False
         return json.dumps(response)
     return render_template(
@@ -101,7 +106,7 @@ def register():
                     "password": generate_password_hash(
                         request_data["inputPassword"])})
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("homepage", _external=True, _scheme="https"))
+            return redirect(url_for("my_exercises", _external=True, _scheme="https"))
         return json.dumps(response)
     return render_template(
         "pages/register.html",
@@ -111,7 +116,7 @@ def register():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("homepage"))
+    return redirect(url_for("login"))
 
 
 @app.route("/globalexercises")
@@ -122,18 +127,6 @@ def global_exercises():
     return render_template(
         "pages/exercises.html",
         title="Workout Planner | Global Exercises",
-        exercises=exercises)
-
-
-@app.route("/myexercises")
-def my_exercises():
-    if ((active_session_check(request.url_rule)))["redirect_action"]:
-        return active_session_check(request.url_rule)["page_render"]
-    exercises = client.db.exercises.aggregate(
-        [{"$match": {"owner": session["user"]}}])
-    return render_template(
-        "pages/exercises.html",
-        title="Workout Planner | My Exercises",
         exercises=exercises)
 
 
