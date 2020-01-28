@@ -175,16 +175,17 @@ def delete_exercise(exercise_id):
     return redirect(url_for("my_exercises")
     )
 
-@app.route("/cloneexercise/<exercise_id>")
+@app.route("/cloneexercise/<exercise_id>",methods=["POST", "GET"])
 def clone_exercise(exercise_id):
     complete_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     partial_record = {"owner": session["user"], "_id": ObjectId()}
-    complete_record.update(partial_record)
-    print(f"The user in session is {session['user']} and the new record is {complete_record}")
-    client.db.exercises.insert_one(complete_record)
+    if request.method == "POST":
+        request_data = request.get_json()
+        request_data.update(partial_record)
+        client.db.exercises.insert_one(request_data)
     return render_template(
         "forms/exerciseform.html",
-        title="Workout Planner | Edit Exercise",
+        title="Workout Planner | Clone Exercise",
         form_heading="Clone Exercise",
         exercise=complete_record,
         form_name="editExerciseForm",
