@@ -18,7 +18,7 @@ csp = {
     'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com'],
     'img-src' : ['\'unsafe-inline\' \'self\'','*.w3.org']
 }
-Talisman(app, content_security_policy=None, force_https=True)
+Talisman(app, content_security_policy=csp, force_https=True)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
@@ -66,8 +66,8 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("homepage", _external=True, _scheme="https"))
-            # return redirect(url_for("homepage"))
+            # return redirect(url_for("homepage", _external=True,_scheme='https'))
+            return redirect(url_for("homepage"))
         response["validPassword"] = False
         return json.dumps(response)
     return render_template(

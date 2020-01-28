@@ -73,6 +73,9 @@ $(document).ready(function () {
                             }
                         )
                 }
+                if (response.redirected) {
+                    window.location.href = response.url
+                }
             })
             .catch(error => {
                 console.log(error);
