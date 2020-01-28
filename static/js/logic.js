@@ -33,6 +33,8 @@ $(document).ready(function () {
                             }
                         )
                 }
+                else {response.json()
+                    .then(console.log(responseJSON))}
             })
             .catch(error => {
                 console.log(error);
