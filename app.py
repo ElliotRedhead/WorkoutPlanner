@@ -186,7 +186,7 @@ def delete_exercise(exercise_id):
 
 @app.route("/cloneexercise/<exercise_id>",methods=["POST", "GET"])
 def clone_exercise(exercise_id):
-    complete_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    full_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     partial_record = {"owner": session["user"], "_id": ObjectId(), "complete": False}
     if request.method == "POST":
         request_data = request.get_json()
@@ -196,7 +196,7 @@ def clone_exercise(exercise_id):
         "forms/exerciseform.html",
         title="Workout Planner | Clone Exercise",
         form_heading="Clone Exercise",
-        exercise=complete_record,
+        exercise=full_record,
         form_name="editExerciseForm",
     )
 
