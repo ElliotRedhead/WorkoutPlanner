@@ -173,7 +173,11 @@ def edit_exercise(exercise_id):
 def complete_exercise(exercise_id):
     if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    client.db.exercises.update_one({"_id": ObjectId(exercise_id), "owner": session["user"]}, {"$set": {"complete": True}})
+    if (client.db.exercises.find_one({"_id": ObjectId(exercise_id), "owner": session["user"], "complete":"true"}) == "None"):
+        client.db.exercises.update_one({"_id": ObjectId(exercise_id)}, {"$set": {"complete":"true"}})
+    else: 
+        client.db.exercises.update_one({"_id": ObjectId(exercise_id)}, {"$set": {"complete":"false"}})
+    # client.db.exercises.update_one({"_id": ObjectId(exercise_id), "owner": session["user"]}, {"$set": {"complete": True}})
     return redirect(url_for("my_exercises")
     )
 
