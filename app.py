@@ -15,13 +15,14 @@ csp = {
     'default-src': ['\'unsafe-inline\'','\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
     'style-src': ['\'unsafe-inline\'', '\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
     'script-src': ['\'unsafe-inline\' \'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
-    'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com','*workout-exercise-planner.herokuapp.com/']
+    'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com'],
+    'img-src' : ['\'unsafe-inline\' \'self\'','*.w3.org']
 }
 Talisman(app, content_security_policy=csp, force_https=True)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["wsgi.url_scheme"] = "https"
+# app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
 def active_session_check(route_url):
@@ -65,7 +66,8 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("homepage", _external=True, _scheme="https"))
+            # return redirect(url_for("homepage", _external=True, _scheme="https"))
+            return redirect(url_for("homepage"))
         response["validPassword"] = False
         return json.dumps(response)
     return render_template(
