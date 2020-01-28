@@ -158,7 +158,7 @@ def edit_exercise(exercise_id):
     )
     if request.method == "POST":
         request_data = request.get_json()
-        client.db.exercises.update_many({"_id": ObjectId(
+        client.db.exercises.update_one({"_id": ObjectId(
             exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
         "forms/exerciseform.html",
