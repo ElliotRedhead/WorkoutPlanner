@@ -2,3 +2,18 @@
     font: #808080;
     text-decoration: line-through;
 }
+
+.navbar {
+    background-color: #1b1b1b;
+}
+
+body {
+    background-color: #9b9b9b;
+}
+
+.card {
+    background-color: #04A647;
+    border: 0.1rem solid #2B5630;
+    border-radius: 1rem;
+    box-shadow: 0px 0.5rem 1rem #22222299;
+}
