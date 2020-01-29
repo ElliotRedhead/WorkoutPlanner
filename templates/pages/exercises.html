@@ -1,7 +1,14 @@
 {% extends "layout/base.html" %}
 {% block content %}
-<a class="btn btn-primary" href="{{url_for('create_exercise')}}" id="createExercise" name="createExercise" >Create new exercise</a>
-{% for exercise in exercises %}
-{% include "components/exercisecards.html" %}
+<div class="container-fluid">
+  <div class="row">
+    <a class="btn btn-primary" href="{{url_for('create_exercise')}}" id="createExercise" name="createExercise">Create
+      new exercise</a>
+  </div>
+  {% for exercise in exercises %}
+  <div class="row">
+    {% include "components/exercisecards.html" %}
+  </div>
   {% endfor %}
+</div>
 {% endblock %}
