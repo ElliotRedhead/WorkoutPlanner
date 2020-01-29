@@ -90,14 +90,8 @@ def register():
             {"username": request_data["inputUsername"]})
         existing_email = client.db.users.find_one(
             {"email": request_data["inputEmail"]})
-        if existing_username is None:
-            response["newUsername"] = True
-        else:
-            response["newUsername"] = False
-        if existing_email is None:
-            response["newEmail"] = True
-        else:
-            response["newEmail"] = False
+        response["newUsername"] = True if existing_username is None else False
+        response ["newEmail"] = True if existing_username is None else False
         if existing_username is None and existing_email is None:
             client.db.users.insert_one(
                 {
