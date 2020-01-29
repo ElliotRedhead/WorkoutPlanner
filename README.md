@@ -1,5 +1,5 @@
 # Workout Planner
-Live deployment will be made available [here](https://workout-exercise-planner.herokuapp.com/)
+Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)
 -----
 Submission for Code Institute's Data-Centric Development Milestone Project, an application for the planning and logging of workout sessions.
 
