@@ -5,8 +5,8 @@ $(document).ready(function () {
         const inputPassword = ($("#inputPassword")).val();
         const inputEmail = ($("#inputEmail")).val();
         const data = {
-            inputUsername: inputUsername,
-            inputEmail: inputEmail,
+            inputUsername: inputUsername.toLowerCase(),
+            inputEmail: inputEmail.toLowerCase(),
             inputPassword: inputPassword
         };
         fetch('/register', {
@@ -48,8 +48,8 @@ $(document).ready(function () {
         const inputUsername = ($("#inputUsername")).val();
         const inputPassword = ($("#inputPassword")).val();
         const data = {
-            inputUsername: inputUsername,
-            inputPassword: inputPassword
+            inputUsername: inputUsername.toLowerCase(),
+            inputPassword: inputPassword.toLowerCase()
         };
         console.log("form submitted!")
         console.log("fetch incoming!")
