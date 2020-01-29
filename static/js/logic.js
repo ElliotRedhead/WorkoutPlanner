@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $("#registerForm").submit(function (event) {
         event.preventDefault();
-        const inputUsername = ($("#inputUsername")).val();
-        const inputPassword = ($("#inputPassword")).val();
-        const inputEmail = ($("#inputEmail")).val();
+        let inputUsername = ($("#inputUsername")).val();
+        let inputPassword = ($("#inputPassword")).val();
+        let inputEmail = ($("#inputEmail")).val();
         const data = {
             inputUsername: inputUsername.toLowerCase(),
             inputEmail: inputEmail.toLowerCase(),
@@ -33,15 +33,14 @@ $(document).ready(function () {
                             }
                         )
                 }
-                else {
-                    response.json()
-                    .then(console.log(responseJSON))
+                if (response.redirected) {
+                    window.location.replace("/myexercises")
                 }
             })
             .catch(error => {
                 console.log(error);
             })
-    })
+        })
     $("#loginForm").submit(function (event) {
         console.log("Login form triggered.")
         event.preventDefault();
