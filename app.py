@@ -58,8 +58,7 @@ def login():
 
     if request.method == "POST":
         request_data = request.get_json()
-        print(request_data)
-        response = {"existingUsername": False, "validPassword": False}
+        response = {}
         logged_username = client.db.users.find_one(
             {"username": request_data["inputUsername"]}
         )
