@@ -1,6 +1,6 @@
 {% block cards %}
 <div class="card" id="{{exercise_id}}" style="width: 18rem;">
-    <div class="card-body container-fluid {% if exercise.complete %}bg-grey{% endif %}">
+    <div class="card-body container-fluid {% if exercise.complete == true %}bg-grey{% endif %}">
         <div class="row">
             <h5 class="card-title order-0 col-12">{{exercise.exercisename.title()}}</h5>
             <p class="card-text order-2 col-12">Target Muscle: {{exercise.targetmuscle.title()}}</p>
