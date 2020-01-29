@@ -1,3 +1,4 @@
-.bg-grey {
-    background-color: grey;
+.complete > .row > .card-text, .complete > .row > .card-title {
+    font: #808080;
+    text-decoration: line-through;
 }
