@@ -30,7 +30,14 @@ Submission for Code Institute's Data-Centric Development Milestone Project, an a
 
 ### Colour Palette
 
-The initial website design concepts have been formed with the following colour palette: #0F1011 #615F5B #A2A29F #FBFBFB #2B5630 #04A647.
+The initial website design concepts have been formed with the following colour palette:  
+![#0f1011](https://placehold.it/15/0f1011/000000?text=+) `#0f1011`  
+![#615F5B](https://placehold.it/15/615F5B/000000?text=+) `#615F5B`  
+![#A2A29F](https://placehold.it/15/A2A29F/000000?text=+) `#A2A29F`  
+![#FBFBFB](https://placehold.it/15/FBFBFB/000000?text=+) `#FBFBFB`  
+![#2B5630](https://placehold.it/15/2B5630/000000?text=+) `#2B5630`  
+![#04A647](https://placehold.it/15/04A647/000000?text=+) `#04A647`  
+
 
 The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
 
