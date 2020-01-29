@@ -175,10 +175,7 @@ def complete_exercise(exercise_id):
         return active_session_check(request.url_rule)["page_render"]
     query_filter = {"_id": ObjectId(exercise_id), "owner": session["user"]}
     exercise = (client.db.exercises.find_one(query_filter))
-    if exercise["complete"]:
-        toggle_value = False
-    else:
-        toggle_value = True
+    toggle_value = False if exercise["complete"] == True else True
     client.db.exercises.update_one(query_filter, {"$set": {"complete": toggle_value}})
     return redirect(url_for("my_exercises")
     )
