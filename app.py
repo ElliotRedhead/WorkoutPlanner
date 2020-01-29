@@ -85,13 +85,13 @@ def register():
     active_session_check(request.url_rule)
     if request.method == "POST":
         request_data = request.get_json()
-        response = {"newUsername": False, "newEmail": False}
+        response = {}
         existing_username = client.db.users.find_one(
             {"username": request_data["inputUsername"]})
         existing_email = client.db.users.find_one(
             {"email": request_data["inputEmail"]})
         response["newUsername"] = True if existing_username is None else False
-        response ["newEmail"] = True if existing_username is None else False
+        response ["newEmail"] = True if existing_email is None else False
         if existing_username is None and existing_email is None:
             client.db.users.insert_one(
                 {
