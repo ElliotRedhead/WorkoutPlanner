@@ -25,6 +25,11 @@ app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
 def active_session_check(route_url):
+    """Checks if user has an active session, if not redirects to login page.
+
+    Keyword argument:
+    route_url -- The URL that the user is accessing set by the route.
+    """
     route_url = str(route_url)
     active_session = bool("user" in session)
     if active_session is False and (route_url != "/login" or "/register"):
