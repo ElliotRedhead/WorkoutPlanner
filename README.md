@@ -1,17 +1,17 @@
 # Workout Planner
-Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)
------
+
+## Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)
+
 Submission for Code Institute's Data-Centric Development Milestone Project, an application for the planning and logging of workout sessions.
 
 ## User Experience
- 
-#### The target audience for this website is: 
-* 
+
+#### The target audience for this website is:
+
+-
 
 #### This project is the best way to deliver the content because:
-*
-*
-*
+
 
 ## User Stories
 
@@ -23,8 +23,7 @@ Submission for Code Institute's Data-Centric Development Milestone Project, an a
 
 ### User Story Fulfilment
 
-1.
-2.
+1. 2.
 
 ## Design & Styling
 
@@ -36,27 +35,29 @@ The initial website design concepts have been formed with the following colour p
 ![#A2A29F](https://placehold.it/15/A2A29F/000000?text=+) `#A2A29F`  
 ![#FBFBFB](https://placehold.it/15/FBFBFB/000000?text=+) `#FBFBFB`  
 ![#2B5630](https://placehold.it/15/2B5630/000000?text=+) `#2B5630`  
-![#04A647](https://placehold.it/15/04A647/000000?text=+) `#04A647`  
-
+![#04A647](https://placehold.it/15/04A647/000000?text=+) `#04A647`
 
 The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
 
-## Wireframes  
+## Wireframes
 
 ### Project Inception Wireframes
+
 Basic wireframes have been created upon project inception to aid in the planning stages of this project, these are to be adapted as the project proceeds with further iterations for multiple breakpoints.
 
 #### Mobile Wireframe
+
 ![Mobile Inception Wireframe](./static/wireframes/Mobile-List.png)
 
 #### Desktop Wireframe
+
 ![Desktop Inception Wireframe](./static/wireframes/Desktop-WeeklyList.png)
 
 ## Features
 
 ### Existing Features
 
-#### Feature 1 
+#### Feature 1
 
 #### Feature 2
 
@@ -72,12 +73,12 @@ The following are suggested additions that would exceed the project time constra
 
 ## Technologies Used
 
-* HTML, CSS and Javascript programming languages are used for creating the core structure, styling and logic of this site.
-* [jQuery](https://jquery.com/) is primarily used within this project for ease of DOM manipulation.
-* [Bootstrap](https://getbootstrap.com) is used for resolution responsiveness and for general structuring of the UI.
-* [Git](https://git-scm.com/) is used for the version control of this project.
-* [Font Awesome](https://fontawesome.com/) provides the shuffle and information icons (used for both the welcome trigger and tooltips).
-* [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced in this way is ...
+- HTML, CSS and Javascript programming languages are used for creating the core structure, styling and logic of this site.
+- [jQuery](https://jquery.com/) is primarily used within this project for ease of DOM manipulation.
+- [Bootstrap](https://getbootstrap.com) is used for resolution responsiveness and for general structuring of the UI.
+- [Git](https://git-scm.com/) is used for the version control of this project.
+- [Font Awesome](https://fontawesome.com/) provides the shuffle and information icons (used for both the welcome trigger and tooltips).
+- [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced in this way is ...
 
 ### Testing
 
@@ -92,6 +93,7 @@ Are there any features that don't perform as expected, is the discovery document
 This project was developed using Visual Studio Code, and was both committed to git and pushed to GitHub using the integrated source control feature.
 
 The setup for the GitHub Pages deployment was as follows:
+
 - Log into Github.
 - Select the target repository from the list.
 - Select "Settings" from the menu items.
@@ -106,8 +108,10 @@ At the time of submission are both the deployed and development versions of this
 ## Credits
 
 ### Additional Resources
+
 The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue)
 The images used in this site were obtained from the following sources:
+
 - [Geometric architecture image by Scott Webb, sourced from Pexels](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/)
 
 ### Acknowledgements
