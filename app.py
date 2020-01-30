@@ -12,7 +12,6 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["wsgi.url_scheme"] = "https"
 client = PyMongo(app)
 
 def active_session_check(route_url):
@@ -77,7 +76,6 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            # return redirect(url_for("my_exercises", _external=True,_scheme='https'))
             return redirect(url_for("my_exercises"))
         response["validPassword"] = False
         return json.dumps(response)
@@ -106,7 +104,7 @@ def register():
                     "password": generate_password_hash(
                         request_data["inputPassword"])})
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("my_exercises", _external=True, _scheme="https"))
+            return redirect(url_for("my_exercises"))
         return json.dumps(response)
     return render_template(
         "pages/register.html",
