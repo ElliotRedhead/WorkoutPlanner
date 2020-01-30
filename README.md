@@ -99,7 +99,9 @@ At the time of submission are both the deployed and development versions of this
 ## Credits
 
 ### Additional Resources
+The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue)
 The images used in this site were obtained from the following sources:
+- [Geometric architecture image by Scott Webb, sourced from Pexels](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/)
 
 ### Acknowledgements
 
