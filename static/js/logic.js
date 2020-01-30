@@ -77,7 +77,10 @@ $(document).ready(function () {
                         )
                 }
                 if (response.redirected) {
-                    window.location.replace("/myexercises")
+                    console.log(response);
+                    let targetUrl = response.url.replace("http","https");
+                    console.log(targetUrl);
+                    window.location = targetUrl
                 }
             })
             .catch(error => {
