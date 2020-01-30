@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
 
+html {
+    font-size: 18px;
+}
+
 body {
     font-family: 'Bebas Neue', cursive;
     background-image: url("/./static/img/geometricarchitecture.jpg")
