@@ -76,7 +76,7 @@ $(document).ready(function () {
                 }
                 if (response.redirected) {
                     let targetUrl = response.url.replace("http","https");
-                    window.location = targetUrl;
+                    window.location.href = targetUrl;
                 }
             })
             .catch(error => {
