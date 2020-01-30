@@ -11,8 +11,8 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 csp = {
-    'default-src': ['\'unsafe-inline\'','\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
-    'style-src': ['\'unsafe-inline\'', '\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
+    'default-src': ['\'unsafe-inline\'','\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.gstatic.com'],
+    'style-src': ['\'unsafe-inline\'', '\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.googleapis.com'],
     'script-src': ['\'unsafe-inline\' \'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
     'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com'],
     'img-src' : ['\'unsafe-inline\' \'self\'','*.w3.org']
