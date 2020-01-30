@@ -1,10 +1,9 @@
 import os
 import json
-from flask import Flask, redirect, render_template, request, url_for, session, jsonify
+from flask import Flask, redirect, render_template, request, url_for, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
-from bson.json_util import dumps
 from flask_talisman import Talisman
 
 if os.path.exists("env.py"):
