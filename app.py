@@ -4,20 +4,11 @@ from flask import Flask, redirect, render_template, request, url_for, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
-from flask_talisman import Talisman
 
 if os.path.exists("env.py"):
     import env
 
 app = Flask(__name__)
-csp = {
-    'default-src': ['\'unsafe-inline\'','\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.gstatic.com'],
-    'style-src': ['\'unsafe-inline\'', '\'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com','*.googleapis.com'],
-    'script-src': ['\'unsafe-inline\' \'self\'','*.bootstrapcdn.com','*.cloudflare.com','*.jsdelivr.net','*.jquery.com'],
-    'connect-src': ['\'unsafe-inline\' \'self\'','*.herokuapp.com'],
-    'img-src' : ['\'unsafe-inline\' \'self\'','*.w3.org']
-}
-Talisman(app, content_security_policy=csp, force_https=True)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
