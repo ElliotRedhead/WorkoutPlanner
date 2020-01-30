@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
 
 body {
-    font-family: 'Bebas Neue', cursive
+    font-family: 'Bebas Neue', cursive;
+    background-image: url("/./static/img/geometricarchitecture.jpg")
 }
 
 .complete > .row > .card-text, .complete > .row > .card-title {
@@ -11,10 +12,6 @@ body {
 
 .navbar {
     background-color: #1b1b1b;
-}
-
-body {
-    background-color: #9b9b9b;
 }
 
 .card {
