@@ -45,6 +45,11 @@ def active_session_check(route_url):
 @app.route("/")
 @app.route("/myexercises")
 def my_exercises():
+    """Displays a logged in user's exercise list.
+    
+    Exercise documents where the value of the field equals the name of the user that is logged to the session 
+    are grouped for display.
+    """
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     exercises = client.db.exercises.aggregate(
@@ -58,6 +63,13 @@ def my_exercises():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    """Validates submitted credentials, if valid: user added to session else: returns fail response.
+
+    Checks if the submitted username exists in the database, if not a suitable response is returned, 
+    if the username exists then the hashed password is compared with the existing database entry.
+    If both the submitted username and password match the database records then user is added to 
+    session and user is redirected to their list of exercises.
+    """
     active_session_check(request.url_rule)
 
     if request.method == "POST":
@@ -74,7 +86,7 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            # return redirect(url_for("homepage", _external=True,_scheme='https'))
+            # return redirect(url_for("my_exercises", _external=True,_scheme='https'))
             return redirect(url_for("my_exercises"))
         response["validPassword"] = False
         return json.dumps(response)
