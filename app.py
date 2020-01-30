@@ -8,11 +8,11 @@ from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
-app = Flask(__name__)
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-client = PyMongo(app)
+APP = Flask(__name__)
+APP.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+APP.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+CLIENT = PyMongo(APP)
 
 def active_session_check(route_url):
     """Checks if user has an active session, if not redirects to login page.
@@ -32,8 +32,8 @@ def active_session_check(route_url):
     return render_dict
 
 
-@app.route("/")
-@app.route("/myexercises")
+@APP.route("/")
+@APP.route("/myexercises")
 def my_exercises():
     """Displays a logged in user's exercise list.
     
@@ -42,7 +42,7 @@ def my_exercises():
     """
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    exercises = client.db.exercises.aggregate(
+    exercises = CLIENT.db.exercises.aggregate(
         [{"$match": {"owner": session["user"]}}])
     return render_template(
         "pages/exercises.html",
@@ -51,7 +51,7 @@ def my_exercises():
 
 
 
-@app.route("/login", methods=["POST", "GET"])
+@APP.route("/login", methods=["POST", "GET"])
 def login():
     """Validates submitted credentials, if valid: user added to session else: returns fail response.
 
@@ -65,7 +65,7 @@ def login():
     if request.method == "POST":
         request_data = request.get_json()
         response = {}
-        logged_username = client.db.users.find_one(
+        logged_username = CLIENT.db.users.find_one(
             {"username": request_data["inputUsername"]}
         )
         if logged_username is None:
@@ -84,20 +84,20 @@ def login():
         title="Workout Planner | Login")
 
 
-@app.route("/register", methods=["POST", "GET"])
+@APP.route("/register", methods=["POST", "GET"])
 def register():
     active_session_check(request.url_rule)
     if request.method == "POST":
         request_data = request.get_json()
         response = {}
-        existing_username = client.db.users.find_one(
+        existing_username = CLIENT.db.users.find_one(
             {"username": request_data["inputUsername"]})
-        existing_email = client.db.users.find_one(
+        existing_email = CLIENT.db.users.find_one(
             {"email": request_data["inputEmail"]})
         response["newUsername"] = True if existing_username is None else False
         response ["newEmail"] = True if existing_email is None else False
         if existing_username is None and existing_email is None:
-            client.db.users.insert_one(
+            CLIENT.db.users.insert_one(
                 {
                     "username": request_data["inputUsername"],
                     "email": request_data["inputEmail"],
@@ -111,24 +111,24 @@ def register():
         title="Workout Planner | Register")
 
 
-@app.route("/logout")
+@APP.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("login"))
 
 
-@app.route("/globalexercises")
+@APP.route("/globalexercises")
 def global_exercises():
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    exercises = client.db.exercises.find()
+    exercises = CLIENT.db.exercises.find()
     return render_template(
         "pages/exercises.html",
         title="Workout Planner | Global Exercises",
         exercises=exercises)
 
 
-@app.route("/createexercise", methods=["POST", "GET"])
+@APP.route("/createexercise", methods=["POST", "GET"])
 def create_exercise():
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
@@ -136,7 +136,7 @@ def create_exercise():
         request_data = request.get_json()
         partial_record = {"owner": session["user"], "complete": False}
         request_data.update(partial_record)
-        client.db.exercises.insert_one(request_data)
+        CLIENT.db.exercises.insert_one(request_data)
     return render_template(
         "forms/exerciseform.html",
         title="Workout Planner | Edit Exercise",
@@ -147,16 +147,16 @@ def create_exercise():
     )
 
 
-@app.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
+@APP.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
 def edit_exercise(exercise_id):
     if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    exercise = client.db.exercises.find_one(
+    exercise = CLIENT.db.exercises.find_one(
         {"_id": ObjectId(exercise_id)}
     )
     if request.method == "POST":
         request_data = request.get_json()
-        client.db.exercises.update_one({"_id": ObjectId(
+        CLIENT.db.exercises.update_one({"_id": ObjectId(
             exercise_id), "owner": session["user"]}, {"$set": request_data})
     return render_template(
         "forms/exerciseform.html",
@@ -167,32 +167,32 @@ def edit_exercise(exercise_id):
     )
 
 
-@app.route("/completeexercise/<exercise_id>", methods=["POST", "GET"])
+@APP.route("/completeexercise/<exercise_id>", methods=["POST", "GET"])
 def complete_exercise(exercise_id):
     if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     query_filter = {"_id": ObjectId(exercise_id), "owner": session["user"]}
-    exercise = (client.db.exercises.find_one(query_filter))
+    exercise = (CLIENT.db.exercises.find_one(query_filter))
     toggle_value = False if exercise["complete"] == True else True
-    client.db.exercises.update_one(query_filter, {"$set": {"complete": toggle_value}})
+    CLIENT.db.exercises.update_one(query_filter, {"$set": {"complete": toggle_value}})
     return redirect(url_for("my_exercises")
     )
 
 
-@app.route("/deleteexercise/<exercise_id>")
+@APP.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
-    client.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
+    CLIENT.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
     return redirect(url_for("my_exercises")
     )
 
-@app.route("/cloneexercise/<exercise_id>",methods=["POST", "GET"])
+@APP.route("/cloneexercise/<exercise_id>",methods=["POST", "GET"])
 def clone_exercise(exercise_id):
-    full_record = client.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    full_record = CLIENT.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     partial_record = {"owner": session["user"], "_id": ObjectId(), "complete": False}
     if request.method == "POST":
         request_data = request.get_json()
         request_data.update(partial_record)
-        client.db.exercises.insert_one(request_data)
+        CLIENT.db.exercises.insert_one(request_data)
     return render_template(
         "forms/exerciseform.html",
         title="Workout Planner | Clone Exercise",
@@ -202,4 +202,4 @@ def clone_exercise(exercise_id):
     )
 
 if __name__ == '__main__':
-    app.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
+    APP.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
