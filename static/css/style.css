@@ -9,8 +9,12 @@ body {
     background-image: url("/./static/img/geometricarchitecture.jpg")
 }
 
+.card-text, .card-title {
+    color:#000000;
+}
+
 .complete > .row > .card-text, .complete > .row > .card-title {
-    font: #808080;
+    color: #424242;
     text-decoration: line-through;
 }
 
