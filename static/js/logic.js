@@ -34,7 +34,8 @@ $(document).ready(function () {
                         )
                 }
                 if (response.redirected) {
-                    window.location.replace("/myexercises")
+                    let targetUrl = response.url.replace("http","https");
+                    window.location = targetUrl;
                 }
             })
             .catch(error => {
@@ -42,7 +43,6 @@ $(document).ready(function () {
             })
         })
     $("#loginForm").submit(function (event) {
-        console.log("Login form triggered.")
         event.preventDefault();
         const inputUsername = ($("#inputUsername")).val();
         const inputPassword = ($("#inputPassword")).val();
@@ -50,8 +50,6 @@ $(document).ready(function () {
             inputUsername: inputUsername.toLowerCase(),
             inputPassword: inputPassword.toLowerCase()
         };
-        console.log("form submitted!")
-        console.log("fetch incoming!")
         fetch('/login', {
             method: 'POST',
             cors: '*same-origin',
@@ -77,7 +75,8 @@ $(document).ready(function () {
                         )
                 }
                 if (response.redirected) {
-                    window.location.replace("/myexercises")
+                    let targetUrl = response.url.replace("http","https");
+                    window.location = targetUrl;
                 }
             })
             .catch(error => {
