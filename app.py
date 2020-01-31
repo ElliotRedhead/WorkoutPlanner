@@ -5,15 +5,16 @@ from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 
-# class ReverseProxied(object):
-#     def __init__(self, app):
-#         self.app = app
+#https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
+class ReverseProxied(object):
+    def __init__(self, app):
+        self.app = app
 
-#     def __call__(self, environ, start_response):
-#         scheme = environ.get('HTTP_X_FORWARDED_PROTO')
-#         if scheme:
-#             environ['wsgi.url_scheme'] = scheme
-#         return self.app(environ, start_response)
+    def __call__(self, environ, start_response):
+        scheme = environ.get('HTTP_X_FORWARDED_PROTO')
+        if scheme:
+            environ['wsgi.url_scheme'] = scheme
+        return self.app(environ, start_response)
 
 if os.path.exists("env.py"):
     import env
