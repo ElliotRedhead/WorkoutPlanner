@@ -18,10 +18,12 @@ $(document).ready(function () {
             body: JSON.stringify(data)
         })
             .then(response => {
-                if (response.redirected == false) {
                     response.json()
                         .then(
                             responseJSON => {
+                                if (responseJSON.hasOwnProperty("url")) {
+                                    window.location.replace(responseJSON.url);
+                                }
                                 let alertMessage = "";
                                 if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
                                 if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
@@ -33,7 +35,7 @@ $(document).ready(function () {
                             }
                         )
                 }
-            })
+            )
             .catch(error => {
                 console.log(error);
             })
@@ -72,11 +74,8 @@ $(document).ready(function () {
                             })
                         }
             })
-        if (response.redirected) {
-            let targetUrl = response.url.replace("http", "https");
-            window.location.href = targetUrl;
         }
-    })
+    )
         .catch(error => {
             console.log(error);
         })
