@@ -28,7 +28,7 @@ $(document).ready(function () {
                             let alertMessage = "";
                             if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
                             if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
-                            if (responseJSON.existingUsername == false || responseJSON.validPassword == false) {
+                            if (responseJSON.newUsername == false || responseJSON.newEmail == false) {
                                 Swal.fire({
                                     title: "Registration unsuccessful",
                                     html: alertMessage,
