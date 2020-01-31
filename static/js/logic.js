@@ -18,24 +18,24 @@ $(document).ready(function () {
             body: JSON.stringify(data)
         })
             .then(response => {
-                    response.json()
-                        .then(
-                            responseJSON => {
-                                console.log(responseJSON)
-                                if (responseJSON.hasOwnProperty("url")) {
-                                    window.location.replace(responseJSON.url);
-                                }
-                                let alertMessage = "";
-                                if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
-                                if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
-                                Swal.fire({
-                                    title: "Registration unsuccessful",
-                                    html: alertMessage,
-                                    confirmButtonText: 'Ok'
-                                })
+                response.json()
+                    .then(
+                        responseJSON => {
+                            console.log(responseJSON)
+                            if (responseJSON.hasOwnProperty("url")) {
+                                window.location.replace(responseJSON.url);
                             }
-                        )
-                }
+                            let alertMessage = "";
+                            if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
+                            if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
+                            Swal.fire({
+                                title: "Registration unsuccessful",
+                                html: alertMessage,
+                                confirmButtonText: 'Ok'
+                            })
+                        }
+                    )
+            }
             )
             .catch(error => {
                 console.log(error);
@@ -68,58 +68,58 @@ $(document).ready(function () {
                             if (responseJSON.existingUsername == false) { alertMessage = alertMessage.concat("Invalid username.<br>"); }
                             else if (responseJSON.validPassword == false) { alertMessage = alertMessage.concat("Invalid password."); }
                             if (responseJSON.existingUsername == false || responseJSON.validPassword == false) {
-                            Swal.fire({
-                                title: "Login unsuccessful",
-                                html: alertMessage,
-                                confirmButtonText: 'Ok'
-                            })
-                        }
+                                Swal.fire({
+                                    title: "Login unsuccessful",
+                                    html: alertMessage,
+                                    confirmButtonText: 'Ok'
+                                })
+                            }
+                        })
+            }
+            )
+            .catch(error => {
+                console.log(error);
             })
-        }
-    )
-        .catch(error => {
-            console.log(error);
+    })
+    $("#createExerciseForm").submit(function (event) {
+        event.preventDefault();
+        let data = {};
+        ($("input").each(function () {
+            data[this.id.toLowerCase()] = this.value.toLowerCase();
+        }));
+        // This section is uses repeated components, avoid duplication by isolating from each function.
+        fetch("/createexercise", {
+            method: 'POST',
+            cors: '*same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
         })
-})
-$("#createExerciseForm").submit(function (event) {
-    event.preventDefault();
-    let data = {};
-    ($("input").each(function () {
-        data[this.id.toLowerCase()] = this.value.toLowerCase();
-    }));
-    // This section is uses repeated components, avoid duplication by isolating from each function.
-    fetch("/createexercise", {
-        method: 'POST',
-        cors: '*same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-}
-)
-$("#editExerciseForm").submit(function (event) {
-    event.preventDefault();
-    let data = {};
-    ($("input").each(function () {
-        data[this.id.toLowerCase()] = this.value.toLowerCase();
-    }));
-    fetch(window.location.href, {
-        method: 'POST',
-        cors: '*same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-        .then(
-            Swal.fire({
-                title: "Exercise created",
-                confirmButtonText: "Ok"
-            }).then(function () {
-                window.location.replace("/myexercises");
-            })
-        )
-}
-)
+    }
+    )
+    $("#editExerciseForm").submit(function (event) {
+        event.preventDefault();
+        let data = {};
+        ($("input").each(function () {
+            data[this.id.toLowerCase()] = this.value.toLowerCase();
+        }));
+        fetch(window.location.href, {
+            method: 'POST',
+            cors: '*same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(
+                Swal.fire({
+                    title: "Exercise created",
+                    confirmButtonText: "Ok"
+                }).then(function () {
+                    window.location.replace("/myexercises");
+                })
+            )
+    }
+    )
 })

@@ -6,6 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 
 #https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
+
+
 class ReverseProxied(object):
     def __init__(self, app):
         self.app = app
@@ -15,6 +17,7 @@ class ReverseProxied(object):
         if scheme:
             environ['wsgi.url_scheme'] = scheme
         return self.app(environ, start_response)
+
 
 if os.path.exists("env.py"):
     import env
@@ -89,9 +92,10 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("my_exercises"))
-        response["validPassord"] = True
-        response["url"] = (url_for("my_exercises"))
+            response["validPassord"] = True
+            response["url"] = (url_for("my_exercises"))
+            return json.dumps(response)
+        response["validPassword"] = False
         return json.dumps(response)
     return render_template(
         "pages/login.html",
@@ -118,7 +122,7 @@ def register():
                     "password": generate_password_hash(
                         request_data["inputPassword"])})
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("my_exercises", _external=True, _scheme="https"))
+            response["url"] = (url_for("my_exercises"))
         return json.dumps(response)
     return render_template(
         "pages/register.html",
@@ -128,7 +132,7 @@ def register():
 @APP.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("login",_external=True,_scheme="https"))
+    return redirect(url_for("login", _external=True, _scheme="https"))
 
 
 @APP.route("/globalexercises")
