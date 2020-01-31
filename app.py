@@ -5,13 +5,25 @@ from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 
+# class ReverseProxied(object):
+#     def __init__(self, app):
+#         self.app = app
+
+#     def __call__(self, environ, start_response):
+#         scheme = environ.get('HTTP_X_FORWARDED_PROTO')
+#         if scheme:
+#             environ['wsgi.url_scheme'] = scheme
+#         return self.app(environ, start_response)
+
 if os.path.exists("env.py"):
     import env
 
 APP = Flask(__name__)
+# APP.wsgi_app = ReverseProxied(APP.wsgi_app)
 APP.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 APP.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+APP.debug = False
 CLIENT = PyMongo(APP)
 
 
@@ -77,7 +89,8 @@ def login():
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
             return redirect(url_for("my_exercises"))
-        response["validPassword"] = False
+        response["validPassord"] = True
+        response["url"] = (url_for("my_exercises"))
         return json.dumps(response)
     return render_template(
         "pages/login.html",
@@ -104,7 +117,7 @@ def register():
                     "password": generate_password_hash(
                         request_data["inputPassword"])})
             session["user"] = request_data["inputUsername"]
-            return redirect(url_for("my_exercises"))
+            return redirect(url_for("my_exercises", _external=True, _scheme="https"))
         return json.dumps(response)
     return render_template(
         "pages/register.html",
@@ -114,7 +127,7 @@ def register():
 @APP.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("login"))
+    return redirect(url_for("login",_external=True,_scheme="https"))
 
 
 @APP.route("/globalexercises")
@@ -176,15 +189,13 @@ def complete_exercise(exercise_id):
     toggle_value = False if exercise["complete"] == True else True
     CLIENT.db.exercises.update_one(
         query_filter, {"$set": {"complete": toggle_value}})
-    return redirect(url_for("my_exercises")
-                    )
+    return redirect(url_for("my_exercises", _external=True, _scheme="https"))
 
 
 @APP.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
     CLIENT.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
-    return redirect(url_for("my_exercises")
-                    )
+    return redirect(url_for("my_exercises", _external=True, _scheme="https"))
 
 
 @APP.route("/cloneexercise/<exercise_id>", methods=["POST", "GET"])
