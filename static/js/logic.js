@@ -21,10 +21,9 @@ $(document).ready(function () {
                     response.json()
                         .then(
                             responseJSON => {
+                                console.log(responseJSON)
                                 if (responseJSON.hasOwnProperty("url")) {
-                                    let targetUrl = responseJSON.url.replace("http", "https");
-                                    window.location.href = targetUrl;
-                                    // window.location.replace(responseJSON.url);
+                                    window.location.replace(responseJSON.url);
                                 }
                                 let alertMessage = "";
                                 if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }

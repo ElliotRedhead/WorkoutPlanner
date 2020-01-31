@@ -20,7 +20,7 @@ if os.path.exists("env.py"):
     import env
 
 APP = Flask(__name__)
-# APP.wsgi_app = ReverseProxied(APP.wsgi_app)
+APP.wsgi_app = ReverseProxied(APP.wsgi_app)
 APP.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 APP.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
