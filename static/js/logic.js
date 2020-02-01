@@ -89,6 +89,7 @@ $(document).ready(function () {
             data[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
         // This section is uses repeated components, avoid duplication by isolating from each function.
+        // Modal required as feedback when creation is complete.
         fetch("/createexercise", {
             method: 'POST',
             cors: '*same-origin',
