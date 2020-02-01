@@ -1,9 +1,9 @@
-function fetchParameterInit(data) { 
+function fetchParameterInit(inputData) { 
     let fetchParameters = {
         method: 'POST',
         cors: '*same-origin',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(inputData)
     }
         return fetchParameters;
 }
@@ -14,12 +14,12 @@ $(document).ready(function () {
         let inputUsername = ($("#inputUsername")).val();
         let inputPassword = ($("#inputPassword")).val();
         let inputEmail = ($("#inputEmail")).val();
-        const data = {
+        const inputData = {
             inputUsername: inputUsername.toLowerCase(),
             inputEmail: inputEmail.toLowerCase(),
             inputPassword: inputPassword
         };
-        fetch('/register', fetchParameterInit(data))
+        fetch('/register', fetchParameterInit(inputData))
             .then(response => {
                 response.json()
                     .then(
@@ -49,11 +49,11 @@ $(document).ready(function () {
         event.preventDefault();
         const inputUsername = ($("#inputUsername")).val();
         const inputPassword = ($("#inputPassword")).val();
-        data = {
+        inputData = {
             inputUsername: inputUsername.toLowerCase(),
             inputPassword: inputPassword.toLowerCase()
         };
-        fetch('/login', fetchParameterInit(data))
+        fetch('/login', fetchParameterInit(inputData))
             .then(response => {
                 response.json()
                     .then(
@@ -81,36 +81,19 @@ $(document).ready(function () {
     })
     $("#createExerciseForm").submit(function (event) {
         event.preventDefault();
-        let data = {};
+        let inputData = {};
         ($("input").each(function () {
-            data[this.id.toLowerCase()] = this.value.toLowerCase();
+            inputData[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
-        // This section is uses repeated components, avoid duplication by isolating from each function.
         // Modal required as feedback when creation is complete.
-        fetch("/createexercise", {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-    }
-    )
+        fetch("/createexercise", fetchParameterInit(inputData))})
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault();
-        let data = {};
+        let inputData = {};
         ($("input").each(function () {
-            data[this.id.toLowerCase()] = this.value.toLowerCase();
+            inputData[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
-        fetch(window.location.href, {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
+        fetch(window.location.href, fetchParameterInit(inputData))
             .then(
                 Swal.fire({
                     title: "Exercise created",
@@ -121,4 +104,4 @@ $(document).ready(function () {
             )
     }
     )
-})
+    })
