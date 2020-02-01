@@ -8,6 +8,14 @@ function fetchParameterInit(inputData) {
         return fetchParameters;
 }
 
+function displayModal(modalTitle, modalText = ""){
+    Swal.fire({
+        title: modalTitle,
+        text: modalText,
+        confirmButtonText: "Ok"
+    })
+}
+
 $(document).ready(function () {
     $("#registerForm").submit(function (event) {
         event.preventDefault();
@@ -56,15 +64,10 @@ $(document).ready(function () {
                             if (responseJSON.hasOwnProperty("url")) {
                                 window.location.replace(responseJSON.url);
                             }
-                            let alertMessage = "";
-                            if (responseJSON.existingUsername == false) { alertMessage = alertMessage.concat("Invalid username.<br>"); }
-                            else if (responseJSON.validPassword == false) { alertMessage = alertMessage.concat("Invalid password."); }
+                            if (responseJSON.existingUsername == false) { alertMessage = ("Invalid username."); }
+                            if (responseJSON.validPassword == false) { alertMessage = ("Invalid password."); }
                             if (responseJSON.existingUsername == false || responseJSON.validPassword == false) {
-                                Swal.fire({
-                                    title: "Login unsuccessful",
-                                    html: alertMessage,
-                                    confirmButtonText: 'Ok'
-                                })
+                                displayModal("Login unsuccessful", alertMessage)
                             }
                         })
             }
