@@ -5,7 +5,7 @@ from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 
-#https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
+# https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
 
 
 class ReverseProxied(object):
@@ -40,12 +40,16 @@ def active_session_check(route_url):
     route_url = str(route_url)
     active_session = bool("user" in session)
     if active_session is False and (route_url != "/login" or "/register"):
-        render_dict = dict({"page_render": render_template(
-            "pages/login.html",
-            title="Workout Planner | Login"),
-            "redirect_action": True})
+        render_dict = dict(
+            {"page_render": render_template(
+                "pages/login.html",
+                title="Workout Planner | Login"),
+             "redirect_action": True}
+        )
     else:
-        render_dict = dict({"page_render": "", "redirect_action": False})
+        render_dict = dict(
+            {"page_render": "", "redirect_action": False}
+        )
     return render_dict
 
 
@@ -57,10 +61,11 @@ def my_exercises():
     Exercise documents where the value of the field equals the name of the user
     that is logged to the session are grouped for display.
     """
-    if ((active_session_check(request.url_rule)))["redirect_action"]:
+    if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     exercises = CLIENT.db.exercises.aggregate(
-        [{"$match": {"owner": session["user"]}}])
+        [{"$match": {"owner": session["user"]}}]
+    )
     return render_template(
         "pages/exercises.html",
         title="Workout Planner | My Exercises",
@@ -77,10 +82,8 @@ def login():
     session and user is redirected to their list of exercises.
     """
     active_session_check(request.url_rule)
-
     if request.method == "POST":
         request_data = request.get_json()
-        print(request_data)
         response = {}
         logged_username = CLIENT.db.users.find_one(
             {"username": request_data["inputUsername"]}
@@ -100,7 +103,8 @@ def login():
         return json.dumps(response)
     return render_template(
         "pages/login.html",
-        title="Workout Planner | Login")
+        title="Workout Planner | Login"
+    )
 
 
 @APP.route("/register", methods=["POST", "GET"])
@@ -110,18 +114,20 @@ def register():
         request_data = request.get_json()
         response = {}
         existing_username = CLIENT.db.users.find_one(
-            {"username": request_data["inputUsername"]})
+            {"username": request_data["inputUsername"]}
+        )
         existing_email = CLIENT.db.users.find_one(
-            {"email": request_data["inputEmail"]})
+            {"email": request_data["inputEmail"]}
+        )
         response["newUsername"] = True if existing_username is None else False
         response["newEmail"] = True if existing_email is None else False
         if existing_username is None and existing_email is None:
             CLIENT.db.users.insert_one(
-                {
-                    "username": request_data["inputUsername"],
-                    "email": request_data["inputEmail"],
-                    "password": generate_password_hash(
-                        request_data["inputPassword"])})
+                {"username": request_data["inputUsername"],
+                 "email": request_data["inputEmail"],
+                 "password": generate_password_hash(
+                    request_data["inputPassword"])}
+            )
             session["user"] = request_data["inputUsername"]
             response["url"] = (url_for("my_exercises"))
         return json.dumps(response)
@@ -172,11 +178,14 @@ def edit_exercise(exercise_id):
         return active_session_check(request.url_rule)["page_render"]
     exercise = CLIENT.db.exercises.find_one(
         {"_id": ObjectId(exercise_id)}
-    )
+        )
     if request.method == "POST":
         request_data = request.get_json()
-        CLIENT.db.exercises.update_one({"_id": ObjectId(
-            exercise_id), "owner": session["user"]}, {"$set": request_data})
+        CLIENT.db.exercises.update_one(
+            {"_id": ObjectId(exercise_id),
+             "owner": session["user"]},
+            {"$set": request_data}
+            )
     return render_template(
         "forms/exerciseform.html",
         title="Workout Planner | Edit Exercise",
@@ -194,7 +203,8 @@ def complete_exercise(exercise_id):
     exercise = (CLIENT.db.exercises.find_one(query_filter))
     toggle_value = False if exercise["complete"] == True else True
     CLIENT.db.exercises.update_one(
-        query_filter, {"$set": {"complete": toggle_value}})
+        query_filter, {"$set": {"complete": toggle_value}}
+        )
     return redirect(url_for("my_exercises"))
 
 
