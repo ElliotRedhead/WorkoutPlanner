@@ -132,7 +132,7 @@ def register():
 @APP.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("login", _external=True, _scheme="https"))
+    return redirect(url_for("login"))
 
 
 @APP.route("/globalexercises")
