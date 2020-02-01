@@ -1,18 +1,23 @@
-function fetchParameterInit(inputData) { 
+function fetchParameterInit(inputData) {
     let fetchParameters = {
         method: 'POST',
         cors: '*same-origin',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputData)
     }
-        return fetchParameters;
+    return fetchParameters;
 }
 
-function displayModal(modalTitle, modalText = ""){
+function displayModal(modalTitle, modalText = "", pageRedirect = false) {
     Swal.fire({
         title: modalTitle,
         text: modalText,
         confirmButtonText: "Ok"
+    })
+    .then(function (){
+        if (pageRedirect){
+        window.location.replace("/myexercises");
+        }
     })
 }
 
@@ -37,11 +42,7 @@ $(document).ready(function () {
                             if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
                             if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
                             if (responseJSON.newUsername == false || responseJSON.newEmail == false) {
-                                Swal.fire({
-                                    title: "Registration unsuccessful",
-                                    html: alertMessage,
-                                    confirmButtonText: 'Ok'
-                                })
+                                displayModal("Registration unsuccessful", alertMessage, false)
                             }
                         }
                     )
@@ -67,7 +68,7 @@ $(document).ready(function () {
                             if (responseJSON.existingUsername == false) { alertMessage = ("Invalid username."); }
                             if (responseJSON.validPassword == false) { alertMessage = ("Invalid password."); }
                             if (responseJSON.existingUsername == false || responseJSON.validPassword == false) {
-                                displayModal("Login unsuccessful", alertMessage)
+                                displayModal("Login unsuccessful", alertMessage, false)
                             }
                         })
             }
@@ -82,8 +83,11 @@ $(document).ready(function () {
         ($("input").each(function () {
             inputData[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
-        // Modal required as feedback when creation is complete.
-        fetch("/createexercise", fetchParameterInit(inputData))})
+        fetch("/createexercise", fetchParameterInit(inputData))
+        .then(
+            displayModal("Exercise created", undefined, true)
+            )
+    })
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault();
         let inputData = {};
@@ -92,13 +96,8 @@ $(document).ready(function () {
         }));
         fetch(window.location.href, fetchParameterInit(inputData))
             .then(
-                Swal.fire({
-                    title: "Exercise created",
-                    confirmButtonText: "Ok"
-                }).then(function () {
-                    window.location.replace("/myexercises");
-                })
-            )
+                displayModal("Exercise created", undefined, true)
+                )
     }
     )
-    })
+})
