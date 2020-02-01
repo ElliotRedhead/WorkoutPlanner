@@ -11,13 +11,10 @@ function fetchParameterInit(inputData) {
 $(document).ready(function () {
     $("#registerForm").submit(function (event) {
         event.preventDefault();
-        let inputUsername = ($("#inputUsername")).val();
-        let inputPassword = ($("#inputPassword")).val();
-        let inputEmail = ($("#inputEmail")).val();
         const inputData = {
-            inputUsername: inputUsername.toLowerCase(),
-            inputEmail: inputEmail.toLowerCase(),
-            inputPassword: inputPassword
+            inputUsername: ($("#inputUsername")).val().toLowerCase(),
+            inputEmail: ($("#inputEmail")).val().toLowerCase(),
+            inputPassword: ($("#inputPassword")).val()
         };
         fetch('/register', fetchParameterInit(inputData))
             .then(response => {
@@ -47,11 +44,9 @@ $(document).ready(function () {
     })
     $("#loginForm").submit(function (event) {
         event.preventDefault();
-        const inputUsername = ($("#inputUsername")).val();
-        const inputPassword = ($("#inputPassword")).val();
         inputData = {
-            inputUsername: inputUsername.toLowerCase(),
-            inputPassword: inputPassword.toLowerCase()
+            inputUsername: ($("#inputUsername")).val().toLowerCase(),
+            inputPassword: ($("#inputPassword")).val().toLowerCase()
         };
         fetch('/login', fetchParameterInit(inputData))
             .then(response => {
