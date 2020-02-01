@@ -49,7 +49,7 @@ def active_session_check(route_url):
     return render_dict
 
 
-@APP.route("/", methods=["POST", "GET"])
+@APP.route("/")
 @APP.route("/myexercises")
 def my_exercises():
     """Displays a logged in user's exercise list.
@@ -195,13 +195,13 @@ def complete_exercise(exercise_id):
     toggle_value = False if exercise["complete"] == True else True
     CLIENT.db.exercises.update_one(
         query_filter, {"$set": {"complete": toggle_value}})
-    return redirect(url_for("my_exercises", _external=True, _scheme="https"))
+    return redirect(url_for("my_exercises"))
 
 
 @APP.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
     CLIENT.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
-    return redirect(url_for("my_exercises", _external=True, _scheme="https"))
+    return redirect(url_for("my_exercises"))
 
 
 @APP.route("/cloneexercise/<exercise_id>", methods=["POST", "GET"])

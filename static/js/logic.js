@@ -58,7 +58,6 @@ $(document).ready(function () {
                 response.json()
                     .then(
                         responseJSON => {
-                            console.log(responseJSON);
                             if (responseJSON.hasOwnProperty("url")) {
                                 window.location.replace(responseJSON.url);
                             }
