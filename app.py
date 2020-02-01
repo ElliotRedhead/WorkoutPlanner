@@ -27,7 +27,7 @@ APP.wsgi_app = ReverseProxied(APP.wsgi_app)
 APP.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 APP.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-APP.debug = False
+APP.debug = True
 CLIENT = PyMongo(APP)
 
 
@@ -49,7 +49,7 @@ def active_session_check(route_url):
     return render_dict
 
 
-@APP.route("/")
+@APP.route("/", methods=["POST", "GET"])
 @APP.route("/myexercises")
 def my_exercises():
     """Displays a logged in user's exercise list.
@@ -80,6 +80,7 @@ def login():
 
     if request.method == "POST":
         request_data = request.get_json()
+        print(request_data)
         response = {}
         logged_username = CLIENT.db.users.find_one(
             {"username": request_data["inputUsername"]}

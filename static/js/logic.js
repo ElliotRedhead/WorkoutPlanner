@@ -1,3 +1,13 @@
+function fetchParameterInit(data) { 
+    let fetchParameters = {
+        method: 'POST',
+        cors: '*same-origin',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }
+        return fetchParameters;
+}
+
 $(document).ready(function () {
     $("#registerForm").submit(function (event) {
         event.preventDefault();
@@ -9,14 +19,7 @@ $(document).ready(function () {
             inputEmail: inputEmail.toLowerCase(),
             inputPassword: inputPassword
         };
-        fetch('/register', {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
+        fetch('/register', fetchParameterInit(data))
             .then(response => {
                 response.json()
                     .then(
@@ -46,22 +49,16 @@ $(document).ready(function () {
         event.preventDefault();
         const inputUsername = ($("#inputUsername")).val();
         const inputPassword = ($("#inputPassword")).val();
-        const data = {
+        data = {
             inputUsername: inputUsername.toLowerCase(),
             inputPassword: inputPassword.toLowerCase()
         };
-        fetch('/login', {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
+        fetch('/login', fetchParameterInit(data))
             .then(response => {
                 response.json()
                     .then(
                         responseJSON => {
+                            console.log(responseJSON);
                             if (responseJSON.hasOwnProperty("url")) {
                                 window.location.replace(responseJSON.url);
                             }
