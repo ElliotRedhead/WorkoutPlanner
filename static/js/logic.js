@@ -1,5 +1,5 @@
-function fetchParameterInit(inputData) {
-    let fetchParameters = {
+function fetchParameterInit (inputData) {
+    const fetchParameters = {
         method: 'POST',
         cors: '*same-origin',
         headers: { 'Content-Type': 'application/json' },
@@ -14,11 +14,11 @@ function displayModal(modalTitle, modalText = "", pageRedirect = false) {
         text: modalText,
         confirmButtonText: "Ok"
     })
-    .then(function (){
-        if (pageRedirect){
-        window.location.replace("/myexercises");
-        }
-    })
+        .then(function () {
+            if (pageRedirect) {
+                window.location.replace("/myexercises");
+            }
+        })
 }
 
 $(document).ready(function () {
@@ -83,8 +83,8 @@ $(document).ready(function () {
             inputData[this.id.toLowerCase()] = this.value.toLowerCase();
         }));
         fetch("/createexercise", fetchParameterInit(inputData))
-        .then(
-            displayModal("Exercise created", undefined, true)
+            .then(
+                displayModal("Exercise created", undefined, true)
             )
     })
     $("#editExerciseForm").submit(function (event) {
@@ -96,7 +96,7 @@ $(document).ready(function () {
         fetch(window.location.href, fetchParameterInit(inputData))
             .then(
                 displayModal("Exercise created", undefined, true)
-                )
+            )
     }
     )
 })
