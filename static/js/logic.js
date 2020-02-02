@@ -38,8 +38,8 @@ $(document).ready(function () {
                                 window.location.replace(responseJSON.url)
                             }
                             let alertMessage = "";
-                            if (responseJSON.newUsername === false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
-                            if (responseJSON.newEmail === false) { alertMessage = alertMessage.concat("Email address already registered."); }
+                            if (responseJSON.newUsername === false) { alertMessage = alertMessage.concat("Username already exists.<br>") }
+                            if (responseJSON.newEmail === false) { alertMessage = alertMessage.concat("Email address already registered.") }
                             if (responseJSON.newUsername === false || responseJSON.newEmail === false) {
                                 displayModal("Registration unsuccessful", alertMessage, false)
                             }
@@ -55,7 +55,7 @@ $(document).ready(function () {
         const inputData = {
             inputUsername: ($("#inputUsername")).val().toLowerCase(),
             inputPassword: ($("#inputPassword")).val().toLowerCase()
-        };
+        }
         fetch('/login', fetchParameterInit(inputData))
             .then(response => {
                 response.json()
@@ -64,8 +64,8 @@ $(document).ready(function () {
                             if (responseJSON.hasOwnProperty("url")) {
                                 window.location.replace(responseJSON.url)
                             }
-                            if (responseJSON.existingUsername === false) { const alertMessage = ("Invalid username."); }
-                            if (responseJSON.validPassword === false) { const alertMessage = ("Invalid password."); }
+                            if (responseJSON.existingUsername === false) { const alertMessage = ("Invalid username.") }
+                            if (responseJSON.validPassword === false) { const alertMessage = ("Invalid password.") }
                             if (responseJSON.existingUsername === false || responseJSON.validPassword === false) {
                                 displayModal("Login unsuccessful", alertMessage, false)
                             }
