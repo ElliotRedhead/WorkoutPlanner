@@ -47,13 +47,13 @@ $(document).ready(function () {
                             if (responseJSON.hasOwnProperty("url")) {
                                 window.location.replace(responseJSON.url)
                             }
+                            const invalidInput = authBooleanCheck (responseJSON, 3)
                             let alertMessage = "";
-                            if (responseJSON.newUsername === false) { alertMessage = alertMessage.concat("Username already exists.<br>") }
-                            if (responseJSON.newEmail === false) { alertMessage = alertMessage.concat("Email address already registered.") }
-                            if (responseJSON.newUsername === false || responseJSON.newEmail === false) {
+                            Object.keys(invalidInput).forEach((key => {
+                                alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
+                            }))
                                 displayModal("Registration unsuccessful", alertMessage, false)
                             }
-                        }
                     )
                     .catch(error => {
                         console.log(error)
