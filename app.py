@@ -218,7 +218,7 @@ def complete_exercise(exercise_id):
         return active_session_check(request.url_rule)["page_render"]
     query_filter = {"_id": ObjectId(exercise_id), "owner": session["user"]}
     exercise = (CLIENT.db.exercises.find_one(query_filter))
-    toggle_value = False if exercise["complete"] == True else True
+    toggle_value = not bool(exercise["complete"])
     CLIENT.db.exercises.update_one(
         query_filter, {"$set": {"complete": toggle_value}}
         )
@@ -234,7 +234,7 @@ def delete_exercise(exercise_id):
 
 @APP.route("/cloneexercise/<exercise_id>", methods=["POST", "GET"])
 def clone_exercise(exercise_id):
-    """Details of selected exercise passed to form, submitted exercise assigned to user in session."""
+    """Details of selected exercise passed to form, submitted exercise assigned to session user."""
     full_record = CLIENT.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     partial_record = {"owner": session["user"],
                       "_id": ObjectId(), "complete": False}
