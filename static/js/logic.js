@@ -18,6 +18,14 @@ function authBooleanCheck (responseJSON, isolationNumber) {
     return invalidKeys
 }
 
+function createExerciseObject(){
+    const inputData = {};
+    ($("input").each(function () {
+        inputData[this.id.toLowerCase()] = this.value.toLowerCase()
+    }))
+    return inputData
+}
+
 function displayModal (modalTitle, modalText = "", pageRedirect = false) {
     Swal.fire({
         title: modalTitle,
@@ -87,10 +95,7 @@ $(document).ready(function () {
     })
     $("#createExerciseForm").submit(function (event) {
         event.preventDefault()
-        const inputData = {};
-        ($("input").each(function () {
-            inputData[this.id.toLowerCase()] = this.value.toLowerCase()
-        }))
+        createExerciseObject()
         fetch("/createexercise", fetchParameterInit(inputData))
             .then(
                 displayModal("Exercise created", undefined, true)
@@ -98,10 +103,7 @@ $(document).ready(function () {
     })
     $("#editExerciseForm").submit(function (event) {
         event.preventDefault()
-        const inputData = {};
-        ($("input").each(function () {
-            inputData[this.id.toLowerCase()] = this.value.toLowerCase()
-        }))
+        createExerciseObject()
         fetch(window.location.href, fetchParameterInit(inputData))
             .then(
                 displayModal("Exercise created", undefined, true)
