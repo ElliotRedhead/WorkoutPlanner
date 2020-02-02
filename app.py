@@ -89,9 +89,9 @@ def login():
             {"username": request_data["inputUsername"]}
         )
         if logged_username is None:
-            response["existingUsername"] = False
+            response["validUsername"] = False
             return json.dumps(response)
-        response["existingUsername"] = True
+        response["validUsername"] = True
         if check_password_hash(
                 (logged_username["password"]),
                 (request_data["inputPassword"])):

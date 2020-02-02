@@ -8,6 +8,16 @@ function fetchParameterInit (inputData) {
     return fetchParameters
 }
 
+function authBooleanCheck (responseJSON, isolationNumber) {
+    invalidKeys = []
+    Object.keys(responseJSON).forEach((key) => {
+        if (!responseJSON[key]) {
+            invalidKeys.push((key.substr(isolationNumber)).toLowerCase())
+        }
+    })
+    return invalidKeys
+}
+
 function displayModal (modalTitle, modalText = "", pageRedirect = false) {
     Swal.fire({
         title: modalTitle,
@@ -64,10 +74,9 @@ $(document).ready(function () {
                             if (responseJSON.hasOwnProperty("url")) {
                                 window.location.replace(responseJSON.url)
                             }
-                            if (responseJSON.existingUsername === false) { const alertMessage = ("Invalid username.") }
-                            if (responseJSON.validPassword === false) { const alertMessage = ("Invalid password.") }
-                            if (responseJSON.existingUsername === false || responseJSON.validPassword === false) {
-                                displayModal("Login unsuccessful", alertMessage, false)
+                            invalidInput = authBooleanCheck(responseJSON, 5)
+                            if (invalidInput.length > 0){
+                                displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
                             }
                         })
             }
