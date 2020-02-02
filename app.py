@@ -9,6 +9,11 @@ from bson.objectid import ObjectId
 
 
 class ReverseProxied(object):
+    """Ensures requests operate through https protocol.
+
+    Solution to mixed content error provided by user "aldel":
+    https://stackoverflow.com/a/37842465
+    """
     def __init__(self, app):
         self.app = app
 
@@ -74,7 +79,7 @@ def my_exercises():
 
 @APP.route("/login", methods=["POST", "GET"])
 def login():
-    """Validates submitted credentials, if valid: user added to session else: returns fail response.
+    """Validates submitted credentials, if valid: add user to session, else: return fail response.
 
     Checks if the submitted username exists in the database, if not a suitable response is returned,
     if the username exists then the hashed password is compared with the existing database entry.
@@ -109,6 +114,13 @@ def login():
 
 @APP.route("/register", methods=["POST", "GET"])
 def register():
+    """Validates submitted data, if valid: add user to database/session, else: return fail response.
+
+    Checks if submitted username or password already exist in database,
+    if so then a fail message is returned.
+    If user is non-existent then a new user is created, the password is passed in hashed form.
+    User is redirected to their exercise list on successful account creation.
+    """
     active_session_check(request.url_rule)
     if request.method == "POST":
         request_data = request.get_json()
@@ -138,12 +150,14 @@ def register():
 
 @APP.route("/logout")
 def logout():
+    """Clears user from session and redirects to the login page."""
     session.clear()
     return redirect(url_for("login"))
 
 
 @APP.route("/globalexercises")
 def global_exercises():
+    """Displays exercises owned by all users."""
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     exercises = CLIENT.db.exercises.find()
@@ -155,6 +169,7 @@ def global_exercises():
 
 @APP.route("/createexercise", methods=["POST", "GET"])
 def create_exercise():
+    """User-defined exercise added to database, user in session recorded as owner."""
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     if request.method == "POST":
@@ -174,6 +189,7 @@ def create_exercise():
 
 @APP.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
 def edit_exercise(exercise_id):
+    """Selected exercise updated with user-defined details if owner is user in session."""
     if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     exercise = CLIENT.db.exercises.find_one(
@@ -197,6 +213,7 @@ def edit_exercise(exercise_id):
 
 @APP.route("/completeexercise/<exercise_id>", methods=["POST", "GET"])
 def complete_exercise(exercise_id):
+    """Selected exercise "complete" variable boolean inverted."""
     if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     query_filter = {"_id": ObjectId(exercise_id), "owner": session["user"]}
@@ -210,12 +227,14 @@ def complete_exercise(exercise_id):
 
 @APP.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
+    """Selected exercise is removed from the database."""
     CLIENT.db.exercises.find_one_and_delete({"_id": ObjectId(exercise_id)})
     return redirect(url_for("my_exercises"))
 
 
 @APP.route("/cloneexercise/<exercise_id>", methods=["POST", "GET"])
 def clone_exercise(exercise_id):
+    """Details of selected exercise passed to form, submitted exercise assigned to user in session."""
     full_record = CLIENT.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     partial_record = {"owner": session["user"],
                       "_id": ObjectId(), "complete": False}
