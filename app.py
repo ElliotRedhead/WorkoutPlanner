@@ -131,8 +131,8 @@ def register():
         existing_email = CLIENT.db.users.find_one(
             {"email": request_data["inputEmail"]}
         )
-        response["newUsername"] = True if existing_username is None else False
-        response["newEmail"] = True if existing_email is None else False
+        response["newUsername"] = bool(existing_username is None)
+        response["newEmail"] = bool(existing_username is None)
         if existing_username is None and existing_email is None:
             CLIENT.db.users.insert_one(
                 {"username": request_data["inputUsername"],
