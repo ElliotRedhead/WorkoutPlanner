@@ -1,3 +1,84 @@
+$(document).ready(function () {
+    $("#registerForm").submit(function (event) {
+        registerFormHandling()
+    })
+    $("#loginForm").submit(function (event) {
+        loginFormHandling()
+    })
+    $("#createExerciseForm").submit(function (event) {
+        event.preventDefault()
+        createExerciseObject()
+        fetch("/createexercise", fetchParameterInit(inputData))
+            .then(
+                displayModal("Exercise created", undefined, true)
+            )
+    })
+    $("#editExerciseForm").submit(function (event) {
+        event.preventDefault()
+        createExerciseObject()
+        fetch(window.location.href, fetchParameterInit(inputData))
+            .then(
+                displayModal("Exercise created", undefined, true)
+            )
+    }
+    )
+})
+
+function registerFormHandling() {
+    event.preventDefault()
+    const inputData = {
+        inputUsername: ($("#inputUsername")).val().toLowerCase(),
+        inputEmail: ($("#inputEmail")).val().toLowerCase(),
+        inputPassword: ($("#inputPassword")).val()
+    }
+    fetch('/register', fetchParameterInit(inputData))
+        .then(response => {
+            response.json()
+                .then(
+                    responseJSON => {
+                        if (responseJSON.hasOwnProperty("url")) {
+                            window.location.replace(responseJSON.url)
+                        }
+                        const invalidInput = authBooleanCheck (responseJSON, 3)
+                        let alertMessage = "";
+                        Object.keys(invalidInput).forEach((key => {
+                            alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
+                        }))
+                            displayModal("Registration unsuccessful", alertMessage, false)
+                        }
+                )
+                .catch(error => {
+                    console.log(error)
+                })
+        })
+}
+
+function loginFormHandling() {
+    event.preventDefault()
+    const inputData = {
+        inputUsername: ($("#inputUsername")).val().toLowerCase(),
+        inputPassword: ($("#inputPassword")).val().toLowerCase()
+    }
+    fetch('/login', fetchParameterInit(inputData))
+        .then(response => {
+            response.json()
+                .then(
+                    responseJSON => {
+                        if (responseJSON.hasOwnProperty("url")) {
+                            window.location.replace(responseJSON.url)
+                        }
+                        invalidInput = authBooleanCheck(responseJSON, 5)
+                        if (invalidInput.length > 0){
+                            displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
+                        }
+                    })
+        }
+        )
+        .catch(error => {
+            console.log(error)
+        })
+}
+
 function fetchParameterInit (inputData) {
     const fetchParameters = {
         method: 'POST',
@@ -39,75 +120,3 @@ function displayModal (modalTitle, modalText = "", pageRedirect = false) {
         })
 }
 
-$(document).ready(function () {
-    $("#registerForm").submit(function (event) {
-        event.preventDefault()
-        const inputData = {
-            inputUsername: ($("#inputUsername")).val().toLowerCase(),
-            inputEmail: ($("#inputEmail")).val().toLowerCase(),
-            inputPassword: ($("#inputPassword")).val()
-        }
-        fetch('/register', fetchParameterInit(inputData))
-            .then(response => {
-                response.json()
-                    .then(
-                        responseJSON => {
-                            if (responseJSON.hasOwnProperty("url")) {
-                                window.location.replace(responseJSON.url)
-                            }
-                            const invalidInput = authBooleanCheck (responseJSON, 3)
-                            let alertMessage = "";
-                            Object.keys(invalidInput).forEach((key => {
-                                alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
-                            }))
-                                displayModal("Registration unsuccessful", alertMessage, false)
-                            }
-                    )
-                    .catch(error => {
-                        console.log(error)
-                    })
-            })
-    })
-    $("#loginForm").submit(function (event) {
-        event.preventDefault()
-        const inputData = {
-            inputUsername: ($("#inputUsername")).val().toLowerCase(),
-            inputPassword: ($("#inputPassword")).val().toLowerCase()
-        }
-        fetch('/login', fetchParameterInit(inputData))
-            .then(response => {
-                response.json()
-                    .then(
-                        responseJSON => {
-                            if (responseJSON.hasOwnProperty("url")) {
-                                window.location.replace(responseJSON.url)
-                            }
-                            invalidInput = authBooleanCheck(responseJSON, 5)
-                            if (invalidInput.length > 0){
-                                displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
-                            }
-                        })
-            }
-            )
-            .catch(error => {
-                console.log(error)
-            })
-    })
-    $("#createExerciseForm").submit(function (event) {
-        event.preventDefault()
-        createExerciseObject()
-        fetch("/createexercise", fetchParameterInit(inputData))
-            .then(
-                displayModal("Exercise created", undefined, true)
-            )
-    })
-    $("#editExerciseForm").submit(function (event) {
-        event.preventDefault()
-        createExerciseObject()
-        fetch(window.location.href, fetchParameterInit(inputData))
-            .then(
-                displayModal("Exercise created", undefined, true)
-            )
-    }
-    )
-})
