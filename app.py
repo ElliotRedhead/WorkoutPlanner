@@ -138,7 +138,7 @@ def register():
                 {"username": request_data["inputUsername"],
                  "email": request_data["inputEmail"],
                  "password": generate_password_hash(
-                    request_data["inputPassword"])}
+                     request_data["inputPassword"])}
             )
             session["user"] = request_data["inputUsername"]
             response["url"] = (url_for("my_exercises"))
