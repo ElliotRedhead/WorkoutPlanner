@@ -1,3 +1,7 @@
+/*
+Once DOM creation is complete the contained functions are called if
+their triggering form is submitted.
+*/
 $(document).ready(function () {
     $("#registerForm").submit(function (event) {
         registerFormHandling()
@@ -23,7 +27,12 @@ $(document).ready(function () {
     }
     )
 })
+/*
+The fields from the registration form are added to an array, if the field's
+case is not required it is set to lowercase for standardisation.
 
+
+*/
 function registerFormHandling() {
     event.preventDefault()
     const inputData = {
