@@ -1,127 +1,131 @@
+/*
+Once DOM creation is complete the contained functions are called if
+their triggering form is submitted.
+*/
 $(document).ready(function () {
     $("#registerForm").submit(function (event) {
-        event.preventDefault();
-        let inputUsername = ($("#inputUsername")).val();
-        let inputPassword = ($("#inputPassword")).val();
-        let inputEmail = ($("#inputEmail")).val();
-        const data = {
-            inputUsername: inputUsername.toLowerCase(),
-            inputEmail: inputEmail.toLowerCase(),
-            inputPassword: inputPassword
-        };
-        fetch('/register', {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (response.redirected == false) {
-                    response.json()
-                        .then(
-                            responseJSON => {
-                                let alertMessage = "";
-                                if (responseJSON.newUsername == false) { alertMessage = alertMessage.concat("Username already exists.<br>"); }
-                                if (responseJSON.newEmail == false) { alertMessage = alertMessage.concat("Email address already registered."); }
-                                Swal.fire({
-                                    title: "Registration unsuccessful",
-                                    html: alertMessage,
-                                    confirmButtonText: 'Ok'
-                                })
-                            }
-                        )
-                }
-                if (response.redirected) {
-                    let targetUrl = response.url.replace("http","https");
-                    window.location = targetUrl;
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        })
+        registerFormHandling()
+    })
     $("#loginForm").submit(function (event) {
-        event.preventDefault();
-        const inputUsername = ($("#inputUsername")).val();
-        const inputPassword = ($("#inputPassword")).val();
-        const data = {
-            inputUsername: inputUsername.toLowerCase(),
-            inputPassword: inputPassword.toLowerCase()
-        };
-        fetch('/login', {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (response.redirected == false) {
-                    response.json()
-                        .then(
-                            responseJSON => {
-                                let alertMessage = "";
-                                if (responseJSON.existingUsername == false) { alertMessage = alertMessage.concat("Invalid username.<br>"); }
-                                else if (responseJSON.validPassword == false) { alertMessage = alertMessage.concat("Invalid password."); }
-                                Swal.fire({
-                                    title: "Login unsuccessful",
-                                    html: alertMessage,
-                                    confirmButtonText: 'Ok'
-                                })
-                            }
-                        )
-                }
-                if (response.redirected) {
-                    let targetUrl = response.url.replace("http","https");
-                    window.location.href = targetUrl;
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        loginFormHandling()
     })
     $("#createExerciseForm").submit(function (event) {
-        event.preventDefault();
-        let data = {};
-        ($("input").each(function () {
-            data[this.id.toLowerCase()] = this.value.toLowerCase();
-        }));
-        // This section is uses repeated components, avoid duplication by isolating from each function.
-        fetch("/createexercise", {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-    }
-    )
-    $("#editExerciseForm").submit(function (event) {
-        event.preventDefault();
-        let data = {};
-        ($("input").each(function () {
-            data[this.id.toLowerCase()] = this.value.toLowerCase();
-        }));
-        fetch(window.location.href, {
-            method: 'POST',
-            cors: '*same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
+        event.preventDefault()
+        createExerciseObject()
+        fetch("/createexercise", fetchParameterInit(inputData))
             .then(
-                Swal.fire({
-                    title: "Exercise created",
-                    confirmButtonText: "Ok"
-                }).then(function () {
-                    window.location.replace("/myexercises");
-                })
+                displayModal("Exercise created", undefined, true)
+            )
+    })
+    $("#editExerciseForm").submit(function (event) {
+        event.preventDefault()
+        createExerciseObject()
+        fetch(window.location.href, fetchParameterInit(inputData))
+            .then(
+                displayModal("Exercise created", undefined, true)
             )
     }
     )
 })
+/*
+The fields from the registration form are added to an array, if the field's
+case is not required it is set to lowercase for standardisation.
+
+
+*/
+function registerFormHandling() {
+    event.preventDefault()
+    const inputData = {
+        inputUsername: ($("#inputUsername")).val().toLowerCase(),
+        inputEmail: ($("#inputEmail")).val().toLowerCase(),
+        inputPassword: ($("#inputPassword")).val()
+    }
+    fetch('/register', fetchParameterInit(inputData))
+        .then(response => {
+            response.json()
+                .then(
+                    responseJSON => {
+                        if (responseJSON.hasOwnProperty("url")) {
+                            window.location.replace(responseJSON.url)
+                        }
+                        const invalidInput = authBooleanCheck (responseJSON, 3)
+                        let alertMessage = "";
+                        Object.keys(invalidInput).forEach((key => {
+                            alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
+                        }))
+                            displayModal("Registration unsuccessful", alertMessage, false)
+                        }
+                )
+                .catch(error => {
+                    console.log(error)
+                })
+        })
+}
+
+function loginFormHandling() {
+    event.preventDefault()
+    const inputData = {
+        inputUsername: ($("#inputUsername")).val().toLowerCase(),
+        inputPassword: ($("#inputPassword")).val().toLowerCase()
+    }
+    fetch('/login', fetchParameterInit(inputData))
+        .then(response => {
+            response.json()
+                .then(
+                    responseJSON => {
+                        if (responseJSON.hasOwnProperty("url")) {
+                            window.location.replace(responseJSON.url)
+                        }
+                        invalidInput = authBooleanCheck(responseJSON, 5)
+                        if (invalidInput.length > 0){
+                            displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
+                        }
+                    })
+        }
+        )
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function fetchParameterInit (inputData) {
+    const fetchParameters = {
+        method: 'POST',
+        cors: '*same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(inputData)
+    }
+    return fetchParameters
+}
+
+function authBooleanCheck (responseJSON, isolationNumber) {
+    invalidKeys = []
+    Object.keys(responseJSON).forEach((key) => {
+        if (!responseJSON[key]) {
+            invalidKeys.push((key.substr(isolationNumber)).toLowerCase())
+        }
+    })
+    return invalidKeys
+}
+
+function createExerciseObject(){
+    const inputData = {};
+    ($("input").each(function () {
+        inputData[this.id.toLowerCase()] = this.value.toLowerCase()
+    }))
+    return inputData
+}
+
+function displayModal (modalTitle, modalText = "", pageRedirect = false) {
+    Swal.fire({
+        title: modalTitle,
+        html: modalText,
+        confirmButtonText: "Ok"
+    })
+        .then(function () {
+            if (pageRedirect) {
+                window.location.replace("/myexercises");
+            }
+        })
+}
+
