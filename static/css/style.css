@@ -31,6 +31,11 @@ body {
     margin-bottom: 1rem;
 }
 
+/*
+Custom styling of sweetalerts modals, forced to use !important to override
+in-built classes as cannot use specificity to drive changes.
+Font/background colour and border radius redefined.
+*/
 .swal2-popup, .swal2-content, .swal2-title {
     color: #ffffff !important;
     border-radius: 0 !important;
