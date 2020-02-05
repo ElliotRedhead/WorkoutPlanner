@@ -11,16 +11,15 @@ $(document).ready(function () {
     })
     $("#createExerciseForm").submit(function () {
         event.preventDefault()
-        createExerciseObject()
-        fetch("/createexercise", fetchParameterInit(inputData))
+        fetch("/createexercise", fetchParameterInit(createExerciseObject()))
             .then(
                 displayModal("Exercise created", undefined, true)
             )
     })
     $("#editExerciseForm").submit(function () {
         event.preventDefault()
-        createExerciseObject()
-        fetch(window.location.href, fetchParameterInit(inputData))
+        
+        fetch(window.location.href, fetchParameterInit(createExerciseObject()))
             .then(
                 displayModal("Exercise created", undefined, true)
             )
