@@ -2,14 +2,14 @@
 * Once DOM creation is complete the contained functions are called if
 * their triggering form is submitted.
 */
-$(document).ready(function() {
+$(document).ready(function () {
     $("#registerForm").submit(function () {
         registerFormHandling()
     })
-    $("#loginForm").submit(function() {
+    $("#loginForm").submit(function () {
         loginFormHandling()
     })
-    $("#createExerciseForm").submit(function() {
+    $("#createExerciseForm").submit(function () {
         event.preventDefault()
         createExerciseObject()
         fetch("/createexercise", fetchParameterInit(inputData))
@@ -17,7 +17,7 @@ $(document).ready(function() {
                 displayModal("Exercise created", undefined, true)
             )
     })
-    $("#editExerciseForm").submit(function() {
+    $("#editExerciseForm").submit(function () {
         event.preventDefault()
         createExerciseObject()
         fetch(window.location.href, fetchParameterInit(inputData))
@@ -50,13 +50,13 @@ function registerFormHandling() {
                         if (responseJSON.hasOwnProperty("url")) {
                             window.location.replace(responseJSON.url)
                         }
-                        const invalidInput = authBooleanCheck (responseJSON, 3)
+                        const invalidInput = authBooleanCheck(responseJSON, 3)
                         let alertMessage = "";
                         Object.keys(invalidInput).forEach((key => {
                             alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
                         }))
-                            displayModal("Registration unsuccessful", alertMessage, false)
-                        }
+                        displayModal("Registration unsuccessful", alertMessage, false)
+                    }
                 )
                 .catch(error => {
                     console.log(error)
@@ -86,7 +86,7 @@ function loginFormHandling() {
                             window.location.replace(responseJSON.url)
                         }
                         invalidInput = authBooleanCheck(responseJSON, 5)
-                        if (invalidInput.length > 0){
+                        if (invalidInput.length > 0) {
                             displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
                         }
                     })
@@ -102,7 +102,7 @@ function loginFormHandling() {
  * These request options are constant for all requests made in this project.
  * @param {object} inputData - Object created from submitted form data.
  */
-function fetchParameterInit (inputData) {
+function fetchParameterInit(inputData) {
     const fetchParameters = {
         method: 'POST',
         cors: '*same-origin',
@@ -112,11 +112,13 @@ function fetchParameterInit (inputData) {
     return fetchParameters
 }
 /**
- * 
- * @param {object} responseJSON -
- * @param {integer} isolationNumber -
+ * Receives invalid inputs, removes start of the string and turns to lowercase.
+ * e.g. invalidPassword => Password => password
+ * Result is pushed to an array and final array is returned.
+ * @param {object} responseJSON - Response from backend, failed input strings.
+ * @param {integer} isolationNumber - Number of letters to remove from string.
  */
-function authBooleanCheck (responseJSON, isolationNumber) {
+function authBooleanCheck(responseJSON, isolationNumber) {
     invalidKeys = []
     Object.keys(responseJSON).forEach((key) => {
         if (!responseJSON[key]) {
@@ -126,9 +128,10 @@ function authBooleanCheck (responseJSON, isolationNumber) {
     return invalidKeys
 }
 /**
- * 
+ * Uses jQuery to capture value of input data for workout spec.
+ * Each value converted to lowercase for standardised database data.
  */
-function createExerciseObject(){
+function createExerciseObject() {
     const inputData = {};
     ($("input").each(function () {
         inputData[this.id.toLowerCase()] = this.value.toLowerCase()
@@ -136,12 +139,13 @@ function createExerciseObject(){
     return inputData
 }
 /**
- * 
- * @param {*} modalTitle 
- * @param {*} modalText 
- * @param {*} pageRedirect 
+ * Displays modal with customised content based on passed arguments.
+ * If page redirect true: user is redirected to their exercise list.
+ * @param {string} modalTitle The header text displayed in the modal.
+ * @param {string} modalText The body text displayed in the modal.
+ * @param {boolean} pageRedirect Determines if window redirect occurs.
  */
-function displayModal (modalTitle, modalText = "", pageRedirect = false) {
+function displayModal(modalTitle, modalText = "", pageRedirect = false) {
     Swal.fire({
         title: modalTitle,
         html: modalText,
