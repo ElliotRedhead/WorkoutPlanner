@@ -54,7 +54,9 @@ function registerFormHandling() {
                         Object.keys(invalidInput).forEach((key => {
                             alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
                         }))
-                        displayModal("Registration unsuccessful", alertMessage, false)
+                        if (invalidInput.length > 0) {
+                            displayModal("Registration unsuccessful", alertMessage, false)
+                        }
                     }
                 )
                 .catch(error => {
@@ -84,7 +86,7 @@ function loginFormHandling() {
                         if (responseJSON.hasOwnProperty("url")) {
                             window.location.replace(responseJSON.url)
                         }
-                        invalidInput = authBooleanCheck(responseJSON, 5)
+                        const invalidInput = authBooleanCheck(responseJSON, 5)
                         if (invalidInput.length > 0) {
                             displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
                         }
