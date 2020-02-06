@@ -58,7 +58,6 @@ def active_session_check(route_url):
     return render_dict
 
 
-@APP.route("/")
 @APP.route("/myexercises")
 def my_exercises():
     """Displays a logged in user's exercise list.
@@ -76,7 +75,7 @@ def my_exercises():
         title="Workout Planner | My Exercises",
         exercises=exercises)
 
-
+@APP.route("/")
 @APP.route("/login", methods=["POST", "GET"])
 def login():
     """Validates submitted credentials, if valid: add user to session, else: return fail response.
