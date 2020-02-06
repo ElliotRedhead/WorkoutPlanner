@@ -145,7 +145,9 @@ def register():
         return json.dumps(response)
     return render_template(
         "pages/register.html",
-        title="Workout Planner | Register")
+        title="Workout Planner | Register",
+        formId="registerForm",
+        alternativeAuthPath="login")
 
 
 @APP.route("/logout")
