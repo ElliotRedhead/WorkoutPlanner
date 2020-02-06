@@ -108,8 +108,11 @@ def login():
         return json.dumps(response)
     return render_template(
         "pages/login.html",
-        title="Workout Planner | Login"
-    )
+        title="Workout Planner | Login",
+        formId="loginForm",
+        currentAuthPath="login",
+        alternativeAuthPath=(url_for('register')),
+        alternativeAuthPathPrompt="Not registered? Click here.")
 
 
 @APP.route("/register", methods=["POST", "GET"])
@@ -145,7 +148,11 @@ def register():
         return json.dumps(response)
     return render_template(
         "pages/register.html",
-        title="Workout Planner | Register")
+        title="Workout Planner | Register",
+        formId="registerForm",
+        currentAuthPath="register",
+        alternativeAuthPath=(url_for('login')),
+        alternativeAuthPathPrompt="Already registered? Login here.")
 
 
 @APP.route("/logout")

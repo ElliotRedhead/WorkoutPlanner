@@ -1,19 +1,4 @@
 {% extends "layout/base.html"%}
 {% block content %}
-<form id="registerForm" class="container-fluid" method="POST">
-    <div class="form-group row">
-      <label for="inputUsername" class="col-10 offset-1">Username</label>
-      <input type="text" class="form-control col-10 offset-1" id="inputUsername" name="inputUsername" aria-describedby="usernameHelp" placeholder="Enter username" required>
-    </div>
-    <div class="form-group row">
-        <label for="inputEmail" class="col-10 offset-1">Email</label>
-        <input type="email" class="form-control col-10 offset-1" id="inputEmail" name="inputEmail" placeholder="example@domain.com" required>
-      </div>
-    <div class="form-group row">
-      <label for="inputPassword" class="col-10 offset-1">Password</label>
-      <input type="password" class="form-control col-10 offset-1" id="inputPassword" name="inputPassword" placeholder="Password" required>
-    </div>
-    <button type="submit" id="register" name="register" class="btn btn-primary col-10 offset-1">Register</button>
-  </form>
-<a href="{{url_for('login')}}" class="col-10 offset-1">Already registered? Login here.</a> 
+{% include "forms/authenticationform.html" %}
 {% endblock %}
