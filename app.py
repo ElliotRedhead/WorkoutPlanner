@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 # https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
 
 
-class ReverseProxied(object):
+class ReverseProxied():
     """Ensures requests operate through https protocol.
 
     Solution to mixed content error provided by user "aldel":
