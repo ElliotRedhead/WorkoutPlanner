@@ -6,12 +6,20 @@ Submission for Code Institute's Data-Centric Development Milestone Project, an a
 
 ## User Experience
 
-#### The target audience for this website is:
+### Target Audience
 
--
+- People interested in planning their workouts.
+- People who want to record their workouts in a list.
+- People who want to view or follow others' exercise lists.
 
-#### This project is the best way to deliver the content because:
+### Project Suitability
 
+This project is a suitable way to deliver this content because:
+
+- An authentication feature enables ownership of settings and objects.
+- Selective permissions limit user interaction with exercises they are not the owner of, preventing unauthorised editing or removal of others' exercises.
+- Users have the ability to create, view, edit or delete their own exercises, and ability to clone others' exercises to their own list.
+- Users can "follow" other users, and display followed users' exercises in a filtered list.
 
 ## User Stories
 
