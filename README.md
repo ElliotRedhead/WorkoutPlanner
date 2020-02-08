@@ -33,7 +33,13 @@ This project is a suitable way to deliver this content because:
 
 ### User Story Fulfilment
 
-1. 2.
+1. Upon loading the site the user is directed to a login page, this page is shown as a higher priority than the register page as the user may have previously registered on another device and encourages them to use an existing account if possible. As the user in this scenario does not have an account the link below the login form redirects to the register form. User-input of invalid credentials throws an error modal with feedback as to which fields are invalid. If valid credentials are entered: the user details are added to the database and the user is redirected to their exercise list. The field for email address is only required to encourage users to only create one account per person.
+2. Upon loading the site the user is directed to a login page. If the user submits invalid credentials a error modal is displayed detailing the invalid field. If valid credentials are submitted the user is redirected to their list of exercises.
+3. If the user is not on the "My Exercises" page, they can select "My Exercises" from the navigation bar. Selecting the "Create new exercise" button displays a form with a placeholder example for guidance. All fields require population for the form to be submitted, upon successful submission a modal is displayed and the user is redirected to their exercise list.
+4. The user can select the "Edit" button on exercise cards they are the owner of, this redirects to a form to alter the individual properties of the exercise. Upon valid population of required fields and activation of the "Confirm" button
+5. The user can select the "Delete" button on exercise cards they are the owner of, the target exercise is removed from the database and the user is redirected to their list of exercises.
+6. The "Clone" button is available for all exercise cards, regardless of the owner. Activation of the clone button directs the user to a form with all properties pre-filled with the properties of the cloned exercise, the user has the option to edit the exercise properties before activating the "Confirm" button. Upon confirmation, the new exercise is added to the user's list. If an exercise has been cloned accidentally the user has the option to delete the new exercise.
+7. The owner of the exercise has the "Complete" button available for activation on the exercise card. Upon activation: the style of the card is updated to reflect the new completed state as has been updated in the database.
 
 ## Design & Styling
 
