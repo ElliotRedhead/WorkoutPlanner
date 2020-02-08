@@ -91,12 +91,15 @@ The following are suggested additions that would exceed the project time constra
 
 ## Technologies Used
 
-- HTML, CSS and Javascript programming languages are used for creating the core structure, styling and logic of this site.
+- HTML, CSS and Javascript are used for creating the frontend structure blocks, styling and logic of this site.
 - [jQuery](https://jquery.com/) is primarily used within this project for ease of DOM manipulation.
 - [Bootstrap](https://getbootstrap.com) is used for resolution responsiveness and for general structuring of the UI.
+- [Flask](https://www.fullstackpython.com/flask.html) is a Python-based framework used for the implementation of templates for components and page structures within this project.
+- [MongoDB](https://www.mongodb.com/) was used to store the no-SQL database.
+- [PyMongo](https://api.mongodb.com/python/current/) was used to manage/interact with the MongoDB database.
 - [Git](https://git-scm.com/) is used for the version control of this project.
-- [Font Awesome](https://fontawesome.com/) provides the shuffle and information icons (used for both the welcome trigger and tooltips).
-- [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced in this way is ...
+- [Font Awesome](https://fontawesome.com/) provide all icons used in buttons, e.g. complete, clone, edit, delete.
+- [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced through this service is named Bebas Neue.
 
 ### Testing
 
