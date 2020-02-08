@@ -23,11 +23,13 @@ This project is a suitable way to deliver this content because:
 
 ## User Stories
 
-1. As a new or established user I want to create a list of exercises for a unique workout day to make a customised one-off workout.
-2. As a repeat user wanting to duplicate exercises from a previous workout I want to copy one or multiple exercises from a list.
-3. As an established user I want to mark exercises as complete from my workout to-do list as I progress through my workout.
-4. As an established user I want to modify an exercise in a list to make corrections or substitutions.
-5. As an established user I want to delete exercises from my workout list to dynamically alter a workout at a later stage if the exercise is no longer required.
+1. As a new user I want to create an account.
+2. As an established user I want to login to access my exercises.
+3. As a logged-in user I want to create a new exercise.
+4. As a logged-in user I want to edit one of my exercises.
+5. As a logged-in user I want to delete one of my exercises.
+6. As a logged-in user I want to clone another user's exercise.
+7. As a logged-in user I want to mark my exercise as complete.
 
 ### User Story Fulfilment
 
