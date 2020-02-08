@@ -52,8 +52,7 @@ The chosen palette defines the site as a predominantly dark-themed design with l
 ## Wireframes
 
 <details>
-
-### <summary>Project Inception Wireframes</summary>
+<summary> Project Inception Wireframes </summary>
 
 Basic wireframes have been created upon project inception to aid in the planning stages of this project, these are to be adapted as the project proceeds with further iterations for multiple breakpoints.
 
