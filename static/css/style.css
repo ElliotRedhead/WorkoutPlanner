@@ -35,6 +35,16 @@ body {
     margin-bottom: 1rem;
 }
 
+.card-btn {
+    padding: 0.25rem 0.7rem;
+    margin: 0.5rem 0.2rem;
+    justify-content: space-around;
+}
+
+.card-btn i {
+    margin: 0 0.2rem;
+}
+
 /*
 Custom styling of sweetalerts modals, forced to use !important to override
 in-built classes as cannot use specificity to drive changes.
