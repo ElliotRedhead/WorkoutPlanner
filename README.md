@@ -113,18 +113,66 @@ Are there any features that don't perform as expected, is the discovery document
 
 This project was developed using Visual Studio Code, and was both committed to git and pushed to GitHub using the integrated source control feature.
 
-The setup for the GitHub Pages deployment was as follows:
+### Local Deployment
 
-- Log into Github.
-- Select the target repository from the list.
-- Select "Settings" from the menu items.
-- Scroll to the Github Pages section.
-- Under "Source" click the drop-down that is set to "None" and select "Master Branch".
-- The link to the website is now displayed under the "Github Pages" section.
+#### Pre-Requisites
 
-At the time of submission are both the deployed and development versions of this project identical?
+Basic requirements for local deployment are as follows.
 
-## Run this Project Locally:
+- [Python3](https://www.python.org/downloads/)
+- [Git](https://git-scm.com/downloads)
+- IDE, e.g. [VSCode](https://code.visualstudio.com/)
+- [PIP](https://pip.pypa.io/en/stable/installing/)
+- An account for [MongoDB](https://www.mongodb.com/cloud/atlas) is required for database creation and access.
+
+### Deployment Steps
+
+1.  Following from installation of pre-requisites, open the target directory and clone the repository with the following command in the terminal:
+
+```
+git clone https://github.com/ElliotRedhead/WorkoutPlanner
+```
+
+2. The standard recommendation for managing python packages and preventing package conflicts is to create an isolated virtual environment for each project. Using python's included venv package create an environment within the target directory (command varies based on OS):
+```
+Windows: python -m venv venv
+Linux: py3 -m venv venv
+```
+
+3. Activate the newly-created virtual environment (command varies based on OS):
+```
+Windows: venv/Scripts/activate
+Linux: source venv/Scripts/activate
+```
+
+4. Add the required python modules using pip (command varies based on OS):
+```
+Windows: pip install -r requirements.txt
+Linux: pip3 install -r requirements.txt
+```
+
+5. Inside the target directory create a new file, and name it: "env.py".
+
+6. Copy the following code block into the env.py file, populating with the properties of your database.
+
+```
+import os
+
+os.environ["MONGO_URI"] = "INSERTYOURMONGOLINKHERE"
+os.environ["MONGO_DB"] = "INSERTYOURDATABASENAMEHERE"
+os.environ["SECRET_KEY"] = "INSERTYOURSECRETKEYHERE"
+```
+
+The collections used within this project are named "users" and "exercises", these will be created upon registering the first user and the user creates their first exercise.
+
+7. Run the application using the following in the command line.
+
+```
+Windows: python app.py
+Linux: python3 app.py
+```
+
+9. The running terminal will direct you to the running address to access the application.
 
 ## Credits
 
