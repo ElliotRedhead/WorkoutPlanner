@@ -4,13 +4,17 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mx-auto">
+            {% if "myexercises" in nav %}
             <li class="nav-item active">
                 <a class="nav-link" href={{url_for("my_exercises")}}>My Exercises<span class="sr-only"></span></a>
             </li>
+            {% endif %}
+            {% if "globalexercises" in nav %}
             <li class="nav-item active">
                 <a class="nav-link" href={{url_for("global_exercises")}}>Global Exercise List<span class="sr-only"></span></a>
             </li>
+            {% endif %}
             {% if "user" in session %}
             <li class="nav-item active">
                 <a class="nav-link" href={{url_for("logout")}}>Logout<span class="sr-only"></span></a>

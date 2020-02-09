@@ -73,7 +73,8 @@ def my_exercises():
     return render_template(
         "pages/exercises.html",
         title="Workout Planner | My Exercises",
-        exercises=exercises)
+        exercises=exercises,
+        nav="globalexercises")
 
 @APP.route("/")
 @APP.route("/login", methods=["POST", "GET"])
@@ -170,7 +171,8 @@ def global_exercises():
     return render_template(
         "pages/exercises.html",
         title="Workout Planner | Global Exercises",
-        exercises=exercises)
+        exercises=exercises,
+        nav="myexercises")
 
 
 @APP.route("/createexercise", methods=["POST", "GET"])
@@ -214,6 +216,7 @@ def edit_exercise(exercise_id):
         form_heading="Edit Exercise",
         exercise=exercise,
         form_name="editExerciseForm",
+        nav=["myexercises", "globalexercises"]
     )
 
 
@@ -254,6 +257,7 @@ def clone_exercise(exercise_id):
         form_heading="Clone Exercise",
         exercise=full_record,
         form_name="editExerciseForm",
+        nav=["myexercises", "globalexercises"]
     )
 
 
