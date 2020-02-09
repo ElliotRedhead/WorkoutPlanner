@@ -49,6 +49,10 @@ Font/background colour and border radius redefined.
     color: #ffffff !important;
 }
 
+.custom-btn:focus, custom-btn:active {
+    box-shadow: None;
+}
+
 .custom-btn:hover, .swal2-confirm:hover {
     color:#dbb125 !important;
     border-color: #dbb125 !important;
