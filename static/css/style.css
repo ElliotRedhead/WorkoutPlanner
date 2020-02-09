@@ -9,6 +9,10 @@ body {
     background-image: url("/./static/img/geometricarchitecture.jpg")
 }
 
+#navigationTitle {
+    color: #ffffff;
+}
+
 .card-text, .card-title {
     color:#000000;
 }
