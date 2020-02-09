@@ -75,19 +75,34 @@ Basic wireframes have been created upon project inception to aid in the planning
 
 ### Existing Features
 
-#### Feature 1
+#### Authentication
 
-#### Feature 2
+Access to the website is restricted to registered users. Upon loading: users are presented with option to register a new account or login with an existing account. Once the user has submitted valid credentials their login state is persisted across the session and the option to logout is available via a button in the navbar.
 
-#### Feature 3
+#### Management of Own Exercises
+
+The site allows users to create, view, edit or delete their own exercises. Each exercise can be personalised to include details of the exercise name, target muscle, equipment used and a metric of intensity measured by either weight or distance. Upon completion the user can mark the exercise as completed.
+
+#### Accessbility to Others' Exercises
+
+Accessing the global page shows all users' exercise cards, the user then has the option to clone those exercises to their own list if they want to.
 
 ### Potential Features to Implement
 
-The following are suggested additions that would exceed the project time constraints or require inaccessible resources but that would provide additional value to the project.
+In its current state the project fulfils the initial requirements, demonstrating management of a database based on user input with a defined user case of forming an exercise to-do list and visibility of others' lists.
+The following are suggested additions that would exceed the project time constraints or require inaccessible resources but that would provide additional value to the project if required.
 
-#### Feature 1
+#### Password Reset
 
-#### Feature 2
+Using the user's provided email address and a tool such as EmailJS, an automated system could be implemented to allow the user to recover an otherwise lost account.
+
+#### Advanced Exercise Filtering
+
+At present the only filtering is between the user's own and others' exercises, this is the extent of what is required for the purpose of an exercise "check-list" but could be extended if project purpose required further expansion.
+
+#### Batch Updating of Records
+
+Methods are available in PyMongo to mass-update records, this capability was identified in the early stages of project development. Although this is a poweful capability, it does not fit use-cases for this project.
 
 ## Technologies Used
 
