@@ -62,11 +62,11 @@ The chosen palette defines the site as a predominantly dark-themed design with l
 
 Basic wireframes have been created upon project inception to aid in the planning stages of this project, these are to be adapted as the project proceeds with further iterations for multiple breakpoints.
 
-#### Mobile Wireframe
+### Mobile Wireframe
 
 ![Mobile Inception Wireframe](./static/wireframes/Mobile-List.png)
 
-#### Desktop Wireframe
+### Desktop Wireframe
 
 ![Desktop Inception Wireframe](./static/wireframes/Desktop-WeeklyList.png)
 </details>
@@ -142,7 +142,7 @@ Basic requirements for local deployment are as follows.
 
 ### Deployment Steps
 
-1.  Following from installation of pre-requisites, open the target directory and clone the repository with the following command in the terminal:
+1. Following from installation of pre-requisites, open the target directory and clone the repository with the following command in the terminal:
 
 ```
 git clone https://github.com/ElliotRedhead/WorkoutPlanner
@@ -187,7 +187,7 @@ Windows: python app.py
 Linux: python3 app.py
 ```
 
-9. The running terminal will direct you to the running address to access the application.
+8. The running terminal will direct you to the running address to access the application.
 
 ## Credits
 
