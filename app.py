@@ -47,9 +47,13 @@ def active_session_check(route_url):
     if active_session is False and (route_url != "/login" or "/register"):
         render_dict = dict(
             {"page_render": render_template(
-                "pages/login.html",
-                title="Workout Planner | Login"),
-             "redirect_action": True}
+                "pages/authentication.html",
+                title="Workout Planner | Login",
+                formId="loginForm",
+                currentAuthPath="login",
+                alternativeAuthPath=(url_for('register')),
+                alternativeAuthPathPrompt="Not registered? Click here."),
+            "redirect_action": True}
         )
     else:
         render_dict = dict(
@@ -107,7 +111,7 @@ def login():
         response["validPassword"] = False
         return json.dumps(response)
     return render_template(
-        "pages/login.html",
+        "pages/authentication.html",
         title="Workout Planner | Login",
         formId="loginForm",
         currentAuthPath="login",
@@ -147,7 +151,7 @@ def register():
             response["url"] = (url_for("my_exercises"))
         return json.dumps(response)
     return render_template(
-        "pages/register.html",
+        "pages/authentication.html",
         title="Workout Planner | Register",
         formId="registerForm",
         currentAuthPath="register",
