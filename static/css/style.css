@@ -74,9 +74,9 @@ body {
 
 .card-btn-group {
     padding:auto;
-    /* display: flex;
-    justify-content: space-evenly; */
-    /* margin: 1rem 0rem; */
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem 0rem;
 }
 
 .card-btn i {
