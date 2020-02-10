@@ -118,7 +118,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 
 ### Testing
 
-Testing documentation is located in the [testing.md file.](./testing.md)
+Testing documentation is located in the [testing.md file.](./TESTING.md)
 
 ### Known Bugs & Limitations
 
