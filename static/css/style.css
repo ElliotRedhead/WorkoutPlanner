@@ -13,6 +13,11 @@ body {
     color: #ffffff;
 }
 
+#authForm {
+    margin-top:6rem;
+    justify-content: center;
+}
+
 #alternativePathPrompt {
     text-decoration-style: none;
     color: #ffffff
