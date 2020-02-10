@@ -44,7 +44,7 @@ This project is a suitable way to deliver this content because:
 ## Design & Styling
 
 ### Colour Palette
-
+# UPDATE WITH RELEASE-STAGE COLOURS, COMMENT ON HOW THESE HAVE CHANGED WITH DEVELOPMENT & RESEARCH.
 The initial website design concepts have been formed with the following colour palette:  
 ![#0f1011](https://placehold.it/15/0f1011/000000?text=+) `#0f1011`  
 ![#615F5B](https://placehold.it/15/615F5B/000000?text=+) `#615F5B`  
@@ -56,7 +56,7 @@ The initial website design concepts have been formed with the following colour p
 The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
 
 ## Wireframes
-
+# UPDATE WITH RELEASE-STAGE WIREFRAMES, COMMENT ON THE DIFFERENCES AND WHY.
 <details>
 <summary> Project Inception Wireframes </summary>
 
@@ -113,7 +113,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 - [MongoDB](https://www.mongodb.com/) was used to store the no-SQL database.
 - [PyMongo](https://api.mongodb.com/python/current/) was used to manage/interact with the MongoDB database.
 - [Git](https://git-scm.com/) is used for the version control of this project.
-- [Font Awesome](https://fontawesome.com/) provide all icons used in buttons, e.g. complete, clone, edit, delete.
+- [Font Awesome](https://fontawesome.com/) provides the icon in the header and all icons used in buttons, e.g. complete, clone, edit, delete.
 - [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced through this service is named Bebas Neue.
 
 ### Testing
@@ -188,6 +188,8 @@ Linux: python3 app.py
 ```
 
 8. The running terminal will direct you to the running address to access the application.
+# DOCUMENT HEROKU DEPLOYMENT HERE.
+
 
 ## Credits
 
