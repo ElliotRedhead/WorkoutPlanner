@@ -13,6 +13,11 @@ body {
     color: #ffffff;
 }
 
+#alternativePathPrompt {
+    text-decoration-style: none;
+    color: #ffffff
+}
+
 .card-text, .card-title {
     color:#000000;
     display: flex;
