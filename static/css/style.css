@@ -13,6 +13,14 @@ body {
     color: #ffffff;
 }
 
+#welcomeBody {
+    background-image: url("/./static/img/grayscale-dumbbell.jpg");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
 #authForm {
     margin-top:6rem;
     justify-content: center;
