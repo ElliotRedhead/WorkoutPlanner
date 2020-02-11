@@ -105,8 +105,8 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            response["validPassord"] = True
-            response["url"] = (url_for("my_exercises"))
+            response["validPassword"] = True
+            response["authApproved"] = True
             return json.dumps(response)
         response["validPassword"] = False
         return json.dumps(response)
@@ -148,7 +148,7 @@ def register():
                      request_data["inputPassword"])}
             )
             session["user"] = request_data["inputUsername"]
-            response["url"] = (url_for("my_exercises"))
+            response["authApproved"] = True
         return json.dumps(response)
     return render_template(
         "pages/authentication.html",
