@@ -61,6 +61,13 @@ def active_session_check(route_url):
         )
     return render_dict
 
+@APP.route("/welcome")
+def welcome():
+    """The welcome screen to be displayed on page load."""
+    return render_template(
+        "pages/welcome.html",
+        title="Workout Planner | Welcome",
+        bodyId="welcomeBody")
 
 @APP.route("/myexercises")
 def my_exercises():
