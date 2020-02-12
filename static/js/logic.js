@@ -97,26 +97,22 @@ function responseToJson(fetchResult, inputData, responseHandlingType) {
 			resultJson => {
 				console.log(resultJson)
 				console.log(responseHandlingType)
-				if (resultJson.hasOwnProperty("authApproved")) {
-					switch (responseHandlingType) {
-						case "register":
-							displayModal("Registration successful", `Welcome ${inputData.inputUsername}!`, "Global Exercises")
-							break;
-						case "login":
+				switch (responseHandlingType) {
+					case "register":
+						if (resultJson.hasOwnProperty("authApproved")){
+							displayModal("Registration successful", `Welcome ${inputData.inputUsername}!`, "Global Exercises")}
+						else { invalidResponseHandling(resultJson, "register") }
+						break;
+					case "login":
+						if (resultJson.hasOwnProperty("authApproved"))
 							displayModal("Login successful", `Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
-							break;
-					}
+						else { invalidResponseHandling(resultJson, "login") }
+						break;
 				}
-				else {
-					switch (responseHandlingType) {
-						case "register":
-							invalidResponseHandling(resultJson, "register")
-							break;
-						case "login":
-							invalidResponseHandling(resultJson, "login")
-						}
-					}
-				})}
+			}
+		)
+}
+				
 
 
 
