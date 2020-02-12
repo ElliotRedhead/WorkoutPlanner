@@ -6,8 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 
 # https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
-
-
 class ReverseProxied():
     """Ensures requests operate through https protocol.
 
@@ -266,4 +264,4 @@ def clone_exercise(exercise_id):
 
 
 if __name__ == '__main__':
-    APP.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
+    APP.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=APP.debug)
