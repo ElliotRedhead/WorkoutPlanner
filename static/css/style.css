@@ -105,18 +105,21 @@ Font/background colour and border radius redefined.
 
 /*Custom styling for all buttons, reinforcement of site theme.*/
 .custom-btn,
-.swal2-confirm {
+.swal2-confirm,
+.swal2-cancel {
     background-color: #2b2b2b !important;
     color: #ffffff !important;
 }
 
 .custom-btn:focus,
-.swal2-confirm:focus {
+.swal2-confirm:focus,
+.swal2-cancel:focus {
     box-shadow: 0rem 0rem 1rem 0.2rem #dbb125;
 }
 
 .custom-btn:hover,
-.swal2-confirm:hover {
+.swal2-confirm:hover,
+.swal2-cancel:hover {
     color: #dbb125 !important;
     border-color: #dbb125 !important;
 }
