@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
-    
+
 class ReverseProxied():
     """Ensures requests operate through https protocol.
 
@@ -48,7 +48,7 @@ def active_session_check(route_url):
                 currentAuthPath="login",
                 alternativeAuthPath=(url_for('register')),
                 alternativeAuthPathPrompt="Not registered? Click here."),
-            "redirect_action": True}
+             "redirect_action": True}
         )
     else:
         render_dict = dict(
