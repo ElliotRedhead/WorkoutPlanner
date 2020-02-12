@@ -49,30 +49,23 @@ function getInputData (emailInputRequired = false) {
 */
 function registerFormHandling() {
     event.preventDefault()
-    const inputData = {
-        inputUsername: ($("#inputUsername")).val().toLowerCase(),
-        inputEmail: ($("#inputEmail")).val().toLowerCase(),
-        inputPassword: ($("#inputPassword")).val()
-    }
-    fetch('/register', fetchParameterInit(inputData))
-        responseToJson(response)
-        .then (responseJSON => {
-                        if (responseJSON.hasOwnProperty("authApproved")) {
-                            displayModal("Registration successful",`Welcome ${inputData.inputUsername}!`, "Global Exercises")
-                        }
-                        const invalidInput = authBooleanCheck(responseJSON, 3)
-                        let alertMessage = "";
-                        Object.keys(invalidInput).forEach((key => {
-                            alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
-                        }))
-                        if (invalidInput.length > 0) {
-                            displayModal("Registration unsuccessful", alertMessage, false)
-                        }
-                    }
-                )
-                .catch(error => {
-                    console.log(error)
-				})}
+	inputData = getInputData(true)
+	fetch('/register', fetchParameterInit(inputData))
+		.then(response => {
+			responseToJson(response, inputData, "registerResponseHandling")})
+		.catch(error => {console.log(error)})}
+
+
+function registerResponseHandling(responseJson, inputData){
+		const invalidInput = authBooleanCheck(responseJSON, 3)
+		let alertMessage = "";
+		Object.keys(invalidInput).forEach((key => {
+			alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
+		}))
+		if (invalidInput.length > 0) {
+			displayModal("Registration unsuccessful", alertMessage, false)
+		}}
+
 		
 /**
 * Submitted form data is added to an object, if the field's case is 
@@ -87,21 +80,37 @@ function loginFormHandling(inputData) {
 	inputData = getInputData()
     fetch('/login', fetchParameterInit(inputData))
 		.then(response => {
-			responseToJson(response, inputData)})
+			responseToJson(response, inputData, "login")})
         .catch(error => {console.log(error)})}
 
-function responseToJson(fetchResult, inputData) {
+function responseToJson(fetchResult, inputData, responseHandling) {
 	fetchResult.json()
-        .then(
-            resultJson => {
-                loginResponseHandling(resultJson, inputData)
-            })
-}
+		.then(
+			resultJson => {
+				if (resultJson.hasOwnProperty("authApproved")) {
+					switch (responseHandling) {
+						case "register":
+							displayModal("Registration successful", `Welcome ${inputData.inputUsername}!`, "Global Exercises")
+							registerResponseHandling(resultJson, inputData)
+							break;
+						case "login":
+							displayModal("Login successful", `Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
+							loginResponseHandling(resultJson, inputData)
+							break;
+					}
+				}
+				else {
+					switch (responseHandling) {
+						case "register":
+							registerResponseHandling(resultJson, inputData)
+							break;
+						case "login":
+							loginResponseHandling(resultJson, inputData)
+						}
+					}
+				})}
 
-function loginResponseHandling(responseJson, inputData){
-	if (responseJson.hasOwnProperty("authApproved")) {
-		displayModal("Login successful",`Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
-	}
+function loginResponseHandling(responseJson){
 	const invalidInput = authBooleanCheck(responseJson, 5)
 	if (invalidInput.length > 0) {
 		displayModal("Login unsuccessful", `Invalid ${invalidInput}`)
