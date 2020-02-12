@@ -79,23 +79,17 @@ function loginFormHandling() {
         inputPassword: ($("#inputPassword")).val()
     }
     fetch('/login', fetchParameterInit(inputData))
-        .then(response => {
-            response.json()
-                .then(
-                    responseJSON => {
-                        if (responseJSON.hasOwnProperty("url")) {
-                            window.location.replace(responseJSON.url)
-                        }
-                        const invalidInput = authBooleanCheck(responseJSON, 5)
-                        if (invalidInput.length > 0) {
-                            displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
-                        }
-                    })
-        }
-        )
+        .then(responseJSON = responseToJson(response))
         .catch(error => {
-            console.log(error)
+            console.log(error);
         })
+    if (responseJSON.hasOwnProperty("url")) {
+        window.location.replace(responseJSON.url)
+    }
+    const invalidInput = authBooleanCheck(responseJSON, 5)
+    if (invalidInput.length > 0) {
+        displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
+    }
 }
 /**
  * Submitted form data is placed into body of fetch parameters.
@@ -159,3 +153,8 @@ function displayModal(modalTitle, modalText = "", pageRedirect = false) {
         })
 }
 
+function responseToJson(response) {
+    response.json()
+        .then(
+            responseJSON => { return responseJSON })
+}
