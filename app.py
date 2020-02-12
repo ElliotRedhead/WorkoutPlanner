@@ -5,7 +5,6 @@ from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 
-# https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
 class ReverseProxied():
     """Ensures requests operate through https protocol.
 
