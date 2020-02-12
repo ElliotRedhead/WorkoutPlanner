@@ -52,19 +52,27 @@ function registerFormHandling() {
 	inputData = getInputData(true)
 	fetch('/register', fetchParameterInit(inputData))
 		.then(response => {
-			responseToJson(response, inputData, "registerResponseHandling")})
+			responseToJson(response, inputData, "register")})
 		.catch(error => {console.log(error)})}
 
 
-function registerResponseHandling(responseJson, inputData){
-		const invalidInput = authBooleanCheck(responseJSON, 3)
-		let alertMessage = "";
-		Object.keys(invalidInput).forEach((key => {
-			alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
-		}))
-		if (invalidInput.length > 0) {
+function invalidResponseHandling(resultJson, responseHandlingType){
+	console.log(responseHandlingType)
+		responseHandlingType == "register" ? isolationNumber = 3 : isolationNumber = 5;
+		const invalidInput = authBooleanCheck(resultJson, isolationNumber)
+		if (responseHandlingType == "register"){
+			let alertMessage = "";
+			Object.keys(invalidInput).forEach((key => {
+				alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
+			}))
 			displayModal("Registration unsuccessful", alertMessage, false)
-		}}
+		}
+		else if (responseHandlingType == "login"){
+			if (invalidInput.length > 0) {
+				displayModal("Login unsuccessful", `Invalid ${invalidInput}`)
+			}
+		}
+		}
 
 		
 /**
@@ -83,38 +91,34 @@ function loginFormHandling(inputData) {
 			responseToJson(response, inputData, "login")})
         .catch(error => {console.log(error)})}
 
-function responseToJson(fetchResult, inputData, responseHandling) {
+function responseToJson(fetchResult, inputData, responseHandlingType) {
 	fetchResult.json()
 		.then(
 			resultJson => {
+				console.log(resultJson)
+				console.log(responseHandlingType)
 				if (resultJson.hasOwnProperty("authApproved")) {
-					switch (responseHandling) {
+					switch (responseHandlingType) {
 						case "register":
 							displayModal("Registration successful", `Welcome ${inputData.inputUsername}!`, "Global Exercises")
-							registerResponseHandling(resultJson, inputData)
 							break;
 						case "login":
 							displayModal("Login successful", `Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
-							loginResponseHandling(resultJson, inputData)
 							break;
 					}
 				}
 				else {
-					switch (responseHandling) {
+					switch (responseHandlingType) {
 						case "register":
-							registerResponseHandling(resultJson, inputData)
+							invalidResponseHandling(resultJson, "register")
 							break;
 						case "login":
-							loginResponseHandling(resultJson, inputData)
+							invalidResponseHandling(resultJson, "login")
 						}
 					}
 				})}
 
-function loginResponseHandling(responseJson){
-	const invalidInput = authBooleanCheck(responseJson, 5)
-	if (invalidInput.length > 0) {
-		displayModal("Login unsuccessful", `Invalid ${invalidInput}`)
-}}
+
 
 /**
  * Submitted form data is placed into body of fetch parameters.
