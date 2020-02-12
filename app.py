@@ -7,12 +7,14 @@ from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
+
 class ReverseProxied():
     """Ensures requests operate through https protocol.
 
     Solution to mixed content error provided by user "aldel":
     https://stackoverflow.com/a/37842465
     """
+
     def __init__(self, app):
         self.app = app
 
@@ -21,6 +23,7 @@ class ReverseProxied():
         if scheme:
             environ['wsgi.url_scheme'] = scheme
         return self.app(environ, start_response)
+
 
 APP = Flask(__name__)
 APP.wsgi_app = ReverseProxied(APP.wsgi_app)
@@ -74,6 +77,7 @@ def my_exercises():
         title="Workout Planner | My Exercises",
         exercises=exercises,
         nav="globalexercises")
+
 
 @APP.route("/")
 @APP.route("/login", methods=["POST", "GET"])
@@ -201,14 +205,14 @@ def edit_exercise(exercise_id):
         return active_session_check(request.url_rule)["page_render"]
     exercise = CLIENT.db.exercises.find_one(
         {"_id": ObjectId(exercise_id)}
-        )
+    )
     if request.method == "POST":
         request_data = request.get_json()
         CLIENT.db.exercises.update_one(
             {"_id": ObjectId(exercise_id),
              "owner": session["user"]},
             {"$set": request_data}
-            )
+        )
     return render_template(
         "forms/exerciseform.html",
         title="Workout Planner | Edit Exercise",
@@ -229,7 +233,7 @@ def complete_exercise(exercise_id):
     toggle_value = not bool(exercise["complete"])
     CLIENT.db.exercises.update_one(
         query_filter, {"$set": {"complete": toggle_value}}
-        )
+    )
     return redirect(url_for("my_exercises"))
 
 

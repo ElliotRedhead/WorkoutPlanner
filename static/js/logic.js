@@ -18,7 +18,7 @@ $(document).ready(function () {
     })
     $("#editExerciseForm").submit(function () {
         event.preventDefault()
-        
+
         fetch(window.location.href, fetchParameterInit(createExerciseObject()))
             .then(
                 displayModal("Exercise created", undefined, true)
