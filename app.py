@@ -4,8 +4,8 @@ from flask import Flask, redirect, render_template, request, url_for, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
-
-# https://stackoverflow.com/questions/14810795/flask-url-for-generating-http-url-instead-of-https
+if os.path.exists("env.py"):
+    import env
 
 
 class ReverseProxied():
@@ -14,6 +14,7 @@ class ReverseProxied():
     Solution to mixed content error provided by user "aldel":
     https://stackoverflow.com/a/37842465
     """
+
     def __init__(self, app):
         self.app = app
 
@@ -23,9 +24,6 @@ class ReverseProxied():
             environ['wsgi.url_scheme'] = scheme
         return self.app(environ, start_response)
 
-
-if os.path.exists("env.py"):
-    import env
 
 APP = Flask(__name__)
 APP.wsgi_app = ReverseProxied(APP.wsgi_app)
@@ -53,7 +51,7 @@ def active_session_check(route_url):
                 currentAuthPath="login",
                 alternativeAuthPath=(url_for('register')),
                 alternativeAuthPathPrompt="Not registered? Click here."),
-            "redirect_action": True}
+             "redirect_action": True}
         )
     else:
         render_dict = dict(
@@ -80,6 +78,7 @@ def my_exercises():
         exercises=exercises,
         nav="globalexercises")
 
+
 @APP.route("/")
 @APP.route("/login", methods=["POST", "GET"])
 def login():
@@ -105,8 +104,8 @@ def login():
                 (logged_username["password"]),
                 (request_data["inputPassword"])):
             session["user"] = request_data["inputUsername"]
-            response["validPassord"] = True
-            response["url"] = (url_for("my_exercises"))
+            response["validPassword"] = True
+            response["authApproved"] = True
             return json.dumps(response)
         response["validPassword"] = False
         return json.dumps(response)
@@ -148,7 +147,7 @@ def register():
                      request_data["inputPassword"])}
             )
             session["user"] = request_data["inputUsername"]
-            response["url"] = (url_for("my_exercises"))
+            response["authApproved"] = True
         return json.dumps(response)
     return render_template(
         "pages/authentication.html",
@@ -206,14 +205,14 @@ def edit_exercise(exercise_id):
         return active_session_check(request.url_rule)["page_render"]
     exercise = CLIENT.db.exercises.find_one(
         {"_id": ObjectId(exercise_id)}
-        )
+    )
     if request.method == "POST":
         request_data = request.get_json()
         CLIENT.db.exercises.update_one(
             {"_id": ObjectId(exercise_id),
              "owner": session["user"]},
             {"$set": request_data}
-            )
+        )
     return render_template(
         "forms/exerciseform.html",
         title="Workout Planner | Edit Exercise",
@@ -234,7 +233,7 @@ def complete_exercise(exercise_id):
     toggle_value = not bool(exercise["complete"])
     CLIENT.db.exercises.update_one(
         query_filter, {"$set": {"complete": toggle_value}}
-        )
+    )
     return redirect(url_for("my_exercises"))
 
 
@@ -266,4 +265,4 @@ def clone_exercise(exercise_id):
 
 
 if __name__ == '__main__':
-    APP.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=True)
+    APP.run(host=os.getenv('IP'), port=os.getenv('PORT'), debug=APP.debug)
