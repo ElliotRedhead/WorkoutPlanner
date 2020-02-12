@@ -139,15 +139,17 @@ function createExerciseObject() {
     }))
     return inputData
 }
+
 /**
  * Displays modal with customised content based on passed arguments.
  * If page redirect true: user is redirected to their exercise list.
  * @param {string} modalTitle The header text displayed in the modal.
  * @param {string} modalText The body text displayed in the modal.
- * @param {boolean} pageRedirect Determines if window redirect occurs.
+ * @param {string} confirmButtonTextString Text to be displayed in left button.
+ * @param {boolean} showCancelButton Used as toggle for right button display.
+ * @param {string} cancelButtonTextString Text to be displayed in right button.
  */
 function displayModal(modalTitle, modalText = "", confirmButtonTextString = "Ok", showCancelButton, cancelButtonTextString="") {
-
     Swal.fire({
         title: modalTitle,
         html: modalText,
