@@ -79,10 +79,14 @@ function loginFormHandling() {
         inputPassword: ($("#inputPassword")).val()
     }
     fetch('/login', fetchParameterInit(inputData))
-        .then(responseJSON = responseToJson(response))
-        .catch(error => {
-            console.log(error);
+        .then(response => {
+            console.log(responseToJson(response))
+            // const responseJSON = responseToJson(response)
+            // console.log(responseJSON)
+            // return responseJSON
         })
+        .catch(error => { console.log(error); })
+
     if (responseJSON.hasOwnProperty("url")) {
         window.location.replace(responseJSON.url)
     }
@@ -91,6 +95,7 @@ function loginFormHandling() {
         displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
     }
 }
+
 /**
  * Submitted form data is placed into body of fetch parameters.
  * The fetch parameters provide detail of the request options.
@@ -154,7 +159,10 @@ function displayModal(modalTitle, modalText = "", pageRedirect = false) {
 }
 
 function responseToJson(response) {
-    response.json()
+    response.json(response)
         .then(
-            responseJSON => { return responseJSON })
+            responseJSON => {
+                console.log(responseJSON)
+                return responseJSON
+            })
 }
