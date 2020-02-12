@@ -46,8 +46,8 @@ function registerFormHandling() {
             response.json()
                 .then(
                     responseJSON => {
-                        if (responseJSON.hasOwnProperty("url")) {
-                            window.location.replace(responseJSON.url)
+                        if (responseJSON.hasOwnProperty("authApproved")) {
+                            displayModal("Registration successful",`Welcome ${inputData.inputUsername}!`, "Global Exercises")
                         }
                         const invalidInput = authBooleanCheck(responseJSON, 3)
                         let alertMessage = "";
@@ -83,12 +83,12 @@ function loginFormHandling() {
             response.json()
                 .then(
                     responseJSON => {
-                        if (responseJSON.hasOwnProperty("url")) {
-                            window.location.replace(responseJSON.url)
+                        if (responseJSON.hasOwnProperty("authApproved")) {
+                            displayModal("Login successful",`Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
                         }
                         const invalidInput = authBooleanCheck(responseJSON, 5)
                         if (invalidInput.length > 0) {
-                            displayModal("Login unsuccessful", `Invalid ${invalidInput}`, false)
+                            displayModal("Login unsuccessful", `Invalid ${invalidInput}`)
                         }
                     })
         }
@@ -139,23 +139,30 @@ function createExerciseObject() {
     }))
     return inputData
 }
+
 /**
  * Displays modal with customised content based on passed arguments.
  * If page redirect true: user is redirected to their exercise list.
  * @param {string} modalTitle The header text displayed in the modal.
  * @param {string} modalText The body text displayed in the modal.
- * @param {boolean} pageRedirect Determines if window redirect occurs.
+ * @param {string} confirmButtonTextString Text to be displayed in left button.
+ * @param {boolean} showCancelButton Used as toggle for right button display.
+ * @param {string} cancelButtonTextString Text to be displayed in right button.
  */
-function displayModal(modalTitle, modalText = "", pageRedirect = false) {
+function displayModal(modalTitle, modalText = "", confirmButtonTextString = "Ok", showCancelButton, cancelButtonTextString="") {
     Swal.fire({
         title: modalTitle,
         html: modalText,
-        confirmButtonText: "Ok"
+        confirmButtonText: confirmButtonTextString,
+        showCancelButton: showCancelButton,
+        cancelButtonText: cancelButtonTextString
     })
-        .then(function () {
-            if (pageRedirect) {
-                window.location.replace("/myexercises");
+        .then((result) => {
+            if (result.value) {
+                window.location.replace("/globalexercises");
+            }
+            else if (result.dismiss) {
+                window.location.replace("/myexercises")
             }
         })
-}
-
+    }
