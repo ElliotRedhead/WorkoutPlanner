@@ -57,7 +57,6 @@ function registerFormHandling() {
 
 
 function invalidResponseHandling(resultJson, responseHandlingType){
-	console.log(responseHandlingType)
 		responseHandlingType == "register" ? isolationNumber = 3 : isolationNumber = 5;
 		const invalidInput = authBooleanCheck(resultJson, isolationNumber)
 		if (responseHandlingType == "register"){
@@ -95,8 +94,6 @@ function responseToJson(fetchResult, inputData, responseHandlingType) {
 	fetchResult.json()
 		.then(
 			resultJson => {
-				console.log(resultJson)
-				console.log(responseHandlingType)
 				switch (responseHandlingType) {
 					case "register":
 						if (resultJson.hasOwnProperty("authApproved")){
