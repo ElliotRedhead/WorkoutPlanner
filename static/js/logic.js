@@ -26,6 +26,19 @@ $(document).ready(function () {
     }
     )
 })
+
+/**
+ * 
+ */
+function getInputData (emailInputRequired = false) {
+	const inputData = {
+		inputUsername: ($("#inputUsername")).val().toLowerCase(),
+		inputPassword: ($("#inputPassword")).val(),
+	}
+	if (emailInputRequired) {inputData["inputEmail"] = ($("#inputEmail")).val().toLowerCase()}
+	return inputData
+	}
+
 /**
 * The fields from the registration form are added to an object, if the field's
 * case is not required it is set to lowercase for standardisation.
@@ -36,34 +49,31 @@ $(document).ready(function () {
 */
 function registerFormHandling() {
     event.preventDefault()
-    const inputData = {
-        inputUsername: ($("#inputUsername")).val().toLowerCase(),
-        inputEmail: ($("#inputEmail")).val().toLowerCase(),
-        inputPassword: ($("#inputPassword")).val()
-    }
-    fetch('/register', fetchParameterInit(inputData))
-        .then(response => {
-            response.json()
-                .then(
-                    responseJSON => {
-                        if (responseJSON.hasOwnProperty("authApproved")) {
-                            displayModal("Registration successful",`Welcome ${inputData.inputUsername}!`, "Global Exercises")
-                        }
-                        const invalidInput = authBooleanCheck(responseJSON, 3)
-                        let alertMessage = "";
-                        Object.keys(invalidInput).forEach((key => {
-                            alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
-                        }))
-                        if (invalidInput.length > 0) {
-                            displayModal("Registration unsuccessful", alertMessage, false)
-                        }
-                    }
-                )
-                .catch(error => {
-                    console.log(error)
-                })
-        })
-}
+	inputData = getInputData(true)
+	fetch('/register', fetchParameterInit(inputData))
+		.then(response => {
+			responseToJson(response, inputData, "register")})
+		.catch(error => {console.log(error)})}
+
+
+function invalidResponseHandling(resultJson, responseHandlingType){
+		responseHandlingType == "register" ? isolationNumber = 3 : isolationNumber = 5;
+		const invalidInput = authBooleanCheck(resultJson, isolationNumber)
+		if (responseHandlingType == "register"){
+			let alertMessage = "";
+			Object.keys(invalidInput).forEach((key => {
+				alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`
+			}))
+			displayModal("Registration unsuccessful", alertMessage, false)
+		}
+		else if (responseHandlingType == "login"){
+			if (invalidInput.length > 0) {
+				displayModal("Login unsuccessful", `Invalid ${invalidInput}`)
+			}
+		}
+		}
+
+		
 /**
 * Submitted form data is added to an object, if the field's case is 
 * not required it is set to lowercase for standardisation.
@@ -72,31 +82,37 @@ function registerFormHandling() {
 * If credentials aren't valid: the invalid input is isolated and passed to a 
 * modal that states the failed input to the user.
  */
-function loginFormHandling() {
-    event.preventDefault()
-    const inputData = {
-        inputUsername: ($("#inputUsername")).val().toLowerCase(),
-        inputPassword: ($("#inputPassword")).val()
-    }
+function loginFormHandling(inputData) {
+	event.preventDefault()
+	inputData = getInputData()
     fetch('/login', fetchParameterInit(inputData))
-        .then(response => {
-            response.json()
-                .then(
-                    responseJSON => {
-                        if (responseJSON.hasOwnProperty("authApproved")) {
-                            displayModal("Login successful",`Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
-                        }
-                        const invalidInput = authBooleanCheck(responseJSON, 5)
-                        if (invalidInput.length > 0) {
-                            displayModal("Login unsuccessful", `Invalid ${invalidInput}`)
-                        }
-                    })
-        }
-        )
-        .catch(error => {
-            console.log(error)
-        })
+		.then(response => {
+			responseToJson(response, inputData, "login")})
+        .catch(error => {console.log(error)})}
+
+function responseToJson(fetchResult, inputData, responseHandlingType) {
+	fetchResult.json()
+		.then(
+			resultJson => {
+				switch (responseHandlingType) {
+					case "register":
+						if (resultJson.hasOwnProperty("authApproved")){
+							displayModal("Registration successful", `Welcome ${inputData.inputUsername}!`, "Global Exercises")}
+						else { invalidResponseHandling(resultJson, "register") }
+						break;
+					case "login":
+						if (resultJson.hasOwnProperty("authApproved"))
+							displayModal("Login successful", `Welcome back ${inputData.inputUsername}!`, "Global Exercises", true, "My Exercises")
+						else { invalidResponseHandling(resultJson, "login") }
+						break;
+				}
+			}
+		)
 }
+				
+
+
+
 /**
  * Submitted form data is placed into body of fetch parameters.
  * The fetch parameters provide detail of the request options.
@@ -165,4 +181,4 @@ function displayModal(modalTitle, modalText = "", confirmButtonTextString = "Ok"
                 window.location.replace("/myexercises")
             }
         })
-    }
+}
