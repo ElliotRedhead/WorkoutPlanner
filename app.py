@@ -4,7 +4,9 @@ from flask import Flask, redirect, render_template, request, url_for, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
-
+if os.path.exists("env.py"):
+    import env
+    
 class ReverseProxied():
     """Ensures requests operate through https protocol.
 
@@ -19,10 +21,6 @@ class ReverseProxied():
         if scheme:
             environ['wsgi.url_scheme'] = scheme
         return self.app(environ, start_response)
-
-
-if os.path.exists("env.py"):
-    import env
 
 APP = Flask(__name__)
 APP.wsgi_app = ReverseProxied(APP.wsgi_app)
