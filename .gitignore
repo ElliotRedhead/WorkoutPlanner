@@ -4,7 +4,6 @@ __pycache__
 .vscode
 .theia
 node_modules
-.eslintrc.js
-.eslintrc
+.eslint*
 package-lock.json
 package.json
