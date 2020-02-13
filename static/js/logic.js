@@ -2,20 +2,20 @@
  * Once DOM creation is complete the contained functions are called if
  * their triggering form is submitted.
  */
-$(document).ready(function() {
-	$("#registerForm").submit(function() {
+$(document).ready(function () {
+	$("#registerForm").submit(function () {
 		registerFormHandling();
 	});
-	$("#loginForm").submit(function() {
+	$("#loginForm").submit(function () {
 		loginFormHandling();
 	});
-	$("#createExerciseForm").submit(function() {
+	$("#createExerciseForm").submit(function () {
 		event.preventDefault();
 		fetch("/createexercise", fetchParameterInit(createExerciseObject())).then(
 			displayModal("Exercise created", undefined, true)
 		);
 	});
-	$("#editExerciseForm").submit(function() {
+	$("#editExerciseForm").submit(function () {
 		event.preventDefault();
 		fetch(
 			window.location.href,
@@ -25,7 +25,9 @@ $(document).ready(function() {
 });
 
 /**
- *
+ * Retrieves form values, standardises text into required formats.
+ * @param {boolean} emailInputRequired - Determines if email value is retrieved.
+ * @return {object} Form values, dictated by user input.
  */
 function getInputData(emailInputRequired = false) {
 	const inputData = {
@@ -55,14 +57,21 @@ function registerFormHandling() {
 	const inputData = getInputData(true);
 	fetch("/register", fetchParameterInit(inputData))
 		.then(response => {
-			responseToJson(response, inputData, "register");
+			responseToModal(response, inputData, "register");
 		})
 		.catch(error => {
 			console.log(error);
 		});
 }
 
+/**
+ * Sets string "cutting" position based on whether submission is login or register.
+ * Displays invalid key to user in a modal.
+ * @param {object} resultJson The invalid input's key.
+ * @param {string} responseHandlingType States whether info handled is login or register.
+ */
 function invalidResponseHandling(resultJson, responseHandlingType) {
+	let isolationNumber = undefined;
 	responseHandlingType == "register"
 		? (isolationNumber = 3)
 		: (isolationNumber = 5);
@@ -87,46 +96,54 @@ function invalidResponseHandling(resultJson, responseHandlingType) {
  * If submitted credentials are valid: user is redirected to their exercise list.
  * If credentials aren't valid: the invalid input is isolated and passed to a
  * modal that states the failed input to the user.
+ * @param {object} inputData - Object created from submitted form data.
  */
 function loginFormHandling(inputData) {
 	event.preventDefault();
 	inputData = getInputData();
 	fetch("/login", fetchParameterInit(inputData))
 		.then(response => {
-			responseToJson(response, inputData, "login");
+			responseToModal(response, inputData, "login");
 		})
 		.catch(error => {
 			console.log(error);
 		});
 }
 
-function responseToJson(fetchResult, inputData, responseHandlingType) {
+/**
+ * Takes the database response and converts to JSON.
+ * Calls the appropriate modal dependent on route and success.
+ * @param {promise} fetchResult Validity of user submission & auth approval.
+ * @param {object} inputData User input from auth form.
+ * @param {string} responseHandlingType States whether info handled is login or register.
+ */
+function responseToModal(fetchResult, inputData, responseHandlingType) {
 	fetchResult.json().then(resultJson => {
 		switch (responseHandlingType) {
-			case "register":
-				if (resultJson.hasOwnProperty("authApproved")) {
-					displayModal(
-						"Registration successful",
-						`Welcome ${inputData.inputUsername}!`,
-						"Global Exercises"
-					);
-				} else {
-					invalidResponseHandling(resultJson, "register");
-				}
-				break;
-			case "login":
-				if (resultJson.hasOwnProperty("authApproved"))
-					displayModal(
-						"Login successful",
-						`Welcome back ${inputData.inputUsername}!`,
-						"Global Exercises",
-						true,
-						"My Exercises"
-					);
-				else {
-					invalidResponseHandling(resultJson, "login");
-				}
-				break;
+		case "register":
+			if (resultJson["authApproved"]) {
+				displayModal(
+					"Registration successful",
+					`Welcome ${inputData.inputUsername}!`,
+					"Global Exercises"
+				);
+			} else {
+				invalidResponseHandling(resultJson, "register");
+			}
+			break;
+		case "login":
+			if (resultJson["authApproved"])
+				displayModal(
+					"Login successful",
+					`Welcome back ${inputData.inputUsername}!`,
+					"Global Exercises",
+					true,
+					"My Exercises"
+				);
+			else {
+				invalidResponseHandling(resultJson, "login");
+			}
+			break;
 		}
 	});
 }
@@ -136,6 +153,7 @@ function responseToJson(fetchResult, inputData, responseHandlingType) {
  * The fetch parameters provide detail of the request options.
  * These request options are constant for all requests made in this project.
  * @param {object} inputData - Object created from submitted form data.
+ * @returns {object} Defines settings for the fetch method.
  */
 function fetchParameterInit(inputData) {
 	const fetchParameters = {
@@ -146,15 +164,17 @@ function fetchParameterInit(inputData) {
 	};
 	return fetchParameters;
 }
+
 /**
  * Receives invalid inputs, removes start of the string and turns to lowercase.
  * e.g. invalidPassword => Password => password
  * Result is pushed to an array and final array is returned.
  * @param {object} responseJSON - Response from backend, failed input strings.
  * @param {integer} isolationNumber - Number of letters to remove from string.
+ * @returns {array} Invalid component keys.
  */
 function authBooleanCheck(responseJSON, isolationNumber) {
-	invalidKeys = [];
+	const invalidKeys = [];
 	Object.keys(responseJSON).forEach(key => {
 		if (!responseJSON[key]) {
 			invalidKeys.push(key.substr(isolationNumber).toLowerCase());
@@ -162,13 +182,15 @@ function authBooleanCheck(responseJSON, isolationNumber) {
 	});
 	return invalidKeys;
 }
+
 /**
  * Uses jQuery to capture value of input data for workout spec.
- * Each value converted to lowercase for standardised database data.
+ * Each value is converted to lowercase for standardised database data.
+ * @returns {object} Each exercise form input standardised in object.
  */
 function createExerciseObject() {
 	const inputData = {};
-	$("input").each(function() {
+	$("input").each(function () {
 		inputData[this.id.toLowerCase()] = this.value.toLowerCase();
 	});
 	return inputData;
