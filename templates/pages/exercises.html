@@ -3,11 +3,11 @@
 <div class="container-fluid">
   <div class="row">
     <a class="btn custom-btn" href="{{url_for('create_exercise')}}" id="createExercise" name="createExercise">Create
-      new exercise</a>
+	  new exercise</a>
+	  {% if "Following" in title %}
+	  {% include "components/followinputtoggle.html" %}
+	  {% endif %}
   </div>
-  {% if "Following" in title %}
-  {% include "components/followinputtoggle.html" %}
-  {% endif %}
   <div class="row">
 	{% if "Following" in title %}
 	{% for exercises in recordmatches %}
