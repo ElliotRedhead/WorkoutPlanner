@@ -25,6 +25,9 @@ $(document).ready(function () {
 	$("#manage-follow-toggle").click(manageFollowToggle)
 })
 
+/**
+ * Checks the state of the toggle switch, if toggled the appropriate label is attached.
+ */
 function manageFollowToggle(){
 	const toggleState = ($("#manage-follow-toggle")[0].checked);
 	const toggleLabel = $("label[for='manage-follow-toggle']");
