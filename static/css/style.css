@@ -9,6 +9,14 @@ body {
     background-image: url("/./static/img/geometricarchitecture.jpg");
 }
 
+
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 #navigationTitle {
     color: #ffffff;
 }
@@ -37,7 +45,8 @@ body {
 }
 
 .navbar {
-    background-color: #1b1b1b;
+	background-color: #1b1b1b;
+	margin-bottom: 2rem;
 }
 
 .card {
@@ -55,12 +64,6 @@ body {
 .card-btn {
 	margin: 0.5rem 0.25rem;
 	padding: 0.25rem 0rem;
-}
-
-.flex-center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .card-btn i {

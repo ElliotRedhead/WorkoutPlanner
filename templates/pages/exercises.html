@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row flex-center">
-    <a class="btn custom-btn col-4" href="{{url_for('create_exercise')}}" id="createExercise" name="createExercise">Create
+    <a class="btn custom-btn col-4 col-md-3 col-lg-2" href="{{url_for('create_exercise')}}" id="createExercise" name="createExercise">Create
 	  new exercise</a>
 	  {% if "Following" in title %}
 	  {% include "components/followinputtoggle.html" %}
