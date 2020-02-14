@@ -22,16 +22,14 @@ $(document).ready(function () {
 			fetchParameterInit(createExerciseObject())
 		).then(displayModal("Exercise created", undefined, true));
 	});
-	$("#manage-follow-toggle").click(manageFollowToggle)
+	$("#manage-follow-toggle").change(manageFollowToggle)
 })
 
 /**
  * Checks the state of the toggle switch, if toggled the appropriate label is attached.
  */
 function manageFollowToggle(){
-	const toggleState = ($("#manage-follow-toggle")[0].checked);
-	const toggleLabel = $("label[for='manage-follow-toggle']");
-	toggleState ? toggleLabel.text("Add User") : toggleLabel.text("Remove User")
+	console.log("Test Toggle")
 }
 
 /**
