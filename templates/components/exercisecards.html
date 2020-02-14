@@ -3,7 +3,7 @@
     <div class="card-body container-fluid {% if exercise.complete %}complete{% endif %}">
         <div class="row">
             <h5 class="card-title order-0 col-12">{{exercise.exercisename.title()}}</h5>
-            {% if "Global Exercises" in title %}
+            {% if "Global Exercises" or "Following" in title %}
             <p class="card-text order-1 col-12">Owner: {{exercise.owner.title()}}</p>
             {% endif %}
             <p class="card-text order-2 col-12">Target Muscle: {{exercise.targetmuscle.title()}}</p>

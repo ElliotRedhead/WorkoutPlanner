@@ -83,16 +83,16 @@ def my_exercises():
 def following_exercises():
     if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    # if request.method == "POST":
-        # request_data = request.get_json()
-        # response = {}
     logged_username = CLIENT.db.users.find_one({"username": session["user"]})
     existing_following = logged_username["following"]
-            # {"following": request_data["inputFollowing"]})
-        # if not existing_following:
+    record_matches = []
+    for user in existing_following:
+        record_matches.append(list(CLIENT.db.exercises.aggregate(
+            [{"$match": {"owner": user}}])))
     return render_template(
-        "pages/following.html",
-        users=existing_following)
+        "pages/exercises.html",
+        title="Workout Planner | Following",
+        recordmatches=record_matches)
 
 
 @APP.route("/")

@@ -6,9 +6,17 @@
       new exercise</a>
   </div>
   <div class="row">
-    {% for exercise in exercises %}
+	{% if "Following" in title %}
+	{% for exercises in recordmatches %}
+	{% for exercise in exercises %}
+    {% include "components/exercisecards.html" %}
+	{% endfor %}
+	{% endfor %}
+	{% else %}
+	{% for exercise in exercises %}
     {% include "components/exercisecards.html" %}
     {% endfor %}
+	{% endif %}
   </div>
 </div>
 {% endblock %}
