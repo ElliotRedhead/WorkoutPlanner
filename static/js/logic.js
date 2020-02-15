@@ -28,12 +28,19 @@ $(document).ready(function () {
 		getFollowedUsers()
 	}
 	$("#manage-follow-toggle").change(manageFollowToggle)
-	$("#remove-follow-submit").click(test)
-	$("#add-follow-submit").click(test)
+
 })
 
-function test(){
-	console.log("test")
+$("#remove-follow-submit").click(function() {
+	test("remove")
+})
+
+$("#add-follow-submit").click(function() {
+	test("add")
+})
+
+function test(operationType){
+	console.log(operationType)
 }
 
 /**
