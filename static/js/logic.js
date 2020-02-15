@@ -24,6 +24,7 @@ $(document).ready(function () {
 	});
 	if ((window.location.pathname).includes("following")){
 		followToggleWidth()
+		manageFollowToggle()
 	}
 	$("#manage-follow-toggle").change(manageFollowToggle)
 })
@@ -33,7 +34,14 @@ $(document).ready(function () {
  */
 function manageFollowToggle(){
 	const toggleState = ($("#manage-follow-toggle")[0].checked)
-	console.log(toggleState);
+	// console.log(($("#remove-follow-partition")))
+	if(toggleState){
+		$("#remove-follow-partition").hide()
+		$("#add-follow-partition").show()
+	} else {
+		$("#remove-follow-partition").show()
+		$("#add-follow-partition").hide()
+	}
 }
 
 /**
