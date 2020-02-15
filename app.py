@@ -89,6 +89,21 @@ def following_exercises():
         request_data = request.get_json()
         if request_data == "followedUserRequest":
             return json.dumps(existing_following)
+        addition_key = "addFollowUsername"
+        removal_key = "removeFollowUsername"
+        if addition_key in request_data:
+            target_user = request_data[addition_key]
+            if target_user in existing_following:
+                print("User already in followed list.")
+            else:
+                CLIENT.db.users.update_one(
+                    {"username": session["user"]},
+                    {"$push": {"following": target_user}})
+        if removal_key in request_data:
+            target_user = request_data[removal_key]
+            CLIENT.db.users.update_one(
+                {"username": session["user"]},
+                {"$pull": {"following": target_user}})
     record_matches = []
     for user in existing_following:
         record_matches.append(list(CLIENT.db.exercises.aggregate(

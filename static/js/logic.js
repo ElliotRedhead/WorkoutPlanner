@@ -32,15 +32,26 @@ $(document).ready(function () {
 })
 
 $("#remove-follow-submit").click(function() {
-	test("remove")
+	followedUserManagement("remove")
 })
 
 $("#add-follow-submit").click(function() {
-	test("add")
+	followedUserManagement("add")
 })
 
-function test(operationType){
-	console.log(operationType)
+function followedUserManagement(operationType){
+	if (operationType == "add"){
+		const inputData = {}
+		const inputFollowUsername = $("#add-follow-input")[0].value
+		inputData["addFollowUsername"]= inputFollowUsername
+		fetch("/following", fetchParameterInit(inputData))
+	}
+	if (operationType == "remove"){
+		const inputData = {}
+		const inputFollowUsername = $("#current-follow-dropdown")[0].value
+		inputData["removeFollowUsername"]= inputFollowUsername
+		fetch("/following", fetchParameterInit(inputData))
+	}
 }
 
 /**
