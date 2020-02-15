@@ -32,7 +32,8 @@ $(document).ready(function () {
  * Checks the state of the toggle switch, if toggled the appropriate label is attached.
  */
 function manageFollowToggle(){
-	console.log("Test Toggle")
+	const toggleState = ($("#manage-follow-toggle")[0].checked)
+	console.log(toggleState);
 }
 
 /**
