@@ -25,9 +25,26 @@ $(document).ready(function () {
 	if ((window.location.pathname).includes("following")){
 		followToggleWidth()
 		manageFollowToggle()
+		getFollowedUsers()
 	}
 	$("#manage-follow-toggle").change(manageFollowToggle)
 })
+
+function getFollowedUsers(){
+	const inputData = "followedUserRequest"
+	fetch("/following",fetchParameterInit(inputData))
+		.then(response => {
+			response.json()
+				.then(
+					responseJson => {
+						let data = (responseJson.sort((a, b) => (a.name > b.name) ? -1 : 1));
+						data.forEach(currentValue => {
+							$("#current-follow-dropdown")[0].innerHTML +=
+							`<option>${currentValue}</option>`
+						})
+					}
+				)
+		})}
 
 /**
  * Checks the state of the toggle switch.

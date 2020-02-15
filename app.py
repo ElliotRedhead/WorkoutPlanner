@@ -58,7 +58,7 @@ def active_session_check(route_url):
             {"page_render": "", "redirect_action": False}
         )
     return render_dict
-	
+
 
 @APP.route("/myexercises")
 def my_exercises():
@@ -79,18 +79,16 @@ def my_exercises():
         nav="globalexercises")
 
 
-@APP.route("/following")
+@APP.route("/following", methods=["POST", "GET"])
 def following_exercises():
     if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
-    if request.method == "POST":
-        request_data = request.get_json()
-        # manage_following(request_data)   
-
-# {"following": request_data["inputFollowing"]})
-        # if not existing_following:
     logged_username = CLIENT.db.users.find_one({"username": session["user"]})
     existing_following = logged_username["following"]
+    if request.method == "POST":
+        request_data = request.get_json()
+        if request_data == "followedUserRequest":
+            return json.dumps(existing_following)
     record_matches = []
     for user in existing_following:
         record_matches.append(list(CLIENT.db.exercises.aggregate(
