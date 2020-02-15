@@ -30,6 +30,9 @@ $(document).ready(function () {
 	$("#manage-follow-toggle").change(manageFollowToggle)
 })
 
+/**
+ * Fetches list of followed users, sorts alphabetically and displays in dropdown.
+ */
 function getFollowedUsers(){
 	const inputData = "followedUserRequest"
 	fetch("/following",fetchParameterInit(inputData))
