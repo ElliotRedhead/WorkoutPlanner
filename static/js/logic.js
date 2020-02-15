@@ -42,15 +42,17 @@ $("#add-follow-submit").click(function() {
 function followedUserManagement(operationType){
 	if (operationType == "add"){
 		const inputData = {}
-		const inputFollowUsername = $("#add-follow-input")[0].value
+		const inputFollowUsername = $("#add-follow-input")[0].value.toLowerCase()
 		inputData["addFollowUsername"]= inputFollowUsername
 		fetch("/following", fetchParameterInit(inputData))
+			.then(window.location.replace("/following"))
 	}
 	if (operationType == "remove"){
 		const inputData = {}
-		const inputFollowUsername = $("#current-follow-dropdown")[0].value
+		const inputFollowUsername = $("#current-follow-dropdown")[0].value.toLowerCase()
 		inputData["removeFollowUsername"]= inputFollowUsername
 		fetch("/following", fetchParameterInit(inputData))
+			.then(window.location.replace("/following"))
 	}
 }
 
