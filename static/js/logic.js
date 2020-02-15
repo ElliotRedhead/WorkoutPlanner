@@ -22,6 +22,9 @@ $(document).ready(function () {
 			fetchParameterInit(createExerciseObject())
 		).then(displayModal("Exercise created", undefined, true));
 	});
+	if ((window.location.pathname).includes("following")){
+		followToggleWidth()
+	}
 	$("#manage-follow-toggle").change(manageFollowToggle)
 })
 
@@ -30,6 +33,15 @@ $(document).ready(function () {
  */
 function manageFollowToggle(){
 	console.log("Test Toggle")
+}
+
+/**
+ * Adjusts width and padding of Bootstrap in-built classes used in "follow" toggle.
+ */
+function followToggleWidth() {
+	($(".custom-control").css("padding-left",0));
+	($(".toggle").width("100%"));
+	($(".toggle").css("padding-left",0))
 }
 
 /**
