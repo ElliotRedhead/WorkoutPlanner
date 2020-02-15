@@ -76,11 +76,11 @@ def my_exercises():
         "pages/exercises.html",
         title="Workout Planner | My Exercises",
         exercises=exercises,
-        nav="globalexercises")
+        nav=["following", "global"])
 
 
 @APP.route("/following", methods=["POST", "GET"])
-def following_exercises():
+def followed_users():
     if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     logged_username = CLIENT.db.users.find_one({"username": session["user"]})
@@ -111,6 +111,7 @@ def following_exercises():
     return render_template(
         "pages/exercises.html",
         title="Workout Planner | Following",
+        nav=["myexercises", "global"],
         recordmatches=record_matches)
 
 
@@ -210,7 +211,7 @@ def global_exercises():
         "pages/exercises.html",
         title="Workout Planner | Global Exercises",
         exercises=exercises,
-        nav="myexercises")
+        nav=["myexercises", "following"])
 
 
 @APP.route("/createexercise", methods=["POST", "GET"])

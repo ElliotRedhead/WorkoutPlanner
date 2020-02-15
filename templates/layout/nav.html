@@ -10,9 +10,15 @@
                 <a class="nav-link" href={{url_for("my_exercises")}}>My Exercises<span class="sr-only"></span></a>
             </li>
             {% endif %}
-            {% if "globalexercises" in nav %}
+            {% if "global" in nav %}
             <li class="nav-item active">
                 <a class="nav-link" href={{url_for("global_exercises")}}>Global Exercise List<span
+                        class="sr-only"></span></a>
+            </li>
+			{% endif %}
+			{% if "following" in nav %}
+            <li class="nav-item active">
+                <a class="nav-link" href={{url_for("followed_users")}}>Followed Users<span
                         class="sr-only"></span></a>
             </li>
             {% endif %}
