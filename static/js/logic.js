@@ -30,11 +30,11 @@ $(document).ready(function () {
 })
 
 /**
- * Checks the state of the toggle switch, if toggled the appropriate label is attached.
+ * Checks the state of the toggle switch.
+ * Upon toggling: the input option available to the user is modified. 
  */
 function manageFollowToggle(){
 	const toggleState = ($("#manage-follow-toggle")[0].checked)
-	// console.log(($("#remove-follow-partition")))
 	if(toggleState){
 		$("#remove-follow-partition").hide()
 		$("#add-follow-partition").show()
