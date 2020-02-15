@@ -28,7 +28,13 @@ $(document).ready(function () {
 		getFollowedUsers()
 	}
 	$("#manage-follow-toggle").change(manageFollowToggle)
+	$("#remove-follow-submit").click(test)
+	$("#add-follow-submit").click(test)
 })
+
+function test(){
+	console.log("test")
+}
 
 /**
  * Fetches list of followed users, sorts alphabetically and displays in dropdown.
