@@ -245,6 +245,14 @@ function responseToModal(fetchResult, inputData, responseHandlingType) {
 					"/following"
 				)
 			}
+			break;
+		case "removeFollow":
+			displayModal(
+				"User Removed",
+				`${inputData["removeFollowUsername"]} removed from follow list.`,
+				"Ok",
+				"/following"
+			)
 		}
 	});
 }
