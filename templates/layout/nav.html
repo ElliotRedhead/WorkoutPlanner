@@ -1,3 +1,4 @@
+<!-- Implemented Bootstrap preset navigation bar, customised to suit theme. -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <button class="navbar-toggler order-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -5,6 +6,7 @@
     </button>
     <div class="collapse navbar-collapse order-2 order-lg-0" id="navbarSupportedContent">
         <ul class="navbar-nav">
+            <!-- If statements allow selective display of links. -->
             {% if "myexercises" in nav %}
             <li class="nav-item active">
                 <a class="nav-link" href={{url_for("my_exercises")}}>My Exercises<span class="sr-only"></span></a>
@@ -15,11 +17,10 @@
                 <a class="nav-link" href={{url_for("global_exercises")}}>Global Exercise List<span
                         class="sr-only"></span></a>
             </li>
-			{% endif %}
-			{% if "following" in nav %}
+            {% endif %}
+            {% if "following" in nav %}
             <li class="nav-item active">
-                <a class="nav-link" href={{url_for("followed_users")}}>Followed Users<span
-                        class="sr-only"></span></a>
+                <a class="nav-link" href={{url_for("followed_users")}}>Followed Users<span class="sr-only"></span></a>
             </li>
             {% endif %}
             {% if "user" in session %}
@@ -29,5 +30,6 @@
             {% endif %}
         </ul>
     </div>
+    <!-- Site title and FontAwesome icon displayed for site branding. -->
     <h4 id="navigationTitle" class="order-1">Workout Planner <i class="fas fa-dumbbell"></i></h4>
 </nav>
