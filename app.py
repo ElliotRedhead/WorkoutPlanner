@@ -87,6 +87,7 @@ def followed_users():
     existing_following = logged_username["following"]
     if request.method == "POST":
         request_data = request.get_json()
+        response = {}
         if request_data == "followedUserRequest":
             return json.dumps(existing_following)
         addition_key = "addFollowUsername"
@@ -94,20 +95,20 @@ def followed_users():
         if addition_key in request_data:
             target_user = request_data[addition_key]
             if target_user in existing_following:
-                operation_success = False
-                return operation_success
+                response["followExisting"] = True
+                return response
             CLIENT.db.users.update_one(
                 {"username": session["user"]},
                 {"$push": {"following": target_user}})
-            operation_success = True
-            return operation_success
+            response["followAddition"] = True
+            return response
         if removal_key in request_data:
             target_user = request_data[removal_key]
             CLIENT.db.users.update_one(
                 {"username": session["user"]},
                 {"$pull": {"following": target_user}})
-            operation_success = True
-            return operation_success
+            response["followRemoval"] = True
+            return response
     record_matches = []
     for user in existing_following:
         record_matches.append(list(CLIENT.db.exercises.aggregate(
