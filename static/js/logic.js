@@ -160,7 +160,7 @@ function invalidResponseHandling(resultJson, responseHandlingType) {
 		Object.keys(invalidInput).forEach(key => {
 			alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`;
 		});
-		displayModal("Registration unsuccessful", alertMessage, false, "Ok", "/register");
+		displayModal("Registration unsuccessful", alertMessage, "Ok", "/register");
 	} else if (responseHandlingType == "login") {
 		if (invalidInput.length > 0) {
 			displayModal("Login unsuccessful", `Invalid ${invalidInput}`, "Ok", "/login");
