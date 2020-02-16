@@ -45,14 +45,18 @@ function followedUserManagement(operationType){
 		const inputFollowUsername = $("#add-follow-input")[0].value.toLowerCase()
 		inputData["addFollowUsername"]= inputFollowUsername
 		fetch("/following", fetchParameterInit(inputData))
-			.then(window.location.replace("/following"))
+			.then(response => {
+				responseToModal(response, inputData, `${operationType}Follow`)
+			})
 	}
 	if (operationType == "remove"){
 		const inputData = {}
 		const inputFollowUsername = $("#current-follow-dropdown")[0].value.toLowerCase()
 		inputData["removeFollowUsername"]= inputFollowUsername
 		fetch("/following", fetchParameterInit(inputData))
-			.then(window.location.replace("/following"))
+			.then(response => {
+				responseToModal(response, inputData, `${operationType}Follow`)
+			})
 	}
 }
 
@@ -211,7 +215,7 @@ function responseToModal(fetchResult, inputData, responseHandlingType) {
 			}
 			break;
 		case "login":
-			if (resultJson["authApproved"])
+			if (resultJson["authApproved"]){
 				displayModal(
 					"Login successful",
 					`Welcome back ${inputData.inputUsername}!`,
@@ -220,11 +224,27 @@ function responseToModal(fetchResult, inputData, responseHandlingType) {
 					true,
 					"My Exercises",
 					"/myexercises"
-				);
+				);}
 			else {
 				invalidResponseHandling(resultJson, "login");
 			}
 			break;
+		case "addFollow":
+			if (resultJson["followExisting"]){
+				displayModal(
+					"User already followed",
+					`${inputData["addFollowUsername"]} already in follow list.`,
+					"Ok",
+					"/following"
+				)}
+			else {
+				displayModal(
+					"User Added",
+					`${inputData["addFollowUsername"]} added to followed list.`,
+					"Ok",
+					"/following"
+				)
+			}
 		}
 	});
 }
@@ -291,7 +311,7 @@ function createExerciseObject() {
 function displayModal(
 	modalTitle,
 	modalText = "",
-	confirmButtonTextString = "Ok",
+	confirmButtonTextString = "",
 	confirmRedirect,
 	showCancelButton,
 	cancelButtonTextString = "",
