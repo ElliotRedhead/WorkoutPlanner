@@ -81,6 +81,14 @@ def my_exercises():
 
 @APP.route("/following", methods=["POST", "GET"])
 def followed_users():
+    """Displays followed users' exercises and interface to manage followed users.
+
+    Each followed user's exercise cards are displayed on the page.
+    This function also handles requests to add/remove users from followed list.
+    The result triggers an appropriate response modal in the Javascript.
+    The user is allowed to add users that do not exist yet in anticipation of
+    friends setting up their accounts with those usernames at a later date.
+    """
     if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     logged_username = CLIENT.db.users.find_one({"username": session["user"]})
