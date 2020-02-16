@@ -118,7 +118,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 
 ### Testing
 
-Testing documentation is located in the [testing.md file.](./TESTING.md)
+Testing documentation is located in the [TESTING.md file.](./TESTING.md)
 
 ### Known Bugs & Limitations
 
@@ -208,7 +208,7 @@ Name the application and set the region as "Europe".
 
 5. Set the required variables as detailed:  
 Key: Value  
-IP: 0.0.0.0
+IP: 0.0.0.0  
 PORT: 5000  
 MONGO_URI: `mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority`  
 SECRET_KEY: `<examplesecretkey>`  
@@ -223,10 +223,10 @@ The MONGO_URI value is provided by MongoDB, the [documentation](https://docs.atl
 
 ### Additional Resources
 
-The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue)
+The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue).  
 The images used in this site were obtained from the following sources:
 
-- [Geometric architecture image by Scott Webb, sourced from Pexels](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/)
+- [Geometric architecture image by Scott Webb, sourced from Pexels.](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/)
 
 ### Acknowledgements
 
