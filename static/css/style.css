@@ -124,3 +124,27 @@ Font/background colour and border radius redefined.
 }
 
 /*COMPLETE COMMENTS FOR EACH SECTION.*/
+
+/* Custom class used for alignment of items, flex-centering in both directions. */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcomeSection {
+    height: 87vh;
+    color: #ffffff;
+}
+
+#welcomeSection .container-fluid {
+    background-color:#1111114f;
+}
+
+#welcomeSection h1 {
+    margin: 1rem 0rem;
+}
+
+#welcomeSection p {
+    color: #dbb125;
+}
