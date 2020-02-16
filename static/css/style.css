@@ -1,54 +1,61 @@
+/* Import main font used throughout the project: "Bebas Neue" from Google Fonts. */
 @import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
 
+/* Changed default font-size to provide baseline to set relative size units. */
 html {
     font-size: 18px;
 }
 
+/* Application of project font and background. */
 body {
     font-family: "Bebas Neue", cursive;
     background-image: url("/./static/img/geometricarchitecture.jpg");
 }
 
-
-
+/* Custom class used for alignment of items, flex-centering in both directions. */
 .flex-center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Set colour of navbar title text to white. */
 #navigationTitle {
     color: #ffffff;
 }
 
+/* Customisation of navbar background and margin for improved layout. */
+.navbar {
+    background-color: #1b1b1b;
+    margin-bottom: 2rem;
+}
+
+/* Adjustment of login/register form layout. */
 #authForm {
     margin-top: 6rem;
     justify-content: center;
 }
 
+/* Removal of standard link formatting and alteration of text colour. */
 #alternativePathPrompt {
     text-decoration-style: none;
     color: #ffffff;
 }
 
-.card-text,
-.card-title {
+/* Customisation of card font colours and balanced layout of text. */
+.card-text, .card-title {
     color: #000000;
     display: flex;
     justify-content: space-around;
 }
 
-.complete > .row > .card-text,
-.complete > .row > .card-title {
+/* Completion state of exercise reflected in style change. */
+.complete>.row>.card-text, .complete>.row>.card-title {
     color: #424242;
     text-decoration: line-through;
 }
 
-.navbar {
-	background-color: #1b1b1b;
-	margin-bottom: 2rem;
-}
-
+/* Customisation of exercise card colours and layout. */
 .card {
     background-color: #555555cb;
     border: 0.1rem solid #ffffff;
@@ -57,18 +64,21 @@ body {
     margin: 1rem 0.5rem;
 }
 
+/* Further padding added to card body for optimised layout. */
 .card-body {
-	padding: 1rem 0rem;
+    padding: 1rem 0rem;
 }
 
+/* Spacing implemented for each button on exercise cards. */
 .card-btn {
-	margin: 0.5rem 0.25rem;
-	padding: 0.25rem 0rem;
+    margin: 0.5rem 0.25rem;
+    padding: 0.25rem 0rem;
 }
 
+/* Custom spacing of exercise card button icons and icon colour. */
 .card-btn i {
-	margin-right: 0.5rem;
-	color: #dbb125;
+    margin-right: 0.5rem;
+    color: #dbb125;
 }
 
 /*
@@ -76,33 +86,27 @@ Custom styling of sweetalerts modals, forced to use !important to override
 in-built classes as cannot use specificity to drive changes.
 Font/background colour and border radius redefined.
 */
-.swal2-popup,
-.swal2-content,
-.swal2-title {
+.swal2-popup, .swal2-content, .swal2-title {
     color: #ffffff !important;
     border-radius: 0 !important;
     background-color: #1f1f1f !important;
 }
 
-/*Custom styling for all buttons, reinforcement of site theme.*/
-.custom-btn,
-.swal2-confirm,
-.swal2-cancel {
+/*Custom styling for all modal buttons, reinforcement of site theme.*/
+.custom-btn, .swal2-confirm, .swal2-cancel {
     background-color: #2b2b2b !important;
     color: #ffffff !important;
 }
 
-.custom-btn:focus,
-.swal2-confirm:focus,
-.swal2-cancel:focus {
+/* Added box-shadowing to modal buttons upon focus, coloured gold. */
+.custom-btn:focus, .swal2-confirm:focus, .swal2-cancel:focus {
     box-shadow: 0rem 0rem 1rem 0.2rem #dbb125;
-}
-
-.custom-btn:hover,
-.swal2-confirm:hover,
-.swal2-cancel:hover {
     color: #dbb125 !important;
     border-color: #dbb125 !important;
 }
 
-/*COMPLETE COMMENTS FOR EACH SECTION.*/
+/* Font and border colour change on hovering of modal buttons. */
+.custom-btn:hover, .swal2-confirm:hover, .swal2-cancel:hover {
+    color: #dbb125 !important;
+    border-color: #dbb125 !important;
+}
