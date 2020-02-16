@@ -35,6 +35,14 @@ body {
 }
 
 /* Adjustment of login/register form layout. */
+#welcomeBody {
+    background-image: url("/./static/img/grayscale-dumbbell.jpg");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
 #authForm {
     margin-top: 6rem;
     justify-content: center;
@@ -113,4 +121,28 @@ Font/background colour and border radius redefined.
 .custom-btn:hover, .swal2-confirm:hover, .swal2-cancel:hover {
     color: #dbb125 !important;
     border-color: #dbb125 !important;
+}
+
+/* Custom class used for alignment of items, flex-centering in both directions. */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcomeSection {
+    height: 87vh;
+    color: #ffffff;
+}
+
+#welcomeSection .container-fluid {
+    background-color:#1111114f;
+}
+
+#welcomeSection h1 {
+    margin: 1rem 0rem;
+}
+
+#welcomeSection p {
+    color: #dbb125;
 }
