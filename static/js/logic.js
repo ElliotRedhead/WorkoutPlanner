@@ -39,6 +39,10 @@ $("#add-follow-submit").click(function() {
 	followedUserManagement("add")
 })
 
+/**
+ * Retrieves input based on operation type then runs associated fetch & modal.
+ * @param {string} operationType States if function is to add or remove user.
+ */
 function followedUserManagement(operationType){
 	if (operationType == "add"){
 		const inputData = {}
