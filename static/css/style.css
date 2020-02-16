@@ -30,6 +30,10 @@ body {
     margin-bottom: 2rem;
 }
 
+#formHeading {
+    color:#ffffff;
+}
+
 /* Adjustment of login/register form layout. */
 #authForm {
     margin-top: 6rem;
