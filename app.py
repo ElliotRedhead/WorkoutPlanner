@@ -96,12 +96,11 @@ def followed_users():
             if target_user in existing_following:
                 operation_success = False
                 return operation_success
-            else:
-                CLIENT.db.users.update_one(
-                    {"username": session["user"]},
-                    {"$push": {"following": target_user}})
-                operation_success = True
-                return operation_success
+            CLIENT.db.users.update_one(
+                {"username": session["user"]},
+                {"$push": {"following": target_user}})
+            operation_success = True
+            return operation_success
         if removal_key in request_data:
             target_user = request_data[removal_key]
             CLIENT.db.users.update_one(
