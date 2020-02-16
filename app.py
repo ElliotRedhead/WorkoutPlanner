@@ -238,7 +238,7 @@ def create_exercise():
         request_data.update(partial_record)
         CLIENT.db.exercises.insert_one(request_data)
     return render_template(
-        "forms/exerciseform.html",
+        "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
         form_heading="Create Exercise",
         form_name="createExerciseForm",
@@ -263,7 +263,7 @@ def edit_exercise(exercise_id):
             {"$set": request_data}
         )
     return render_template(
-        "forms/exerciseform.html",
+        "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
         form_heading="Edit Exercise",
         exercise=exercise,
@@ -304,7 +304,7 @@ def clone_exercise(exercise_id):
         request_data.update(partial_record)
         CLIENT.db.exercises.insert_one(request_data)
     return render_template(
-        "forms/exerciseform.html",
+        "forms/exercise.html",
         title="Workout Planner | Clone Exercise",
         form_heading="Clone Exercise",
         exercise=full_record,
