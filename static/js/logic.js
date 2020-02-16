@@ -12,7 +12,7 @@ $(document).ready(function () {
 	$("#createExerciseForm").submit(function () {
 		event.preventDefault();
 		fetch("/createexercise", fetchParameterInit(createExerciseObject())).then(
-			displayModal("Exercise created", undefined, true)
+			displayModal("Exercise created", undefined, "Ok", "/myexercises")
 		);
 	});
 	$("#editExerciseForm").submit(function () {
@@ -20,7 +20,7 @@ $(document).ready(function () {
 		fetch(
 			window.location.href,
 			fetchParameterInit(createExerciseObject())
-		).then(displayModal("Exercise created", undefined, true));
+		).then(displayModal("Exercise created", undefined, "Ok", "/myexercises"));
 	});
 	if ((window.location.pathname).includes("following")){
 		followToggleWidth()
@@ -156,10 +156,10 @@ function invalidResponseHandling(resultJson, responseHandlingType) {
 		Object.keys(invalidInput).forEach(key => {
 			alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`;
 		});
-		displayModal("Registration unsuccessful", alertMessage, false);
+		displayModal("Registration unsuccessful", alertMessage, false, "Ok", "/register");
 	} else if (responseHandlingType == "login") {
 		if (invalidInput.length > 0) {
-			displayModal("Login unsuccessful", `Invalid ${invalidInput}`);
+			displayModal("Login unsuccessful", `Invalid ${invalidInput}`, "Ok", "/login");
 		}
 	}
 }
@@ -200,7 +200,11 @@ function responseToModal(fetchResult, inputData, responseHandlingType) {
 				displayModal(
 					"Registration successful",
 					`Welcome ${inputData.inputUsername}!`,
-					"Global Exercises"
+					"Global Exercises",
+					"/globalexercises",
+					true,
+					"My Exercises",
+					"/myexercises"
 				);
 			} else {
 				invalidResponseHandling(resultJson, "register");
@@ -212,8 +216,10 @@ function responseToModal(fetchResult, inputData, responseHandlingType) {
 					"Login successful",
 					`Welcome back ${inputData.inputUsername}!`,
 					"Global Exercises",
+					"/globalexercises",
 					true,
-					"My Exercises"
+					"My Exercises",
+					"/myexercises"
 				);
 			else {
 				invalidResponseHandling(resultJson, "login");
@@ -272,20 +278,24 @@ function createExerciseObject() {
 }
 
 /**
- * Displays modal with customised content based on passed arguments.
- * If page redirect true: user is redirected to their exercise list.
+ * Displays modal with customised content based on arguments passed.
+ * Rediect locations also dictated by arguments passed.
  * @param {string} modalTitle The header text displayed in the modal.
  * @param {string} modalText The body text displayed in the modal.
  * @param {string} confirmButtonTextString Text to be displayed in left button.
+ * @param {string} confirmRedirect Window location to redirect to on left button click.
  * @param {boolean} showCancelButton Used as toggle for right button display.
  * @param {string} cancelButtonTextString Text to be displayed in right button.
+ * @param {string} cancelRedirect Window location to redirect to on right button click.
  */
 function displayModal(
 	modalTitle,
 	modalText = "",
 	confirmButtonTextString = "Ok",
+	confirmRedirect,
 	showCancelButton,
-	cancelButtonTextString = ""
+	cancelButtonTextString = "",
+	cancelRedirect
 ) {
 	Swal.fire({
 		title: modalTitle,
@@ -295,9 +305,9 @@ function displayModal(
 		cancelButtonText: cancelButtonTextString
 	}).then(result => {
 		if (result.value) {
-			window.location.replace("/globalexercises");
+			window.location.replace(confirmRedirect);
 		} else if (result.dismiss) {
-			window.location.replace("/myexercises");
+			window.location.replace(cancelRedirect);
 		}
 	});
 }
