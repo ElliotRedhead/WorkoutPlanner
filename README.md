@@ -144,24 +144,27 @@ Basic requirements for local deployment are as follows.
 
 1. Following from installation of pre-requisites, open the target directory and clone the repository with the following command in the terminal:
 
-```
+```console
 git clone https://github.com/ElliotRedhead/WorkoutPlanner
 ```
 
 2. The standard recommendation for managing python packages and preventing package conflicts is to create an isolated virtual environment for each project. Using python's included venv package create an environment within the target directory (command varies based on OS):
-```
+
+```console
 Windows: python -m venv venv
 Linux: py3 -m venv venv
 ```
 
 3. Activate the newly-created virtual environment (command varies based on OS):
-```
+
+```console
 Windows: venv/Scripts/activate
 Linux: source venv/Scripts/activate
 ```
 
 4. Add the required python modules using pip (command varies based on OS):
-```
+
+```console
 Windows: pip install -r requirements.txt
 Linux: pip3 install -r requirements.txt
 ```
@@ -170,7 +173,7 @@ Linux: pip3 install -r requirements.txt
 
 6. Copy the following code block into the env.py file, populating with the properties of your database.
 
-```
+```console
 import os
 
 os.environ["MONGO_URI"] = "INSERTYOURMONGOLINKHERE"
@@ -182,14 +185,39 @@ The collections used within this project are named "users" and "exercises", thes
 
 7. Run the application using the following in the command line.
 
-```
+```console
 Windows: python app.py
 Linux: python3 app.py
 ```
 
 8. The running terminal will direct you to the running address to access the application.
-# DOCUMENT HEROKU DEPLOYMENT HERE.
 
+## Deployment to Heroku
+
+The Procfile and requirements.txt pre-requisites are already included within the Workout Planner repository.  
+Steps to deploy Workout Planner to Heroku are as follows:
+
+1. Access the [Heroku website](https://dashboard.heroku.com/apps) and create a new app by selecting the "New" button in the dashboard.  
+Name the application and set the region as "Europe".
+
+2. Navigate to the new application's dashboard page and select "Deploy": "Deployment Method", set this to "Github".
+
+3. Confirm connection of the app to the require Github repository.
+
+4. To set required configuration variables: select "Settings": "Reveal Config Vars".
+
+5. Set the required variables as detailed:  
+Key: Value  
+IP: 0.0.0.0
+PORT: 5000  
+MONGO_URI: `mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority`  
+SECRET_KEY: `<examplesecretkey>`  
+
+The MONGO_URI value is provided by MongoDB, the [documentation](https://docs.atlas.mongodb.com/) provides help for this.
+
+6. In the app settings, access the "Deploy" tab and manually deploy the app: with the master branch selected, click "Deploy Branch".
+
+7. Wait for the app to fully deploy, access the running app via the "Open app" button at the top of the page.
 
 ## Credits
 
