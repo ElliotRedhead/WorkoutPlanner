@@ -240,6 +240,7 @@ def create_exercise():
     return render_template(
         "forms/exercise.html",
         title="Workout Planner | Edit Exercise",
+        nav=["following", "myexercises", "global"],
         form_heading="Create Exercise",
         form_name="createExerciseForm",
         exercise={"exercisename": "chest press", "targetmuscle": "chest",
@@ -268,7 +269,7 @@ def edit_exercise(exercise_id):
         form_heading="Edit Exercise",
         exercise=exercise,
         form_name="editExerciseForm",
-        nav=["myexercises", "globalexercises"]
+        nav=["following", "myexercises", "global"]
     )
 
 
@@ -309,7 +310,7 @@ def clone_exercise(exercise_id):
         form_heading="Clone Exercise",
         exercise=full_record,
         form_name="editExerciseForm",
-        nav=["myexercises", "globalexercises"]
+        nav=["following", "myexercises", "global"]
     )
 
 
