@@ -275,7 +275,7 @@ def create_exercise():
         request_data.update(partial_record)
         CLIENT.db.exercises.insert_one(request_data)
     return render_template(
-        "forms/exercise.html",
+        "components/forms/exercise.html",
         title="Workout Planner | Edit Exercise",
         nav=["following", "myexercises", "global"],
         form_heading="Create Exercise",
@@ -302,7 +302,7 @@ def edit_exercise(exercise_id):
             {"$set": request_data}
         )
     return render_template(
-        "forms/exercise.html",
+        "components/forms/exercise.html",
         title="Workout Planner | Edit Exercise",
         form_heading="Edit Exercise",
         exercise=exercise,
