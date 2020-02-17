@@ -33,6 +33,12 @@ APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 APP.debug = True
 CLIENT = PyMongo(APP)
 
+@APP.route("/")
+def generic_route():
+    if "returnUser" in session:
+        return redirect(url_for("login"))
+    else:
+        return redirect(url_for("welcome"))
 
 def active_session_check(route_url):
     """Checks if user has an active session, if not redirects to login page.
@@ -59,9 +65,11 @@ def active_session_check(route_url):
         )
     return render_dict
 
+
 @APP.route("/welcome")
 def welcome():
     """The welcome screen to be displayed on page load."""
+    session["returnUser"] = True
     return render_template(
         "pages/welcome.html",
         title="Workout Planner | Welcome",
@@ -135,7 +143,6 @@ def followed_users():
         recordmatches=record_matches)
 
 
-@APP.route("/")
 @APP.route("/login", methods=["POST", "GET"])
 def login():
     """Validates submitted credentials, if valid: add user to session, else: return fail response.
@@ -217,7 +224,7 @@ def register():
 @APP.route("/logout")
 def logout():
     """Clears user from session and redirects to the login page."""
-    session.clear()
+    del session["user"]
     return redirect(url_for("login"))
 
 
