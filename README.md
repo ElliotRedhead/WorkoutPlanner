@@ -46,7 +46,7 @@ This project is a suitable way to deliver this content because:
 ### Colour Palette
 
 The final website design has been customised with the following colour palette:  
-![#1B1B1B](https://placehold.it/15/1B1B1B/000000?text=+) `#1B1B1B`:  This black is the standard colour used for the navbar background and text in modal alerts. Variations in the opacity of the black are used for different applications on this site e.g. welcome page black overlay. This colour is used to generate contrast with a lighter background.
+![#1B1B1B](https://placehold.it/15/1B1B1B/000000?text=+) `#1B1B1B`:  This black is the standard colour used for the navbar background and text in modal alerts. Variations in the opacity of the black are used for different applications on this site e.g. welcome page black overlay. This colour is used to generate contrast with a lighter background.  
 ![#555555CB](https://placehold.it/15/555555CB/000000?text=+) `#555555CB`: This grey is used for styling the background of exercise cards, it provides a neutral, non-obtrusive background so as to not distract users from the displayed details.  
 ![#DBB125](https://placehold.it/15/DBB125/000000?text=+) `#DBB125`: This gold is used as an accenting colour, generally used for colour contrast. This is used extensively for user feedback of hover and click functions.  
 ![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) `#FFFFFF`: This white is used for greater contrast against darker backgrounds and gives a strong, bright highlight of elements it is applied to.  
@@ -122,10 +122,6 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 ### Testing
 
 Testing documentation is located in the [TESTING.md file.](./TESTING.md)
-
-### Known Bugs & Limitations
-
-Are there any features that don't perform as expected, is the discovery documented through testing section, are potential solutions noted?
 
 ## Deployment
 
