@@ -27,8 +27,8 @@ $(document).ready(function () {
 		manageFollowToggle()
 		getFollowedUsers()
 	}
-	$("#manage-follow-toggle").change(manageFollowToggle)
-
+	$("#manage-follow-toggle").change(manageFollowToggle);
+	hideBurgerIcon();
 })
 
 $("#remove-follow-submit").click(function() {
@@ -38,6 +38,16 @@ $("#remove-follow-submit").click(function() {
 $("#add-follow-submit").click(function() {
 	followedUserManagement("add")
 })
+
+/**
+ * Hides the navigation burger icon if no links present.
+ */
+function hideBurgerIcon() {
+	const navListItemNumber = $(".navbar-nav li").length;
+	if (navListItemNumber < 1){
+		$(".navbar-toggler").hide();
+	} 
+}
 
 /**
  * Retrieves input based on operation type then runs associated fetch & modal.
