@@ -83,9 +83,13 @@ Access to the website is restricted to registered users. Upon loading: users are
 
 The site allows users to create, view, edit or delete their own exercises. Each exercise can be personalised to include details of the exercise name, target muscle, equipment used and a metric of intensity measured by either weight or distance. Upon completion the user can mark the exercise as completed.
 
-#### Accessbility to Others' Exercises
+#### Accessibility to Global Exercises
 
 Accessing the global page shows all users' exercise cards, the user then has the option to clone those exercises to their own list if they want to.
+
+#### Accessiblity to Followed Users' Exercises
+
+The followed users page allows the user to manage their followed users. The exercise cards owned by followed users are displayed, these can be cloned to the own user's list.
 
 ### Potential Features to Implement
 
@@ -109,6 +113,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 - HTML, CSS and Javascript are used for creating the frontend structure blocks, styling and logic of this site.
 - [jQuery](https://jquery.com/) is primarily used within this project for ease of DOM manipulation.
 - [Bootstrap](https://getbootstrap.com) is used for resolution responsiveness and for general structuring of the UI.
+- [Python](https://www.python.org/) is used for backend manipulation.
 - [Flask](https://www.fullstackpython.com/flask.html) is a Python-based framework used for the implementation of templates for components and page structures within this project.
 - [MongoDB](https://www.mongodb.com/) was used to store the no-SQL database.
 - [PyMongo](https://api.mongodb.com/python/current/) was used to manage/interact with the MongoDB database.
@@ -226,9 +231,12 @@ The MONGO_URI value is provided by MongoDB, the [documentation](https://docs.atl
 The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue).  
 The images used in this site were obtained from the following sources:
 
-- [Geometric architecture image by Scott Webb, sourced from Pexels.](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/)
+- [Geometric architecture image by Scott Webb, sourced from Pexels](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/) is used for the main background of the site.
+- [Grayscale barbell image by Victor Freitas, sourced from Pexels](https://www.pexels.com/photo/grayscale-photo-of-black-adjustable-dumbbell-949131/) is used for the welcome page background.
 
 ### Acknowledgements
+
+Many thanks for support in the creation of this website to my mentor: [Simen Daehlin](https://github.com/Eventyret).
 
 #### Disclaimer
 
