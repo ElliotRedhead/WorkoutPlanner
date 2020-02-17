@@ -32,11 +32,11 @@ $(document).ready(function () {
 })
 
 $("#remove-follow-submit").click(function() {
-	followedUserManagement("remove")
+	followedUserManagement("remove", "#current-follow-dropdown")
 })
 
 $("#add-follow-submit").click(function() {
-	followedUserManagement("add")
+	followedUserManagement("add", "#add-follow-input")
 })
 
 /**
@@ -52,27 +52,17 @@ function hideBurgerIcon() {
 /**
  * Retrieves input based on operation type then runs associated fetch & modal.
  * @param {string} operationType States if function is to add or remove user.
+ * @param {string} userInputElement Defines element to retrieve user input.
  */
-function followedUserManagement(operationType){
-	if (operationType == "add"){
-		const inputData = {}
-		const inputFollowUsername = $("#add-follow-input")[0].value.toLowerCase()
-		inputData["addFollowUsername"]= inputFollowUsername
-		fetch("/following", fetchParameterInit(inputData))
-			.then(response => {
-				responseToModal(response, inputData, `${operationType}Follow`)
-			})
+function followedUserManagement(operationType, userInputElement){
+	const inputData = {}
+	const inputFollowUsername = $(`${userInputElement}`)[0].value.toLowerCase()
+	inputData[`${operationType}FollowUsername`]= inputFollowUsername
+	fetch("/following", fetchParameterInit(inputData))
+		.then(response => {
+			responseToModal(response, inputData, `${operationType}Follow`)
+		})
 	}
-	if (operationType == "remove"){
-		const inputData = {}
-		const inputFollowUsername = $("#current-follow-dropdown")[0].value.toLowerCase()
-		inputData["removeFollowUsername"]= inputFollowUsername
-		fetch("/following", fetchParameterInit(inputData))
-			.then(response => {
-				responseToModal(response, inputData, `${operationType}Follow`)
-			})
-	}
-}
 
 /**
  * Fetches list of followed users, sorts alphabetically and displays in dropdown.
