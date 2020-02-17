@@ -2,25 +2,31 @@
 <div id="authForm">
   <form id={{formId}} class="container-fluid" method="POST">
     <div class="form-group row mt-5">
+      <!-- Input for username. -->
       <label for="inputUsername" class="col-6 offset-3 col-md-8 offset-md-2">Username</label>
-      <input type="text" class="form-control col-6 offset-3 col-md-8 offset-md-2" id="inputUsername" name="inputUsername"
-        aria-describedby="usernameHelp" placeholder="Username" required>
+      <input type="text" class="form-control col-6 offset-3 col-md-8 offset-md-2" id="inputUsername"
+        name="inputUsername" aria-describedby="usernameHelp" placeholder="Username" required>
     </div>
     {% if currentAuthPath == "register" %}
     <div class="form-group row">
+      <!-- Input for email, used to encourage one-account per person. -->
       <label for="inputEmail" class="col-6 offset-3 col-md-8 offset-md-2">Email</label>
       <input type="email" class="form-control col-6 offset-3 col-md-8 offset-md-2" id="inputEmail" name="inputEmail"
         placeholder="example@domain.com" required>
     </div>
     {% endif %}
     <div class="form-group row">
+      <!-- Input for password. -->
       <label for="inputPassword" class="col-6 offset-3 col-md-8 offset-md-2">Password</label>
-      <input type="password" class="form-control col-6 offset-3 mb-3 col-md-8 offset-md-2" id="inputPassword" name="inputPassword"
-        placeholder="Password" required>
+      <input type="password" class="form-control col-6 offset-3 mb-3 col-md-8 offset-md-2" id="inputPassword"
+        name="inputPassword" placeholder="Password" required>
     </div>
+    <!-- Submission button for the form. -->
     <button type="submit" id={{currentAuthPath}} name={{currentAuthPath}}
       class="btn custom-btn col-6 offset-3 mb-3 col-md-8 offset-md-2">{{currentAuthPath}}</button>
   </form>
-  <a href="{{alternativeAuthPath}}" id="alternativePathPrompt" class="col-6 offset-2 col-md-8 offset-md-2">{{alternativeAuthPathPrompt}}</a>
+  <!-- Link to alternative authorisation from current e.g. Registration page shows Login alternative. -->
+  <a href="{{alternativeAuthPath}}" id="alternativePathPrompt"
+    class="col-6 offset-2 col-md-8 offset-md-2">{{alternativeAuthPathPrompt}}</a>
 </div>
 {% endblock content %}
