@@ -107,6 +107,7 @@ Font/background colour and border radius redefined.
 .custom-btn, .swal2-confirm, .swal2-cancel {
     background-color: #2b2b2b !important;
     color: #ffffff !important;
+    border-radius: 0.05rem;
 }
 
 /* Added box-shadowing to modal buttons upon focus, coloured gold. */
@@ -139,9 +140,15 @@ Font/background colour and border radius redefined.
 }
 
 #welcomeSection h1 {
-    margin: 1rem 0rem;
+    margin-top: 1rem;
 }
 
 #welcomeSection p {
     color: #dbb125;
+    margin-top: 0.5rem;
+}
+
+#welcomeLink {
+    margin-top:0.2rem;
+    margin-bottom:0.2rem;
 }
