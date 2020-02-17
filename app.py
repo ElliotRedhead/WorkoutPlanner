@@ -116,7 +116,11 @@ def followed_users():
     if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     logged_username = CLIENT.db.users.find_one({"username": session["user"]})
-    existing_following = logged_username["following"]
+    if "following" in logged_username:
+        existing_following = logged_username["following"]
+    else:
+        existing_following = CLIENT.db.users.update_one(
+            {"username": session["user"]}, {"$set": {"following": []}})
     if request.method == "POST":
         request_data = request.get_json()
         response = {}
