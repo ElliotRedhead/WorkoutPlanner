@@ -2,6 +2,7 @@
 {% block content %}
 <h2 id="formHeading" class="col-10 offset-1 flex-center">{{form_heading}}</h2>
 <form id="{{form_name}}" method="POST">
+    <!-- Input for each exercise section. -->
     <div class="form-group">
         <label for="exerciseName" class="col-6 offset-3 col-md-8 offset-md-2">Exercise Name</label>
         <input type="text" class="form-control col-6 offset-3 col-md-8 offset-md-2" id="exerciseName"
@@ -22,6 +23,7 @@
         <input type="text" class="form-control col-6 offset-3 col-md-8 offset-md-2" id="weightdistanceValue"
             name="weightdistanceValue" value="{{exercise.weightdistancevalue}}" required>
     </div>
+    <!-- Button to submit exercise details. -->
     <button type="submit" id="exerciseConfirm" name="exerciseConfirm"
         class="btn custom-btn col-6 offset-3 col-md-8 offset-md-2">Confirm</button>
 </form>
