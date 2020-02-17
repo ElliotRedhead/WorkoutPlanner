@@ -31,14 +31,6 @@ $(document).ready(function () {
 	hideBurgerIcon();
 })
 
-$("#remove-follow-submit").click(function() {
-	followedUserManagement("remove", "#current-follow-dropdown")
-})
-
-$("#add-follow-submit").click(function() {
-	followedUserManagement("add", "#add-follow-input")
-})
-
 /**
  * Hides the navigation burger icon if no links present.
  */
@@ -47,84 +39,6 @@ function hideBurgerIcon() {
 	if (navListItemNumber < 1){
 		$(".navbar-toggler").hide();
 	} 
-}
-
-/**
- * Retrieves input based on operation type then runs associated fetch & modal.
- * @param {string} operationType States if function is to add or remove user.
- * @param {string} userInputElement Defines element to retrieve user input.
- */
-function followedUserManagement(operationType, userInputElement){
-	const inputData = {}
-	const inputFollowUsername = $(`${userInputElement}`)[0].value.toLowerCase()
-	inputData[`${operationType}FollowUsername`]= inputFollowUsername
-	fetch("/following", fetchParameterInit(inputData))
-		.then(response => {
-			responseToModal(response, inputData, `${operationType}Follow`)
-		})
-	}
-
-/**
- * Fetches list of followed users, sorts alphabetically and displays in dropdown.
- */
-function getFollowedUsers(){
-	const inputData = "followedUserRequest"
-	fetch("/following",fetchParameterInit(inputData))
-		.then(response => {
-			response.json()
-				.then(
-					responseJson => {
-						let data = (responseJson.sort((a, b) => (a.name > b.name) ? -1 : 1));
-						data.forEach(currentValue => {
-							$("#current-follow-dropdown")[0].innerHTML +=
-							`<option>${currentValue}</option>`
-						})
-					}
-				)
-		})}
-
-/**
- * Checks the state of the toggle switch.
- * Upon toggling: the input option available to the user is modified. 
- */
-function manageFollowToggle(){
-	const toggleState = ($("#manage-follow-toggle")[0].checked)
-	if(toggleState){
-		$("#remove-follow-partition").hide()
-		$("#add-follow-partition").show()
-	} else {
-		$("#remove-follow-partition").show()
-		$("#add-follow-partition").hide()
-	}
-}
-
-/**
- * Adjusts width and padding of Bootstrap in-built classes used in "follow" toggle.
- */
-function followToggleWidth() {
-	($(".custom-control").css("padding-left",0));
-	($(".toggle").width("100%"));
-	($(".toggle").css("padding-left",0))
-}
-
-/**
- * Retrieves form values, standardises text into required formats.
- * @param {boolean} emailInputRequired - Determines if email value is retrieved.
- * @return {object} Form values, dictated by user input.
- */
-function getInputData(emailInputRequired = false) {
-	const inputData = {
-		inputUsername: $("#inputUsername")
-			.val()
-			.toLowerCase(),
-		inputPassword: $("#inputPassword").val()
-	};
-	if (emailInputRequired) {
-		inputData["inputEmail"] = $("#inputEmail")
-			.val()
-			.toLowerCase();
-	}
-	return inputData;
 }
 
 /**
@@ -145,31 +59,6 @@ function registerFormHandling() {
 		.catch(error => {
 			console.log(error);
 		});
-}
-
-/**
- * Sets string "cutting" position based on whether submission is login or register.
- * Displays invalid key to user in a modal.
- * @param {object} resultJson The invalid input's key.
- * @param {string} responseHandlingType States whether info handled is login or register.
- */
-function invalidResponseHandling(resultJson, responseHandlingType) {
-	let isolationNumber = undefined;
-	responseHandlingType == "register"
-		? (isolationNumber = 3)
-		: (isolationNumber = 5);
-	const invalidInput = authBooleanCheck(resultJson, isolationNumber);
-	if (responseHandlingType == "register") {
-		let alertMessage = "";
-		Object.keys(invalidInput).forEach(key => {
-			alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`;
-		});
-		displayModal("Registration unsuccessful", alertMessage, "Ok", "/register");
-	} else if (responseHandlingType == "login") {
-		if (invalidInput.length > 0) {
-			displayModal("Login unsuccessful", `Invalid ${invalidInput}`, "Ok", "/login");
-		}
-	}
 }
 
 /**
@@ -297,6 +186,51 @@ function authBooleanCheck(responseJSON, isolationNumber) {
 }
 
 /**
+ * Retrieves form values, standardises text into required formats.
+ * @param {boolean} emailInputRequired - Determines if email value is retrieved.
+ * @return {object} Form values, dictated by user input.
+ */
+function getInputData(emailInputRequired = false) {
+	const inputData = {
+		inputUsername: $("#inputUsername")
+			.val()
+			.toLowerCase(),
+		inputPassword: $("#inputPassword").val()
+	};
+	if (emailInputRequired) {
+		inputData["inputEmail"] = $("#inputEmail")
+			.val()
+			.toLowerCase();
+	}
+	return inputData;
+}
+
+/**
+ * Sets string "cutting" position based on whether submission is login or register.
+ * Displays invalid key to user in a modal.
+ * @param {object} resultJson The invalid input's key.
+ * @param {string} responseHandlingType States whether info handled is login or register.
+ */
+function invalidResponseHandling(resultJson, responseHandlingType) {
+	let isolationNumber = undefined;
+	responseHandlingType == "register"
+		? (isolationNumber = 3)
+		: (isolationNumber = 5);
+	const invalidInput = authBooleanCheck(resultJson, isolationNumber);
+	if (responseHandlingType == "register") {
+		let alertMessage = "";
+		Object.keys(invalidInput).forEach(key => {
+			alertMessage = alertMessage + `${invalidInput[key]} already exists.</br>`;
+		});
+		displayModal("Registration unsuccessful", alertMessage, "Ok", "/register");
+	} else if (responseHandlingType == "login") {
+		if (invalidInput.length > 0) {
+			displayModal("Login unsuccessful", `Invalid ${invalidInput}`, "Ok", "/login");
+		}
+	}
+}
+
+/**
  * Uses jQuery to capture value of input data for workout spec.
  * Each value is converted to lowercase for standardised database data.
  * @returns {object} Each exercise form input standardised in object.
@@ -342,4 +276,70 @@ function displayModal(
 			window.location.replace(cancelRedirect);
 		}
 	});
+}
+
+/**
+ * Fetches list of followed users, sorts alphabetically and displays in dropdown.
+ */
+function getFollowedUsers(){
+	const inputData = "followedUserRequest"
+	fetch("/following",fetchParameterInit(inputData))
+		.then(response => {
+			response.json()
+				.then(
+					responseJson => {
+						let data = (responseJson.sort((a, b) => (a.name > b.name) ? -1 : 1));
+						data.forEach(currentValue => {
+							$("#current-follow-dropdown")[0].innerHTML +=
+							`<option>${currentValue}</option>`
+						})
+					}
+				)
+		})}
+
+$("#remove-follow-submit").click(function() {
+	followedUserManagement("remove", "#current-follow-dropdown")
+})
+
+$("#add-follow-submit").click(function() {
+	followedUserManagement("add", "#add-follow-input")
+})
+
+/**
+ * Retrieves input based on operation type then runs associated fetch & modal.
+ * @param {string} operationType States if function is to add or remove user.
+ * @param {string} userInputElement Defines element to retrieve user input.
+ */
+function followedUserManagement(operationType, userInputElement){
+	const inputData = {}
+	const inputFollowUsername = $(`${userInputElement}`)[0].value.toLowerCase()
+	inputData[`${operationType}FollowUsername`]= inputFollowUsername
+	fetch("/following", fetchParameterInit(inputData))
+		.then(response => {
+			responseToModal(response, inputData, `${operationType}Follow`)
+		})
+	}
+
+/**
+ * Checks the state of the toggle switch.
+ * Upon toggling: the input option available to the user is modified. 
+ */
+function manageFollowToggle(){
+	const toggleState = ($("#manage-follow-toggle")[0].checked)
+	if(toggleState){
+		$("#remove-follow-partition").hide()
+		$("#add-follow-partition").show()
+	} else {
+		$("#remove-follow-partition").show()
+		$("#add-follow-partition").hide()
+	}
+}
+
+/**
+ * Adjusts width and padding of Bootstrap in-built classes used in "follow" toggle.
+ */
+function followToggleWidth() {
+	($(".custom-control").css("padding-left",0));
+	($(".toggle").width("100%"));
+	($(".toggle").css("padding-left",0))
 }
