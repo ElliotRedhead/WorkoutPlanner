@@ -318,7 +318,7 @@ function followedUserManagement(operationType, userInputElement){
 		.then(response => {
 			responseToModal(response, inputData, `${operationType}Follow`)
 		})
-	}
+}
 
 /**
  * Checks the state of the toggle switch.
