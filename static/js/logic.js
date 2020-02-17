@@ -56,9 +56,6 @@ function registerFormHandling() {
 		.then(response => {
 			responseToModal(response, inputData, "register");
 		})
-		.catch(error => {
-			console.log(error);
-		});
 }
 
 /**
@@ -77,9 +74,6 @@ function loginFormHandling(inputData) {
 		.then(response => {
 			responseToModal(response, inputData, "login");
 		})
-		.catch(error => {
-			console.log(error);
-		});
 }
 
 /**
