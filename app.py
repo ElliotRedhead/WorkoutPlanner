@@ -25,6 +25,7 @@ class ReverseProxied():
         return self.app(environ, start_response)
 
 
+# Create Flask instance, assign environment variables for DB access.
 APP = Flask(__name__)
 APP.wsgi_app = ReverseProxied(APP.wsgi_app)
 APP.config["MONGO_URI"] = os.environ.get("MONGO_URI")
@@ -34,6 +35,7 @@ APP.debug = True
 CLIENT = PyMongo(APP)
 
 
+# Defines the route on generic site load, different for return/new users.
 @APP.route("/")
 def intro_route():
     """Checks if user has visited site before, if so: redirects to login."""
@@ -42,6 +44,7 @@ def intro_route():
     return redirect(url_for("welcome"))
 
 
+# Logged-in checker.
 def active_session_check(route_url):
     """Checks if user has an active session, if not redirects to login page.
 
@@ -68,6 +71,7 @@ def active_session_check(route_url):
     return render_dict
 
 
+# Welcome page.
 @APP.route("/welcome")
 def welcome():
     """The welcome screen to be displayed on page load."""
@@ -78,6 +82,7 @@ def welcome():
         bodyId="welcomeBody")
 
 
+# Personal exercise list.
 @APP.route("/myexercises")
 def my_exercises():
     """Displays a logged in user's exercise list.
@@ -97,6 +102,7 @@ def my_exercises():
         nav=["following", "global"])
 
 
+# Followed users' exercises.
 @APP.route("/following", methods=["POST", "GET"])
 def followed_users():
     """Displays followed users' exercises & interface to manage followed users.
@@ -146,6 +152,7 @@ def followed_users():
         recordmatches=record_matches)
 
 
+# Login page.
 @APP.route("/login", methods=["POST", "GET"])
 def login():
     """Validates data, if valid: add user to session, else: fail response.
@@ -185,6 +192,7 @@ def login():
         alternativeAuthPathPrompt="Not registered? Click here.")
 
 
+# Register page.
 @APP.route("/register", methods=["POST", "GET"])
 def register():
     """Validates data, if valid: add user to db/session, else: fail response.
@@ -226,6 +234,7 @@ def register():
         alternativeAuthPathPrompt="Already registered? Login here.")
 
 
+# Route to remove user from session (logout).
 @APP.route("/logout")
 def logout():
     """Clears user from session and redirects to the login page.
@@ -237,6 +246,7 @@ def logout():
     return redirect(url_for("login"))
 
 
+# Page of all users' exercises.
 @APP.route("/globalexercises")
 def global_exercises():
     """Displays exercises owned by all users."""
@@ -249,7 +259,7 @@ def global_exercises():
         exercises=exercises,
         nav=["myexercises", "following"])
 
-
+# Page with form to create a new exercise.
 @APP.route("/createexercise", methods=["POST", "GET"])
 def create_exercise():
     """User-defined exercise added to db, user in session recorded as owner."""
@@ -271,6 +281,7 @@ def create_exercise():
     )
 
 
+# Page with form to edit an existing exercise.
 @APP.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
 def edit_exercise(exercise_id):
     """Selected exercise updated with user details if owner is session user."""
@@ -296,6 +307,7 @@ def edit_exercise(exercise_id):
     )
 
 
+# Toggle exercise completion status.
 @APP.route("/completeexercise/<exercise_id>", methods=["POST", "GET"])
 def complete_exercise(exercise_id):
     """Selected exercise "complete" variable boolean inverted."""
@@ -310,6 +322,7 @@ def complete_exercise(exercise_id):
     return redirect(url_for("my_exercises"))
 
 
+# Removal of selected exercise from database.
 @APP.route("/deleteexercise/<exercise_id>")
 def delete_exercise(exercise_id):
     """Selected exercise is removed from the database."""
@@ -317,6 +330,7 @@ def delete_exercise(exercise_id):
     return redirect(url_for("my_exercises"))
 
 
+# Duplication of selected exercise in database with new user.
 @APP.route("/cloneexercise/<exercise_id>", methods=["POST", "GET"])
 def clone_exercise(exercise_id):
     """Exercise details passed to form, exercise assigned to session user."""
