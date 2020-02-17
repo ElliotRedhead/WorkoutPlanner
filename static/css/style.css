@@ -125,6 +125,7 @@ Font/background colour and border radius redefined.
     align-items: center;
 }
 
+/* The following are alterations to style/layout that are applicable to the welcome page. */
 #welcomeSection {
     height: 87vh;
     color: #ffffff;
