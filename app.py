@@ -35,11 +35,11 @@ CLIENT = PyMongo(APP)
 
 
 @APP.route("/")
-def generic_route():
+def intro_route():
+    """Checks if user has visited site before, if so: redirects to login."""
     if "returnUser" in session:
         return redirect(url_for("login"))
-    else:
-        return redirect(url_for("welcome"))
+    return redirect(url_for("welcome"))
 
 
 def active_session_check(route_url):
