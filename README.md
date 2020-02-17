@@ -2,7 +2,9 @@
 
 ## Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)
 
-Submission for Code Institute's Data-Centric Development Milestone Project, an application for the planning and logging of workout sessions.
+An exercise planner. This site give you a platform to plan your exercises, view others' exercises and copy exercise ideas with the ability to personalise exercises to your own needs.  
+
+This project focuses on the data-driven aspects of development, a NoSQL database (MongoDB) is utilised to store user and exercise data.
 
 ## User Experience
 
