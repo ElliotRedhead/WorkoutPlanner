@@ -26,8 +26,12 @@
 
 8. In the removal of followed user: the target username is correctly removed from the current user in session's followed array, the target users' exercise cards are not displayed on the followed page as a result.  
 
-x. Code Validators  
+## Code Validation  
 
-Have [W3C](https://www.w3.org/) validators been used for both HTML and CSS checking?
+Linters and formatters were used throughout the development of this project.  
 
-Has [JSHint](https://jshint.com/) been used by recommendation of The Code Institute to validate the Javascript?
+* The [Prettier](https://prettier.io/) formatter was used to format HTML/CSS files and check for errors.  
+* [ESLint](https://eslint.org/) was used for linting of the Javascript file.  
+* [pylint](https://www.pylint.org/) was used for linting of the Python file.  
+
+Upon project completion there are false-positive errors reported by the linting tools, these have been assessed and determined to not require rectifying.
