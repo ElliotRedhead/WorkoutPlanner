@@ -1,9 +1,9 @@
 {% block content %}
 <div id="authForm">
   <form id={{formId}} class="container-fluid" method="POST">
-    <div class="form-group row">
+    <div class="form-group row mt-4">
       <label for="inputUsername" class="col-6 offset-3 col-md-8 offset-md-2">Username</label>
-      <input type="text" class="form-control col-6 offset-3 mb-3 col-md-8 offset-md-2" id="inputUsername" name="inputUsername"
+      <input type="text" class="form-control col-6 offset-3 col-md-8 offset-md-2" id="inputUsername" name="inputUsername"
         aria-describedby="usernameHelp" placeholder="Username" required>
     </div>
     {% if currentAuthPath == "register" %}
@@ -21,6 +21,6 @@
     <button type="submit" id={{currentAuthPath}} name={{currentAuthPath}}
       class="btn custom-btn col-6 offset-3 mb-3 col-md-8 offset-md-2">{{currentAuthPath}}</button>
   </form>
-  <a href="{{alternativeAuthPath}}" id="alternativePathPrompt" class="col-6 offset-3 col-md-8 offset-md-2">{{alternativeAuthPathPrompt}}</a>
+  <a href="{{alternativeAuthPath}}" id="alternativePathPrompt" class="col-6 offset-2 col-md-8 offset-md-2">{{alternativeAuthPathPrompt}}</a>
 </div>
 {% endblock content %}

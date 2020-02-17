@@ -42,11 +42,6 @@ body {
     height: 100vh;
 }
 
-#authForm {
-    margin-top: 6rem;
-    justify-content: center;
-}
-
 /* Removal of standard link formatting and alteration of text colour. */
 #alternativePathPrompt {
     text-decoration-style: none;
