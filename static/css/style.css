@@ -50,14 +50,14 @@ body {
 
 /* Customisation of card font colours and balanced layout of text. */
 .card-text, .card-title {
-    color: #000000;
+    color: #1b1b1b;
     display: flex;
     justify-content: space-around;
 }
 
 /* Completion state of exercise reflected in style change. */
 .complete>.row>.card-text, .complete>.row>.card-title {
-    color: #424242;
+    color: #555555cb;
     text-decoration: line-through;
 }
 
@@ -95,7 +95,7 @@ Font/background colour and border radius redefined.
 .swal2-popup, .swal2-content, .swal2-title {
     color: #ffffff !important;
     border-radius: 0 !important;
-    background-color: #1f1f1f !important;
+    background-color: #1b1b1b !important;
 }
 
 /*Custom styling for all modal buttons, reinforcement of site theme.*/

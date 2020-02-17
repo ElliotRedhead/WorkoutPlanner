@@ -44,14 +44,12 @@ This project is a suitable way to deliver this content because:
 ## Design & Styling
 
 ### Colour Palette
-# UPDATE WITH RELEASE-STAGE COLOURS, COMMENT ON HOW THESE HAVE CHANGED WITH DEVELOPMENT & RESEARCH.
-The initial website design concepts have been formed with the following colour palette:  
-![#0f1011](https://placehold.it/15/0f1011/000000?text=+) `#0f1011`  
-![#615F5B](https://placehold.it/15/615F5B/000000?text=+) `#615F5B`  
-![#A2A29F](https://placehold.it/15/A2A29F/000000?text=+) `#A2A29F`  
-![#FBFBFB](https://placehold.it/15/FBFBFB/000000?text=+) `#FBFBFB`  
-![#2B5630](https://placehold.it/15/2B5630/000000?text=+) `#2B5630`  
-![#04A647](https://placehold.it/15/04A647/000000?text=+) `#04A647`
+
+The final website design has been customised with the following colour palette:  
+![#1B1B1B](https://placehold.it/15/1B1B1B/000000?text=+) `#1B1B1B`:  This black is the standard colour used for the navbar background and text in modal alerts. Variations in the opacity of the black are used for different applications on this site e.g. welcome page black overlay. This colour is used to generate contrast with a lighter background.
+![#555555CB](https://placehold.it/15/555555CB/000000?text=+) `#555555CB`: This grey is used for styling the background of exercise cards, it provides a neutral, non-obtrusive background so as to not distract users from the displayed details.  
+![#DBB125](https://placehold.it/15/DBB125/000000?text=+) `#DBB125`: This gold is used as an accenting colour, generally used for colour contrast. This is used extensively for user feedback of hover and click functions.  
+![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) `#FFFFFF`: This white is used for greater contrast against darker backgrounds and gives a strong, bright highlight of elements it is applied to.  
 
 The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
 
