@@ -33,12 +33,14 @@ APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 APP.debug = True
 CLIENT = PyMongo(APP)
 
+
 @APP.route("/")
 def generic_route():
     if "returnUser" in session:
         return redirect(url_for("login"))
     else:
         return redirect(url_for("welcome"))
+
 
 def active_session_check(route_url):
     """Checks if user has an active session, if not redirects to login page.
@@ -75,6 +77,7 @@ def welcome():
         title="Workout Planner | Welcome",
         bodyId="welcomeBody")
 
+
 @APP.route("/myexercises")
 def my_exercises():
     """Displays a logged in user's exercise list.
@@ -96,7 +99,7 @@ def my_exercises():
 
 @APP.route("/following", methods=["POST", "GET"])
 def followed_users():
-    """Displays followed users' exercises and interface to manage followed users.
+    """Displays followed users' exercises & interface to manage followed users.
 
     Each followed user's exercise cards are displayed on the page.
     This function also handles requests to add/remove users from followed list.
@@ -145,12 +148,13 @@ def followed_users():
 
 @APP.route("/login", methods=["POST", "GET"])
 def login():
-    """Validates submitted credentials, if valid: add user to session, else: return fail response.
+    """Validates data, if valid: add user to session, else: fail response.
 
-    Checks if the submitted username exists in the database, if not a suitable response is returned,
-    if the username exists then the hashed password is compared with the existing database entry.
-    If both the submitted username and password match the database records then user is added to
-    session and user is redirected to their list of exercises.
+    Checks if the submitted username exists in the database.
+    If user is not in database a suitable response is returned.
+    If username exists then hashed password is compared with database record.
+    If both the submitted username and password match the database records:
+    user is added to session and redirected to their list of exercises.
     """
     active_session_check(request.url_rule)
     if request.method == "POST":
@@ -183,11 +187,12 @@ def login():
 
 @APP.route("/register", methods=["POST", "GET"])
 def register():
-    """Validates submitted data, if valid: add user to database/session, else: return fail response.
+    """Validates data, if valid: add user to db/session, else: fail response.
 
     Checks if submitted username or password already exist in database,
     if so then a fail message is returned.
-    If user is non-existent then a new user is created, the password is passed in hashed form.
+    If user is non-existent then a new user is created,
+    the password is passed in hashed form.
     User is redirected to their exercise list on successful account creation.
     """
     active_session_check(request.url_rule)
@@ -247,7 +252,7 @@ def global_exercises():
 
 @APP.route("/createexercise", methods=["POST", "GET"])
 def create_exercise():
-    """User-defined exercise added to database, user in session recorded as owner."""
+    """User-defined exercise added to db, user in session recorded as owner."""
     if ((active_session_check(request.url_rule)))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     if request.method == "POST":
@@ -268,7 +273,7 @@ def create_exercise():
 
 @APP.route("/editexercise/<exercise_id>", methods=["POST", "GET"])
 def edit_exercise(exercise_id):
-    """Selected exercise updated with user-defined details if owner is user in session."""
+    """Selected exercise updated with user details if owner is session user."""
     if (active_session_check(request.url_rule))["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     exercise = CLIENT.db.exercises.find_one(
@@ -314,7 +319,7 @@ def delete_exercise(exercise_id):
 
 @APP.route("/cloneexercise/<exercise_id>", methods=["POST", "GET"])
 def clone_exercise(exercise_id):
-    """Details of selected exercise passed to form, submitted exercise assigned to session user."""
+    """Exercise details passed to form, exercise assigned to session user."""
     full_record = CLIENT.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     partial_record = {"owner": session["user"],
                       "_id": ObjectId(), "complete": False}
