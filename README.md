@@ -169,7 +169,7 @@ Basic requirements for local deployment are as follows.
 git clone https://github.com/ElliotRedhead/WorkoutPlanner
 ```
 
-2. The standard recommendation for managing python packages and preventing package conflicts is to create an isolated virtual environment for each project. Using python's included venv package create an environment within the target directory (command varies based on OS):
+2. The standard recommendation for managing python packages and preventing package conflicts is to create an isolated virtual environment for each project. Using python's included venv package create an environment within the target directory (command varies based on OS, check the [documentation](https://docs.python.org/3/library/venv.html) for additional help with this.):
 
 ```console
 Windows: python -m venv venv
