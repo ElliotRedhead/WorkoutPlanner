@@ -223,7 +223,11 @@ def register():
 
 @APP.route("/logout")
 def logout():
-    """Clears user from session and redirects to the login page."""
+    """Clears user from session and redirects to the login page.
+
+    This only deletes the session key for the logged-in user.
+    The cookie for the site visit is preserved with this method.
+    """
     del session["user"]
     return redirect(url_for("login"))
 
