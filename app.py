@@ -116,11 +116,7 @@ def followed_users():
     if active_session_check(request.url_rule)["redirect_action"]:
         return active_session_check(request.url_rule)["page_render"]
     logged_username = CLIENT.db.users.find_one({"username": session["user"]})
-    if "following" in logged_username:
-        existing_following = logged_username["following"]
-    else:
-        existing_following = CLIENT.db.users.update_one(
-            {"username": session["user"]}, {"$set": {"following": []}})
+    existing_following = logged_username["following"]
     if request.method == "POST":
         request_data = request.get_json()
         response = {}
@@ -224,7 +220,8 @@ def register():
                 {"username": request_data["inputUsername"],
                  "email": request_data["inputEmail"],
                  "password": generate_password_hash(
-                     request_data["inputPassword"])}
+                     request_data["inputPassword"]),
+                 "following": []}
             )
             session["user"] = request_data["inputUsername"]
             response["authApproved"] = True
