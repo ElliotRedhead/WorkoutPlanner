@@ -314,6 +314,8 @@ The images used in this site were obtained from the following sources:
 
 ### Acknowledgements
 
+Thank you to Stack Overflow user [aldel](https://stackoverflow.com/users/2501624/aldel) for his [solution](https://stackoverflow.com/a/37842465) to my redirect "http/https" bug, and saving me from further hours of head-scratching.  
+
 Many thanks for support in the creation of this website to my mentor: [Simen Daehlin](https://github.com/Eventyret).
 
 #### Disclaimer

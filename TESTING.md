@@ -4,9 +4,17 @@
 
 1. In initial setup stages: Heroku application crashed on startup, initial attempt at fix was removal of reference to non-existent MongoDB environmental variables. Cause of crash determined as non-existent "IP" and "PORT" variables prior to heroku deployment, problem fixed upon their addition. References to MongoDB credentials also reinstated as a result.  
 
-2. Submission of user credentials exposed password as plaintext, as documented in git tag named: "passwordvulnerability". Fixed by use of the werkzeug security module to generate and check password hashes, database now stores passwords in hashed form.  
+2. Submission of user credentials exposed password as plaintext, as documented by git tag named: ["passwordvulnerability"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/e32d8243e62d17773eaa5ded8ed011aa644b61b3). Fixed by use of the werkzeug security module to generate and check password hashes, database now stores passwords in hashed form.  
 
-# DOCUMENTATION OF REMAINING GIT TAGS TO GO HERE.
+3. Incomplete values were visible on the exercise cards when placeholders were inserted from MongoDB, this was due to missing quotation marks surrounding the Jinja variable. The fix was documented by git tag: ["placeholdercorrection"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/2807effb03a2b12a04d66af9e30d09172239a443).
+
+4. In early iterations of edit-exercise capabilities: a user could theoretically manipulate the URL to edit another user's exercise cards without adequate permissions. The fix for this was to specify that the owner of the exercise must match the name of the user in the session to update the database. The fix is documented by the ["preventurlmanipulation"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/e08ccae742315dc966b46f4acd5fb90cc7f0be06) tag.
+
+5. A good example of re-using a form template in this project is noted in the ["flaskformtemplatecapability"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/9fd7468c44a1b987dea819936a8f08df2e730192) tag, wherein variables are passed to fill a template based on the user's route. At that stage the variables were successfully passed to populate the target form. 
+
+6. The tag ["exercisecompletefunction"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/64b899f367bb138397115ce7d5b0e5bba3c891db) documents a boolean trigger used to selectively apply a class to an element, this was successful in style manipulation based on a database record.
+
+7. A great obstacle met in this project was introduced with javascript-based redirects in place of the Flask redirects used as a standard. The site would at times redirect using a "http" protocol rather than the more-secure "https", this mixed-content would produce an error in browsers and prevent users from accessing the site. The main difficulty for this issue was in the diagnosis, the bug's appearance was dependent upon whether the application was accessed via a debug process in an IDE, a standard running of the python application or running through Heroku. In addition to this, it was then a selective-issue based on the user's security level set in their browser, so replication for troubleshooting was time-intensive. Troubleshooting was concluded with the application of [user aldel's solution provided on Stack Overflow](https://stackoverflow.com/a/37842465). The final line to test that this was indeed successful was git tagged [here](https://github.com/ElliotRedhead/WorkoutPlanner/commit/024cb1f40e744fc45a9611d02b9c294fd1630c8a) for traceability, and the user noted in both the app.py comments and acknowledgements section of the README.
 
 ## Testing at Release-Stage
 
