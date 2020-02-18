@@ -2,6 +2,8 @@
 
 ## Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)  
 
+At the time of writing/submission: the deployed version is identical to the development version.
+
 ## Introduction
 
 An exercise planner. This site give you a platform to plan your exercises, view others' exercises and copy exercise ideas with the ability to personalise exercises to your own needs.  
