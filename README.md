@@ -2,7 +2,9 @@
 
 ## Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)
 
-Submission for Code Institute's Data-Centric Development Milestone Project, an application for the planning and logging of workout sessions.
+An exercise planner. This site give you a platform to plan your exercises, view others' exercises and copy exercise ideas with the ability to personalise exercises to your own needs.  
+
+This project focuses on the data-driven aspects of development, a NoSQL database (MongoDB) is utilised to store user and exercise data.
 
 ## User Experience
 
@@ -23,35 +25,53 @@ This project is a suitable way to deliver this content because:
 
 ## User Stories
 
-1. As a new user I want to create an account.
-2. As an established user I want to login to access my exercises.
-3. As a logged-in user I want to create a new exercise.
-4. As a logged-in user I want to edit one of my exercises.
-5. As a logged-in user I want to delete one of my exercises.
-6. As a logged-in user I want to clone another user's exercise.
-7. As a logged-in user I want to mark my exercise as complete.
+1. As a new user I want to create an account.  
+
+2. As an established user I want to login to access my exercises.  
+
+3. As a logged-in user I want to create a new exercise.  
+
+4. As a logged-in user I want to edit one of my exercises.  
+
+5. As a logged-in user I want to delete one of my exercises.  
+
+6. As a logged-in user I want to clone another user's exercise.  
+
+7. As a logged-in user I want to mark my exercise as complete.  
+
+8. As a logged-in user I want to add a new user to my "followed" list.  
+
+9. As a logged-in user I want to remove a user from my "followed" list.  
 
 ### User Story Fulfilment
 
-1. Upon loading the site the user is directed to a login page, this page is shown as a higher priority than the register page as the user may have previously registered on another device and encourages them to use an existing account if possible. As the user in this scenario does not have an account the link below the login form redirects to the register form. User-input of invalid credentials throws an error modal with feedback as to which fields are invalid. If valid credentials are entered: the user details are added to the database and the user is redirected to their exercise list. The field for email address is only required to encourage users to only create one account per person.
-2. Upon loading the site the user is directed to a login page. If the user submits invalid credentials a error modal is displayed detailing the invalid field. If valid credentials are submitted the user is redirected to their list of exercises.
-3. If the user is not on the "My Exercises" page, they can select "My Exercises" from the navigation bar. Selecting the "Create new exercise" button displays a form with a placeholder example for guidance. All fields require population for the form to be submitted, upon successful submission a modal is displayed and the user is redirected to their exercise list.
-4. The user can select the "Edit" button on exercise cards they are the owner of, this redirects to a form to alter the individual properties of the exercise. Upon valid population of required fields and activation of the "Confirm" button
-5. The user can select the "Delete" button on exercise cards they are the owner of, the target exercise is removed from the database and the user is redirected to their list of exercises.
-6. The "Clone" button is available for all exercise cards, regardless of the owner. Activation of the clone button directs the user to a form with all properties pre-filled with the properties of the cloned exercise, the user has the option to edit the exercise properties before activating the "Confirm" button. Upon confirmation, the new exercise is added to the user's list. If an exercise has been cloned accidentally the user has the option to delete the new exercise.
-7. The owner of the exercise has the "Complete" button available for activation on the exercise card. Upon activation: the style of the card is updated to reflect the new completed state as has been updated in the database.
+1. Upon loading the site for the first time: the user is directed to a welcome page with links to both register/login pages, upon selecting the option to register the user is redirected to a register form. User-input of invalid credentials throws an error modal with feedback as to which fields are invalid. If valid credentials are entered: the user details are added to the database and the user is presented with a modal to either go to their own exercise list or view all exercises. The field for email address is only required to encourage users to only create one account per person.  
+
+2. Upon loading the site the user is directed to a login page this page is shown as a higher priority than the register page as the user may have previously registered on another device and encourages them to use an existing account if possible. If the user submits invalid credentials a error modal is displayed detailing the invalid field. If valid credentials are submitted a modal is displayed with options to either go to their own exercise list or view all exercises.  
+
+3. The user can create a new exercise from most pages once logged-in by selecting the "Create new exercise" button at the top of the page. On button press: a form with a placeholder example is displayed for guidance. All fields require population for the form to be submitted, upon successful submission a modal is displayed and the user is redirected to their exercise list.  
+
+4. The user can select the "Edit" button on exercise cards they are the owner of, this redirects to a form to alter the individual properties of the exercise. Upon valid population of required fields and activation of the "Confirm" button a modal feedbacks that a new exercise has been created.  
+
+5. The user can select the "Delete" button on exercise cards they are the owner of, the target exercise is removed from the database and the user is redirected to their list of exercises. A response modal is not shown for this function as the user can see in their list that the card has been successfully removed during the redirect.  
+
+6. The "Clone" button is available for all exercise cards, regardless of the owner. Activation of the clone button directs the user to a form with all properties pre-filled with the properties of the cloned exercise, the user has the option to edit the exercise properties before activating the "Confirm" button. Upon confirmation, the new exercise is added to the user's list and a modal is displayed to provide feedback to the user.  
+
+7. The owner of the exercise has the "Complete" button available for activation on the exercise card. Upon activation: the style of the card is updated to reflect the new completed state as has been updated in the database.  
+
+8. Accessing the "followed users" page from the navbar displays a page of any existing followed user cards. Ensuring the toggle in the top-right is set to "add user" allows the user to type the name of the target user in the text box below that. Upon selecting the plus button, the target user is added to the followed user list and their cards are displayed on the page also.  
+
+9. Accessing the "followed users" page from the navbar displays a page of any existing followed user cards. Ensuring the toggle in the top-right is set to "remove user" allows the user to select the target user from the dropdown list. After selecting the target user: activating the minus button removes the target user from the followed user list, the corresponding exercise cards are no longer displayed on the page.  
 
 ## Design & Styling
 
 ### Colour Palette
-# UPDATE WITH RELEASE-STAGE COLOURS, COMMENT ON HOW THESE HAVE CHANGED WITH DEVELOPMENT & RESEARCH.
-The initial website design concepts have been formed with the following colour palette:  
-![#0f1011](https://placehold.it/15/0f1011/000000?text=+) `#0f1011`  
-![#615F5B](https://placehold.it/15/615F5B/000000?text=+) `#615F5B`  
-![#A2A29F](https://placehold.it/15/A2A29F/000000?text=+) `#A2A29F`  
-![#FBFBFB](https://placehold.it/15/FBFBFB/000000?text=+) `#FBFBFB`  
-![#2B5630](https://placehold.it/15/2B5630/000000?text=+) `#2B5630`  
-![#04A647](https://placehold.it/15/04A647/000000?text=+) `#04A647`
+
+The final website design has been customised with the following colour palette:  
+![#1B1B1B](https://placehold.it/15/1B1B1B/000000?text=+) `#1B1B1B`:  This black is the standard colour used for the navbar background and text in modal alerts. Variations in the opacity of the black are used for different applications on this site e.g. welcome page black overlay. This colour is used to generate contrast with a lighter background.  
+![#555555CB](https://placehold.it/15/555555CB/000000?text=+) `#555555CB`: This grey is used for styling the background of exercise cards, it provides a neutral, non-obtrusive background so as to not distract users from the displayed details.  
+![#DBB125](https://placehold.it/15/DBB125/000000?text=+) `#DBB125`: This gold is used as an accenting colour, generally used for colour contrast. This is used extensively for user feedback of hover and click functions.  
+![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) `#FFFFFF`: This white is used for greater contrast against darker backgrounds and gives a strong, bright highlight of elements it is applied to.  
 
 The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
 
@@ -83,9 +103,13 @@ Access to the website is restricted to registered users. Upon loading: users are
 
 The site allows users to create, view, edit or delete their own exercises. Each exercise can be personalised to include details of the exercise name, target muscle, equipment used and a metric of intensity measured by either weight or distance. Upon completion the user can mark the exercise as completed.
 
-#### Accessbility to Others' Exercises
+#### Accessibility to Global Exercises
 
 Accessing the global page shows all users' exercise cards, the user then has the option to clone those exercises to their own list if they want to.
+
+#### Accessiblity to Followed Users' Exercises
+
+The followed users page allows the user to manage their followed users. The exercise cards owned by followed users are displayed, these can be cloned to the own user's list.
 
 ### Potential Features to Implement
 
@@ -109,6 +133,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 - HTML, CSS and Javascript are used for creating the frontend structure blocks, styling and logic of this site.
 - [jQuery](https://jquery.com/) is primarily used within this project for ease of DOM manipulation.
 - [Bootstrap](https://getbootstrap.com) is used for resolution responsiveness and for general structuring of the UI.
+- [Python](https://www.python.org/) is used for backend manipulation.
 - [Flask](https://www.fullstackpython.com/flask.html) is a Python-based framework used for the implementation of templates for components and page structures within this project.
 - [MongoDB](https://www.mongodb.com/) was used to store the no-SQL database.
 - [PyMongo](https://api.mongodb.com/python/current/) was used to manage/interact with the MongoDB database.
@@ -118,11 +143,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 
 ### Testing
 
-Testing documentation is located in the [testing.md file.](./TESTING.md)
-
-### Known Bugs & Limitations
-
-Are there any features that don't perform as expected, is the discovery documented through testing section, are potential solutions noted?
+Testing documentation is located in the [TESTING.md file.](./TESTING.md)
 
 ## Deployment
 
@@ -144,24 +165,27 @@ Basic requirements for local deployment are as follows.
 
 1. Following from installation of pre-requisites, open the target directory and clone the repository with the following command in the terminal:
 
-```
+```console
 git clone https://github.com/ElliotRedhead/WorkoutPlanner
 ```
 
-2. The standard recommendation for managing python packages and preventing package conflicts is to create an isolated virtual environment for each project. Using python's included venv package create an environment within the target directory (command varies based on OS):
-```
+2. The standard recommendation for managing python packages and preventing package conflicts is to create an isolated virtual environment for each project. Using python's included venv package create an environment within the target directory (command varies based on OS, check the [documentation](https://docs.python.org/3/library/venv.html) for additional help with this.):
+
+```console
 Windows: python -m venv venv
 Linux: py3 -m venv venv
 ```
 
 3. Activate the newly-created virtual environment (command varies based on OS):
-```
+
+```console
 Windows: venv/Scripts/activate
 Linux: source venv/Scripts/activate
 ```
 
 4. Add the required python modules using pip (command varies based on OS):
-```
+
+```console
 Windows: pip install -r requirements.txt
 Linux: pip3 install -r requirements.txt
 ```
@@ -170,7 +194,7 @@ Linux: pip3 install -r requirements.txt
 
 6. Copy the following code block into the env.py file, populating with the properties of your database.
 
-```
+```console
 import os
 
 os.environ["MONGO_URI"] = "INSERTYOURMONGOLINKHERE"
@@ -182,25 +206,53 @@ The collections used within this project are named "users" and "exercises", thes
 
 7. Run the application using the following in the command line.
 
-```
+```console
 Windows: python app.py
 Linux: python3 app.py
 ```
 
 8. The running terminal will direct you to the running address to access the application.
-# DOCUMENT HEROKU DEPLOYMENT HERE.
 
+## Deployment to Heroku
+
+The Procfile and requirements.txt pre-requisites are already included within the Workout Planner repository.  
+Steps to deploy Workout Planner to Heroku are as follows:
+
+1. Access the [Heroku website](https://dashboard.heroku.com/apps) and create a new app by selecting the "New" button in the dashboard.  
+Name the application and set the region as "Europe".
+
+2. Navigate to the new application's dashboard page and select "Deploy": "Deployment Method", set this to "Github".
+
+3. Confirm connection of the app to the require Github repository.
+
+4. To set required configuration variables: select "Settings": "Reveal Config Vars".
+
+5. Set the required variables as detailed:  
+Key: Value  
+IP: 0.0.0.0  
+PORT: 5000  
+MONGO_URI: `mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority`  
+SECRET_KEY: `<examplesecretkey>`  
+
+The MONGO_URI value is provided by MongoDB, the [documentation](https://docs.atlas.mongodb.com/) provides help for this.
+
+6. In the app settings, access the "Deploy" tab and manually deploy the app: with the master branch selected, click "Deploy Branch".
+
+7. Wait for the app to fully deploy, access the running app via the "Open app" button at the top of the page.
 
 ## Credits
 
 ### Additional Resources
 
-The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue)
+The main font applied to this site is: [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue).  
 The images used in this site were obtained from the following sources:
 
-- [Geometric architecture image by Scott Webb, sourced from Pexels](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/)
+- [Geometric architecture image by Scott Webb, sourced from Pexels](https://www.pexels.com/photo/abstract-architecture-building-exterior-geometric-593158/) is used for the main background of the site.
+- [Grayscale barbell image by Victor Freitas, sourced from Pexels](https://www.pexels.com/photo/grayscale-photo-of-black-adjustable-dumbbell-949131/) is used for the welcome page background.
 
 ### Acknowledgements
+
+Many thanks for support in the creation of this website to my mentor: [Simen Daehlin](https://github.com/Eventyret).
 
 #### Disclaimer
 

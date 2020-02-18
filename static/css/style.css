@@ -1,93 +1,90 @@
+/* Import main font used throughout the project: "Bebas Neue" from Google Fonts. */
 @import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
 
+/* Changed default font-size to provide baseline to set relative size units. */
 html {
     font-size: 18px;
 }
 
+/* Application of project font and background. */
 body {
     font-family: "Bebas Neue", cursive;
     background-image: url("/./static/img/geometricarchitecture.jpg");
 }
 
+/* Custom class used for alignment of items, flex-centering in both directions. */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Set colour of navbar title text to white. */
 #navigationTitle {
     color: #ffffff;
 }
 
-#authForm {
-    margin-top: 6rem;
-    justify-content: center;
+/* Customisation of navbar background and margin for improved layout. */
+.navbar {
+    background-color: #1b1b1b;
 }
 
+#formHeading {
+    color:#ffffff;
+}
+
+/* Adjustment of login/register form layout. */
+#welcomeBody {
+    background-image: url("/./static/img/grayscale-dumbbell.jpg");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Removal of standard link formatting and alteration of text colour. */
 #alternativePathPrompt {
     text-decoration-style: none;
     color: #ffffff;
 }
 
-.card-text,
-.card-title {
-    color: #000000;
+/* Customisation of card font colours and balanced layout of text. */
+.card-text, .card-title {
+    color: #1b1b1b;
     display: flex;
     justify-content: space-around;
 }
 
-.complete > .row > .card-text,
-.complete > .row > .card-title {
-    color: #424242;
+/* Completion state of exercise reflected in style change. */
+.complete>.row>.card-text, .complete>.row>.card-title {
+    color: #555555cb;
     text-decoration: line-through;
 }
 
-.navbar {
-    background-color: #1b1b1b;
-}
-
+/* Customisation of exercise card colours and layout. */
 .card {
     background-color: #555555cb;
     border: 0.1rem solid #ffffff;
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem #22222299;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0.5rem;
 }
 
-@media (min-width: 576px) {
-    .card {
-        margin: 1.5rem 1.1rem 1rem 1.1rem;
-    }
+/* Further padding added to card body for optimised layout. */
+.card-body {
+    padding: 1rem 0rem;
 }
 
-@media (min-width: 768px) {
-    .card {
-        margin: 1.5rem 1.5rem 1rem 1.5rem;
-    }
+/* Spacing implemented for each button on exercise cards. */
+.card-btn {
+    margin: 0.5rem 0.25rem;
+    padding: 0.25rem 0rem;
 }
 
-@media (min-width: 992px) {
-    .card {
-        margin: 2rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    .card {
-        margin: 2rem 2.8rem 2rem 2.8rem;
-    }
-}
-
-@media (min-width: 1600px) {
-    .card {
-        margin: 2rem 0rem;
-    }
-}
-
-.card-btn-group {
-    padding: auto;
-    display: flex;
-    justify-content: space-evenly;
-    margin: 1rem 0rem;
-}
-
+/* Custom spacing of exercise card button icons and icon colour. */
 .card-btn i {
-    margin: 0 0.2rem;
+    margin-right: 0.5rem;
+    color: #dbb125;
 }
 
 /*
@@ -95,33 +92,59 @@ Custom styling of sweetalerts modals, forced to use !important to override
 in-built classes as cannot use specificity to drive changes.
 Font/background colour and border radius redefined.
 */
-.swal2-popup,
-.swal2-content,
-.swal2-title {
+.swal2-popup, .swal2-content, .swal2-title {
     color: #ffffff !important;
     border-radius: 0 !important;
-    background-color: #1f1f1f !important;
+    background-color: #1b1b1b !important;
 }
 
-/*Custom styling for all buttons, reinforcement of site theme.*/
-.custom-btn,
-.swal2-confirm,
-.swal2-cancel {
+/*Custom styling for all modal buttons, reinforcement of site theme.*/
+.custom-btn, .swal2-confirm, .swal2-cancel {
     background-color: #2b2b2b !important;
     color: #ffffff !important;
+    border-radius: 0.05rem;
 }
 
-.custom-btn:focus,
-.swal2-confirm:focus,
-.swal2-cancel:focus {
+/* Added box-shadowing to modal buttons upon focus, coloured gold. */
+.custom-btn:focus, .swal2-confirm:focus, .swal2-cancel:focus {
     box-shadow: 0rem 0rem 1rem 0.2rem #dbb125;
-}
-
-.custom-btn:hover,
-.swal2-confirm:hover,
-.swal2-cancel:hover {
     color: #dbb125 !important;
     border-color: #dbb125 !important;
 }
 
-/*COMPLETE COMMENTS FOR EACH SECTION.*/
+/* Font and border colour change on hovering of modal buttons. */
+.custom-btn:hover, .swal2-confirm:hover, .swal2-cancel:hover {
+    color: #dbb125 !important;
+    border-color: #dbb125 !important;
+}
+
+/* Custom class used for alignment of items, flex-centering in both directions. */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The following are alterations to style/layout that are applicable to the welcome page. */
+#welcomeSection {
+    height: 87vh;
+    color: #ffffff;
+}
+
+#welcomeSection .container-fluid {
+    background-color:#1111114f;
+}
+
+#welcomeSection h1 {
+    margin-top: 1rem;
+}
+
+#welcomeSection p {
+    color: #dbb125;
+    margin-top: 0.5rem;
+}
+
+#welcomeLink {
+    margin-top:0.2rem;
+    margin-bottom:0.2rem;
+}
