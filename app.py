@@ -346,7 +346,7 @@ def clone_exercise(exercise_id):
         request_data.update(partial_record)
         CLIENT.db.exercises.insert_one(request_data)
     return render_template(
-        "forms/exercise.html",
+        "components/forms/exercise.html",
         title="Workout Planner | Clone Exercise",
         form_heading="Clone Exercise",
         exercise=full_record,
