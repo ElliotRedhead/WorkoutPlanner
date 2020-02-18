@@ -31,7 +31,7 @@ APP.wsgi_app = ReverseProxied(APP.wsgi_app)
 APP.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 APP.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 APP.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-APP.debug = True
+APP.debug = False
 CLIENT = PyMongo(APP)
 
 
