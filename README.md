@@ -1,10 +1,59 @@
 # Workout Planner
 
-## Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)
+## Live deployment is available [here](https://workout-exercise-planner.herokuapp.com/)  
+
+## Introduction
 
 An exercise planner. This site give you a platform to plan your exercises, view others' exercises and copy exercise ideas with the ability to personalise exercises to your own needs.  
 
 This project focuses on the data-driven aspects of development, a NoSQL database (MongoDB) is utilised to store user and exercise data.
+
+## Table of Contents
+
+- [Workout Planner](#workout-planner)
+	- [Live deployment is available here](#live-deployment-is-available-here)
+	- [Introduction](#introduction)
+	- [Table of Contents](#table-of-contents)
+	- [User Experience](#user-experience)
+		- [Target Audience](#target-audience)
+		- [Project Suitability](#project-suitability)
+	- [User Stories](#user-stories)
+		- [User Story Scope](#user-story-scope)
+		- [User Story Fulfilment](#user-story-fulfilment)
+	- [Design & Styling](#design--styling)
+		- [Colour Palette](#colour-palette)
+	- [Wireframes](#wireframes)
+		- [Inception Mobile Wireframe](#inception-mobile-wireframe)
+		- [Inception Desktop Wireframe](#inception-desktop-wireframe)
+		- [Release Mobile Wireframes](#release-mobile-wireframes)
+		- [Release Desktop Wireframes](#release-desktop-wireframes)
+	- [Features](#features)
+		- [Existing Features](#existing-features)
+			- [Authentication](#authentication)
+			- [Management of Own Exercises](#management-of-own-exercises)
+			- [Accessibility to Global Exercises](#accessibility-to-global-exercises)
+			- [Accessibility to Followed Users' Exercises](#accessibility-to-followed-users-exercises)
+		- [Potential Features to Implement](#potential-features-to-implement)
+			- [Password Reset](#password-reset)
+			- [Advanced Exercise Filtering](#advanced-exercise-filtering)
+			- [Batch Updating of Records](#batch-updating-of-records)
+			- [Profanity Filter](#profanity-filter)
+	- [Technologies Used](#technologies-used)
+	- [Testing](#testing)
+	- [Database Structure](#database-structure)
+		- [Users Collection](#users-collection)
+		- [Exercises Collection](#exercises-collection)
+	- [Deployment](#deployment)
+		- [Local Deployment](#local-deployment)
+			- [Pre-Requisites](#pre-requisites)
+		- [Deployment Steps](#deployment-steps)
+		- [Deployment to Heroku](#deployment-to-heroku)
+	- [Credits](#credits)
+		- [Additional Resources](#additional-resources)
+		- [Acknowledgements](#acknowledgements)
+			- [Disclaimer](#disclaimer)
+
+----
 
 ## User Experience
 
@@ -24,6 +73,8 @@ This project is a suitable way to deliver this content because:
 - Users can "follow" other users, and display followed users' exercises in a filtered list.
 
 ## User Stories
+
+### User Story Scope
 
 1. As a new user I want to create an account.  
 
@@ -82,11 +133,11 @@ The chosen palette defines the site as a predominantly dark-themed design with l
 
 Basic wireframes have been created upon project inception to aid in the planning stages of this project, these are to be adapted as the project proceeds with further iterations for multiple breakpoints.
 
-### Mobile Wireframe
+### Inception Mobile Wireframe
 
 [Generic Exercises](https://ibb.co/gdkCwMz)
 
-### Desktop Wireframe
+### Inception Desktop Wireframe
 
 [Generic Exercises](https://ibb.co/1J152tX)
 </details>  
@@ -100,7 +151,7 @@ Release-stage wireframes below give an idea of the general mobile and desktop br
 <details>
 <summary> Release-Stage Wireframes </summary>
 
-### Mobile Wireframes
+### Release Mobile Wireframes
 
 - [Welcome](https://ibb.co/qg3VFry)  
 - [Register](https://ibb.co/94Sztst)  
@@ -109,7 +160,7 @@ Release-stage wireframes below give an idea of the general mobile and desktop br
 - [Exercise Form](https://ibb.co/WPLb0v2)  
 - [Followed Exercises](https://ibb.co/dgYYvdF)  
 
-### Desktop Wireframes
+### Release Desktop Wireframes
 
 - [Welcome](https://ibb.co/4RfSTpZ)  
 - [Register](https://ibb.co/x1bw901)  
@@ -136,7 +187,7 @@ The site allows users to create, view, edit or delete their own exercises. Each 
 
 Accessing the global page shows all users' exercise cards, the user then has the option to clone those exercises to their own list if they want to.
 
-#### Accessiblity to Followed Users' Exercises
+#### Accessibility to Followed Users' Exercises
 
 The followed users page allows the user to manage their followed users. The exercise cards owned by followed users are displayed, these can be cloned to the own user's list.
 
@@ -175,15 +226,15 @@ At present each user is given freedom to use whatever username they want, if the
 - [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced through this service is named Bebas Neue.
 - [Heroku](https://dashboard.heroku.com/) is used for the live deployment of the site.
 
-### Testing
+## Testing
 
 Testing documentation is located in the [TESTING.md file.](./TESTING.md)
 
-### Database Structure
+## Database Structure
 
 Two collections were used in this project: "users" and "exercises"
 
-#### Users Collection
+### Users Collection
 
 The structure of a document within this collection is as follows:  
 | Title | db Key | Data type |
@@ -194,7 +245,7 @@ Email Address | email | String
 Hashed Password | password | String
 Followed User | following | Array
 
-#### Exercises Collection
+### Exercises Collection
 
 The structure of a document within this collection is as follows:
 | Title | db Key | Data type |
@@ -275,7 +326,7 @@ Linux: python3 app.py
 
 8. The running terminal will direct you to the running address to access the application.
 
-## Deployment to Heroku
+### Deployment to Heroku
 
 The Procfile and requirements.txt pre-requisites are already included within the Workout Planner repository.  
 Steps to deploy Workout Planner to Heroku are as follows:
