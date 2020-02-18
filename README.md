@@ -155,7 +155,11 @@ At present the only filtering is between the user's own and others' exercises, t
 
 #### Batch Updating of Records
 
-Methods are available in PyMongo to mass-update records, this capability was identified in the early stages of project development. Although this is a poweful capability, it does not fit use-cases for this project.
+Methods are available in PyMongo to mass-update records, this capability was identified in the early stages of project development. Although this is a poweful capability, it does not fit use-cases for this project.  
+
+#### Profanity Filter  
+
+At present each user is given freedom to use whatever username they want, if the project were to be used in a commercial environment rather than solely educational it would be necessary to implement a profanity filter. Inputs could be compared against a list of "banned words" to help to prevent griefing.  
 
 ## Technologies Used
 
@@ -174,6 +178,34 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 ### Testing
 
 Testing documentation is located in the [TESTING.md file.](./TESTING.md)
+
+### Database Structure
+
+Two collections were used in this project: "users" and "exercises"
+
+#### Users Collection
+
+The structure of a document within this collection is as follows:  
+| Title | db Key | Data type |
+--- | --- | ---
+User ID | _id | ObjectId
+Username | username | String
+Email Address | email | String
+Hashed Password | password | String
+Followed User | following | Array
+
+#### Exercises Collection
+
+The structure of a document within this collection is as follows:
+| Title | db Key | Data type |
+--- | --- | ---
+Exercise ID | _id | ObjectId
+Exercise Name | exercisename | String
+Primary Target Muscle | targetmuscle | String
+Equipment Name | equipmentname | String
+Weight/Distance | weightdistancevalue | String  
+Exercise Owner | owner | String  
+Completion Status | complete | Boolean  
 
 ## Deployment
 
