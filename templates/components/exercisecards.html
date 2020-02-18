@@ -27,7 +27,7 @@
             <a href="{{url_for('clone_exercise', exercise_id=exercise._id)}}"
                 class="btn card-btn custom-btn col-6 order-6 flex-center">
                 <i class="fas fa-clone"></i>Clone</a>
-            {% if exercise.owner == session.user or exercise.owner == "admin" %}
+            {% if exercise.owner == session.user or session.user == "admin" %}
             <a href="{{url_for('delete_exercise', exercise_id=exercise._id)}}"
                 class="btn card-btn custom-btn col-6 order-8 flex-center">
                 <i class="fas fa-trash"></i>Delete</a>
