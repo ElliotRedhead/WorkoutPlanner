@@ -214,7 +214,7 @@ def register():
             {"email": request_data["inputEmail"]}
         )
         response["newUsername"] = bool(existing_username is None)
-        response["newEmail"] = bool(existing_username is None)
+        response["newEmail"] = bool(existing_email is None)
         if existing_username is None and existing_email is None:
             CLIENT.db.users.insert_one(
                 {"username": request_data["inputUsername"],
