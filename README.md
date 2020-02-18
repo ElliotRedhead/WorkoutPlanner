@@ -76,7 +76,7 @@ The final website design has been customised with the following colour palette:
 The chosen palette defines the site as a predominantly dark-themed design with lighter colours used to highlight / segment components.
 
 ## Wireframes
-# UPDATE WITH RELEASE-STAGE WIREFRAMES, COMMENT ON THE DIFFERENCES AND WHY.
+
 <details>
 <summary> Project Inception Wireframes </summary>
 
@@ -84,11 +84,40 @@ Basic wireframes have been created upon project inception to aid in the planning
 
 ### Mobile Wireframe
 
-![Mobile Inception Wireframe](./static/wireframes/Mobile-List.png)
+[Generic Exercises](https://ibb.co/gdkCwMz)
 
 ### Desktop Wireframe
 
-![Desktop Inception Wireframe](./static/wireframes/Desktop-WeeklyList.png)
+[Generic Exercises](https://ibb.co/1J152tX)
+</details>  
+
+Evolution of project scope required adaptation of the basic inception wireframes to plan for final iterations.  
+Most notably, wireframes were generated for required forms and the first-time welcome page with absence of dates/calendar function.  
+As a project decision resulted in the removal of date-specific exercises the new wireframes were updated to account for this change in plan.  
+
+Release-stage wireframes below give an idea of the general mobile and desktop breakpoints, the site was designed with a mobile-first perspective but there is little variation in the structure after the resolution increases further than tablet recommendations.
+
+<details>
+<summary> Release-Stage Wireframes </summary>
+
+### Mobile Wireframes
+
+- [Welcome](https://ibb.co/qg3VFry)  
+- [Register](https://ibb.co/94Sztst)  
+- [Login](https://ibb.co/hKBCCCK)  
+- [Generic Exercises](https://ibb.co/k9Mmp4N)  
+- [Exercise Form](https://ibb.co/WPLb0v2)  
+- [Followed Exercises](https://ibb.co/dgYYvdF)  
+
+### Desktop Wireframes
+
+- [Welcome](https://ibb.co/4RfSTpZ)  
+- [Register](https://ibb.co/x1bw901)  
+- [Login](https://ibb.co/SPPjZPv)  
+- [Generic Exercises](https://ibb.co/qWtzmtR)  
+- [Exercise Form](https://ibb.co/ykQq2n5)  
+- [Followed Exercises](https://ibb.co/cT4b13K)  
+
 </details>
 
 ## Features
