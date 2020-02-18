@@ -57,7 +57,7 @@ body {
 
 /* Completion state of exercise reflected in style change. */
 .complete>.row>.card-text, .complete>.row>.card-title {
-    color: #555555cb;
+    color: #333333;
     text-decoration: line-through;
 }
 
