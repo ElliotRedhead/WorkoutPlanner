@@ -169,6 +169,7 @@ Methods are available in PyMongo to mass-update records, this capability was ide
 - [Git](https://git-scm.com/) is used for the version control of this project.
 - [Font Awesome](https://fontawesome.com/) provides the icon in the header and all icons used in buttons, e.g. complete, clone, edit, delete.
 - [Google Fonts](https://fonts.google.com/) is used to supply the main font for the majority of this website, the font sourced through this service is named Bebas Neue.
+- [Heroku](https://dashboard.heroku.com/) is used for the live deployment of the site.
 
 ### Testing
 
