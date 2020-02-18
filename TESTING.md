@@ -10,7 +10,7 @@
 
 4. In early iterations of edit-exercise capabilities: a user could theoretically manipulate the URL to edit another user's exercise cards without adequate permissions. The fix for this was to specify that the owner of the exercise must match the name of the user in the session to update the database. The fix is documented by the ["preventurlmanipulation"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/e08ccae742315dc966b46f4acd5fb90cc7f0be06) tag.
 
-5. A good example of re-using a form template in this project is noted in the ["flaskformtemplatecapability"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/9fd7468c44a1b987dea819936a8f08df2e730192) tag, wherein variables are passed to fill a template based on the user's route. At that stage the variables were successfully passed to populate the target form. 
+5. A good example of re-using a form template in this project is noted in the ["flaskformtemplatecapability"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/9fd7468c44a1b987dea819936a8f08df2e730192) tag, wherein variables are passed to fill a template based on the user's route. At that stage the variables were successfully passed to populate the target form.
 
 6. The tag ["exercisecompletefunction"](https://github.com/ElliotRedhead/WorkoutPlanner/commit/64b899f367bb138397115ce7d5b0e5bba3c891db) documents a boolean trigger used to selectively apply a class to an element, this was successful in style manipulation based on a database record.
 
