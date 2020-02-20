@@ -232,6 +232,12 @@ At present each user is given freedom to use whatever username they want, if the
 
 Testing documentation is located in the [TESTING.md file.](./TESTING.md)
 
+At StudentCare's request I am retrospectively providing the login details for testing of admin account by assessors below.  
+These were originally omitted following standard guidelines for security of content published to Github but have been made available for testing as the project has been produced in an educational capacity. Once grading has been completed these details will be changed on the backend to prevent unauthorised admin use. Secure details would not be provided publically in a professional capacity and so is a deviation from industry norms.  
+
+Username: admin  
+Password: WORKOUTCI2020  
+
 ## Database Structure
 
 Two collections were used in this project: "users" and "exercises"
